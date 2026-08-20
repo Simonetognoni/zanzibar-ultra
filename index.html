@@ -1,62 +1,378 @@
-from pathlib import Path
-
-html = r"""<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zanzibar ULTRA 2026</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,Arial;background:#08111d;color:#fff}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,Arial;background:#08111d;color:#fff}
 header{background:linear-gradient(135deg,#0f766e,#2563eb);padding:22px;position:sticky;top:0}
-.wrap{max-width:920px;margin:auto;padding:16px 16px 60px}
-.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:16px}.tabs button{background:#1b2d4d;color:#fff;border:0;padding:10px 14px;border-radius:30px;font-weight:700;cursor:pointer}.tabs button.active{background:#23d3b5;color:#042821}
-.page{display:none}.page.active{display:block}.card{background:#12203a;border-radius:18px;padding:14px;margin-bottom:14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.pill{background:#0d1628;border-radius:14px;padding:12px;text-align:center}.row{display:flex;justify-content:space-between;align-items:center;margin:8px 0}.day{border-left:4px solid #23d3b5;padding-left:10px;margin:12px 0}
-input{width:80px;background:#0d1628;border:0;color:#fff;padding:8px;border-radius:8px}iframe{width:100%;height:260px;border:0;border-radius:14px}
-a{color:#8ec5ff}.hero{position:relative;border-radius:16px;overflow:hidden}.hero img{width:100%;height:200px;object-fit:cover}.hero span{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.45);padding:6px 10px;border-radius:20px}
-.gallery{position:relative}.gallery img{width:100%;height:220px;object-fit:cover;border-radius:16px}.gallery button{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:0;background:rgba(0,0,0,.45);color:#fff;font-size:22px;cursor:pointer}#prev{left:8px}#next{right:8px}.progress{height:10px;background:#0d1628;border-radius:99px;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,#23d3b5,#59efd7)}
+header h1{margin:0;font-size:28px}
+.wrap{max-width:900px;margin:auto;padding:16px 16px 60px}
+.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:16px}
+.tabs button{background:#1b2d4d;color:#fff;border:0;padding:10px 14px;border-radius:30px;font-weight:bold;cursor:pointer}
+.tabs button.active{background:#23d3b5;color:#042821}
+.page{display:none}.page.active{display:block}
+.card{background:#12203a;border-radius:18px;padding:14px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pill{background:#0d1628;border-radius:14px;padding:12px;text-align:center}
+.row{display:flex;justify-content:space-between;align-items:center;margin:8px 0}
+.day{border-left:4px solid #23d3b5;padding-left:10px;margin:12px 0}
+input{width:80px;background:#0d1628;border:0;color:#fff;padding:8px;border-radius:8px}
+iframe{width:100%;height:250px;border:0;border-radius:14px}
+a{color:#8ec5ff}
+.hero{position:relative}
+.hero img{width:100%;height:200px;object-fit:cover;border-radius:16px}
+.hero div{position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,.45);padding:6px 10px;border-radius:20px}
+.gallery{position:relative}
+.gallery img{width:100%;height:220px;object-fit:cover;border-radius:16px}
+.gallery button{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.45);border:0;color:#fff;font-size:22px;width:42px;height:42px;border-radius:50%;cursor:pointer}
+#prev{left:8px} #next{right:8px}
+.progress{height:10px;background:#0d1628;border-radius:20px;overflow:hidden}
+.bar{height:100%;width:0;background:linear-gradient(90deg,#23d3b5,#59efd7)}
+.check{display:flex;align-items:center;gap:10px;margin:8px 0}
 </style>
 </head>
+
 <body>
-<header><h1>🌴 Zanzibar ULTRA</h1><div>31 Agosto → 7 Settembre 2026</div></header>
+
+<header>
+<h1>🌴 Zanzibar ULTRA</h1>
+<div>31 Agosto → 7 Settembre 2026</div>
+</header>
+
 <div class="wrap">
-<div class="tabs"><button class="active" onclick="showPage('home',this)">Home</button><button onclick="showPage('trip',this)">Viaggio</button><button onclick="showPage('budget',this)">Budget</button><button onclick="showPage('maps',this)">Mappe</button></div>
 
-<section id="home" class="page active">
-<div class="hero"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80"><span>📍 Bwejuu Beach</span></div>
-<div class="card"><h2>⏳ Countdown</h2><div id="countdown" style="font-size:34px;font-weight:800">...</div><div>alla partenza</div></div>
-<div class="grid"><div class="card"><div style="opacity:.7;font-size:12px">HOTEL</div><b>ZAN Orient</b></div><div class="card"><div style="opacity:.7;font-size:12px">ARRIVO</div><b>01/09 · 07:00</b></div></div>
-<div class="card"><h2>🍽️ The Rock</h2><p>Pingwe · 4 Settembre · Ore 12:00</p></div>
-<div class="card"><h2>🌤️ Meteo Live</h2><div id="weather" class="grid"><div class="pill">Caricamento...</div></div></div>
-<div class="card"><h2>🌊 Mare</h2><div id="marine" class="grid"><div class="pill">Caricamento...</div></div></div>
-<div class="card"><h2>📸 Galleria</h2><div class="gallery"><img id="gimg" src=""><button id="prev" onclick="change(-1)">‹</button><button id="next" onclick="change(1)">›</button></div><h3 id="gtitle"></h3><p id="gdesc"></p></div>
-<div class="card"><h2>✅ Checklist</h2><label><input type="checkbox" data-id="1"> Passaporto</label><br><label><input type="checkbox" data-id="2"> Patente</label><br><label><input type="checkbox" data-id="3"> The Rock</label><br><label><input type="checkbox" data-id="4"> Delfini</label><br><label><input type="checkbox" data-id="5"> Cheetah's Rock</label><div class="progress"><div id="bar" class="bar"></div></div><div id="percent">0%</div></div>
-</section>
+<div class="tabs">
+<button class="active" onclick="show('home',this)">Home</button>
+<button onclick="show('trip',this)">Viaggio</button>
+<button onclick="show('budget',this)">Budget</button>
+<button onclick="show('maps',this)">Mappe</button>
+</div>
 
-<section id="trip" class="page"><div class="card"><h2>📅 Itinerario</h2>
-<div class="day"><b>31 Agosto</b><br>✈️ Partenza Italia</div><div class="day"><b>1 Settembre</b><br>🚗 Ritiro auto · Relax Bwejuu</div><div class="day"><b>2 Settembre</b><br>🌿 Spice Farm + Villaggio</div><div class="day"><b>3 Settembre</b><br>🛶 Kayak + Snorkeling</div><div class="day"><b>4 Settembre</b><br>🍽️ The Rock 12:00</div><div class="day"><b>5 Settembre</b><br>🐬 Delfini + Salaam Cave</div><div class="day"><b>6 Settembre</b><br>🦁 Cheetah's Rock</div><div class="day"><b>7 Settembre</b><br>🏛️ Stone Town</div>
-</div></section>
+<!-- HOME -->
 
-<section id="budget" class="page"><div class="card"><h2>💰 Budget</h2>
+<div id="home" class="page active">
+
+<div class="hero">
+<img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1200&q=80">
+<div>📍 Bwejuu Beach</div>
+</div>
+
+<div class="card">
+<h2>⏳ Countdown</h2>
+<div style="font-size:34px;font-weight:bold" id="countdown">...</div>
+<div>alla partenza</div>
+</div>
+
+<div class="grid">
+<div class="card"><small>HOTEL</small><h3>ZAN Orient</h3></div>
+<div class="card"><small>ARRIVO</small><h3>01/09 · 07:00</h3></div>
+</div>
+
+<div class="card">
+<h2>🍽️ Evento principale</h2>
+<b>The Rock Restaurant</b><br>
+Pingwe · 4 Settembre ore 12:00
+</div>
+
+<div class="card">
+<h2>🌤️ Meteo Live</h2>
+<div id="weather" class="grid">
+<div class="pill">Caricamento...</div>
+</div>
+</div>
+
+<div class="card">
+<h2>🌊 Mare</h2>
+<div id="marine" class="grid">
+<div class="pill">Caricamento...</div>
+</div>
+</div>
+
+<div class="card">
+<h2>📸 Zanzibar Gallery</h2>
+
+<div class="gallery">
+<img id="galleryImg" src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=80">
+<button id="prev" onclick="change(-1)">‹</button>
+<button id="next" onclick="change(1)">›</button>
+</div>
+
+<h3 id="galleryTitle">The Rock Restaurant</h3>
+<p id="galleryDesc">Il ristorante più famoso di Zanzibar costruito su uno scoglio nell'Oceano Indiano.</p>
+
+</div>
+
+<div class="card">
+<h2>✅ Checklist</h2>
+
+<label class="check"><input type="checkbox" data-id="1"> Passaporto</label>
+<label class="check"><input type="checkbox" data-id="2"> Patente</label>
+<label class="check"><input type="checkbox" data-id="3"> The Rock</label>
+<label class="check"><input type="checkbox" data-id="4"> Delfini</label>
+<label class="check"><input type="checkbox" data-id="5"> Cheetah's Rock</label>
+
+<div class="progress"><div id="bar" class="bar"></div></div>
+<div id="percent">0%</div>
+
+</div>
+
+</div>
+
+<!-- VIAGGIO -->
+
+<div id="trip" class="page">
+
+<div class="card">
+<h2>📅 Itinerario</h2>
+
+<div class="day"><b>31 Agosto</b><br>✈️ Partenza Italia</div>
+<div class="day"><b>1 Settembre</b><br>🚗 Ritiro auto · Relax Bwejuu</div>
+<div class="day"><b>2 Settembre</b><br>🌿 Spice Farm + Villaggio Swahili</div>
+<div class="day"><b>3 Settembre</b><br>🛶 Kayak trasparente + Blue Lagoon</div>
+<div class="day"><b>4 Settembre</b><br>🍽️ The Rock ore 12:00</div>
+<div class="day"><b>5 Settembre</b><br>🐬 Delfini + Salaam Cave</div>
+<div class="day"><b>6 Settembre</b><br>🦁 Cheetah's Rock</div>
+<div class="day"><b>7 Settembre</b><br>🏛️ Stone Town + Aeroporto</div>
+
+</div>
+
+</div>
+
+<!-- BUDGET -->
+
+<div id="budget" class="page">
+
+<div class="card">
+<h2>💰 Budget</h2>
+
 <div class="row"><span>Auto</span><input id="car" type="number" value="245"></div>
 <div class="row"><span>Carburante</span><input id="fuel" type="number" value="55"></div>
 <div class="row"><span>The Rock</span><input id="rock" type="number" value="110"></div>
 <div class="row"><span>Escursioni</span><input id="tour" type="number" value="320"></div>
-<div class="row"><span>Cibo</span><input id="food" type="number" value="280"></div><hr><h2>Totale € <span id="tot">1010</span></h2></div></section>
+<div class="row"><span>Cibo</span><input id="food" type="number" value="280"></div>
 
-<section id="maps" class="page"><div class="card"><h2>🗺️ Mappa</h2><iframe src="https://www.google.com/maps?q=Bwejuu,Zanzibar&output=embed"></iframe><p><a target="_blank" href="https://maps.google.com/?q=The+Rock+Restaurant+Pingwe+Zanzibar">🍽️ The Rock</a></p><p><a target="_blank" href="https://maps.google.com/?q=Michamvi+Blue+Lagoon+Zanzibar">🤿 Blue Lagoon</a></p><p><a target="_blank" href="https://maps.google.com/?q=Cheetah's+Rock+Zanzibar">🦁 Cheetah's Rock</a></p></div></section>
+<hr>
+
+<h2>Totale € <span id="tot">1010</span></h2>
+
 </div>
+
+</div>
+
+<!-- MAPPE -->
+
+<div id="maps" class="page">
+
+<div class="card">
+<h2>🗺️ Mappa Zanzibar</h2>
+
+<iframe src="https://www.google.com/maps?q=Bwejuu,Zanzibar&output=embed"></iframe>
+
+<p><b>Base:</b> ZAN Orient Bwejuu Beach</p>
+
+<hr>
+
+<p><a target="_blank" href="https://maps.google.com/?q=ZAN+Orient+Bwejuu+Beach+Zanzibar">🏨 Hotel</a></p>
+<p><a target="_blank" href="https://maps.google.com/?q=The+Rock+Restaurant+Pingwe+Zanzibar">🍽️ The Rock</a></p>
+<p><a target="_blank" href="https://maps.google.com/?q=Michamvi+Blue+Lagoon+Zanzibar">🤿 Blue Lagoon</a></p>
+<p><a target="_blank" href="https://maps.google.com/?q=Kizimkazi+Salaam+Cave+Zanzibar">🐢 Salaam Cave</a></p>
+<p><a target="_blank" href="https://maps.google.com/?q=Cheetah's+Rock+Zanzibar">🦁 Cheetah's Rock</a></p>
+<p><a target="_blank" href="https://maps.google.com/?q=Stone+Town+Zanzibar">🏛️ Stone Town</a></p>
+
+</div>
+
+</div>
+
+</div>
+
 <script>
-function showPage(id,b){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
-const photos=[["The Rock","Il ristorante simbolo di Zanzibar","https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=80"],["Bwejuu Beach","La spiaggia del tuo hotel","https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"],["Blue Lagoon","Snorkeling a Michamvi","https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80"],["Salaam Cave","Nuotare con le tartarughe","https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80"],["Cheetah's Rock","Esperienza con gli animali","https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1200&q=80"],["Stone Town","Centro storico UNESCO","https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80"]];
-let p=0;function render(){gimg.src=photos[p][2];gtitle.textContent=photos[p][0];gdesc.textContent=photos[p][1]}function change(n){p=(p+n+photos.length)%photos.length;render()}render();
-const dep=new Date('2026-08-31T08:00:00');function cd(){const diff=dep-new Date();if(diff<=0){countdown.textContent='SI PARTE!';return;}const d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000);countdown.textContent=`${d} giorni ${h} h`}cd();setInterval(cd,60000);
-const ids=['car','fuel','rock','tour','food'];function calc(){let t=0;ids.forEach(i=>{const e=document.getElementById(i);const v=+e.value||0;t+=v;localStorage.setItem('zb_'+i,v)});tot.textContent=t}ids.forEach(i=>{const e=document.getElementById(i);const s=localStorage.getItem('zb_'+i);if(s)e.value=s;e.oninput=calc});calc();
-const checks=document.querySelectorAll('[data-id]');function upd(){let d=0;checks.forEach(c=>{const v=localStorage.getItem('ck_'+c.dataset.id)==='1';c.checked=v;if(v)d++});const pct=Math.round(d/5*100);bar.style.width=pct+'%';percent.textContent=pct+'% completato'}checks.forEach(c=>c.onchange=()=>{localStorage.setItem('ck_'+c.dataset.id,c.checked?'1':'0');upd()});upd();
-async function meteo(){const lat=-6.24,lon=39.53;try{const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m`);const j=await r.json();weather.innerHTML=`<div class="pill"><b>${j.current.temperature_2m}°C</b><br>Aria</div><div class="pill"><b>${j.current.wind_speed_10m} km/h</b><br>Vento</div>`}catch{}try{const r=await fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&current=wave_height,sea_surface_temperature`);const j=await r.json();marine.innerHTML=`<div class="pill"><b>${j.current.sea_surface_temperature||'--'}°C</b><br>Acqua</div><div class="pill"><b>${j.current.wave_height||'--'} m</b><br>Onde</div>`}catch{}}meteo();
+
+// PAGINE
+function show(id,btn){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+}
+
+// GALLERY
+
+const photos=[
+{
+t:"The Rock Restaurant",
+d:"Il ristorante simbolo di Zanzibar.",
+i:"https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=80"
+},
+{
+t:"Bwejuu Beach",
+d:"La spiaggia davanti al tuo hotel.",
+i:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
+},
+{
+t:"Blue Lagoon",
+d:"Snorkeling e acqua cristallina.",
+i:"https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80"
+},
+{
+t:"Salaam Cave",
+d:"Nuotare con le tartarughe marine.",
+i:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80"
+},
+{
+t:"Cheetah's Rock",
+d:"Esperienza unica con gli animali.",
+i:"https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1200&q=80"
+},
+{
+t:"Stone Town",
+d:"Centro storico patrimonio UNESCO.",
+i:"https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80"
+}
+];
+
+let pos=0;
+
+function render(){
+galleryImg.src=photos[pos].i;
+galleryTitle.innerHTML=photos[pos].t;
+galleryDesc.innerHTML=photos[pos].d;
+}
+
+function change(n){
+pos=(pos+n+photos.length)%photos.length;
+render();
+}
+
+render();
+
+// COUNTDOWN
+
+const departure=new Date("2026-08-31T08:00:00");
+
+function count(){
+const now=new Date();
+const diff=departure-now;
+
+if(diff<0){
+countdown.innerHTML="SI PARTE!";
+return;
+}
+
+const d=Math.floor(diff/86400000);
+const h=Math.floor((diff%86400000)/3600000);
+
+countdown.innerHTML=d+" giorni "+h+" h";
+}
+
+count();
+setInterval(count,60000);
+
+// BUDGET
+
+const ids=["car","fuel","rock","tour","food"];
+
+function calc(){
+let t=0;
+
+ids.forEach(i=>{
+const e=document.getElementById(i);
+const v=Number(e.value||0);
+t+=v;
+localStorage.setItem("zb_"+i,v);
+});
+
+tot.innerHTML=t;
+}
+
+ids.forEach(i=>{
+const e=document.getElementById(i);
+const s=localStorage.getItem("zb_"+i);
+if(s)e.value=s;
+e.oninput=calc;
+});
+
+calc();
+
+// CHECKLIST
+
+const checks=document.querySelectorAll("[data-id]");
+
+function updateChecks(){
+
+let d=0;
+
+checks.forEach(c=>{
+
+const v=localStorage.getItem("ck_"+c.dataset.id)==="1";
+
+c.checked=v;
+
+if(v)d++;
+
+});
+
+const pct=Math.round(d/5*100);
+
+bar.style.width=pct+"%";
+
+percent.innerHTML=pct+"% completato";
+
+}
+
+checks.forEach(c=>{
+
+c.onchange=()=>{
+
+localStorage.setItem("ck_"+c.dataset.id,c.checked?"1":"0");
+
+updateChecks();
+
+};
+
+});
+
+updateChecks();
+
+// METEO
+
+async function meteo(){
+
+const lat=-6.24;
+const lon=39.53;
+
+try{
+
+const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m`);
+
+const j=await r.json();
+
+weather.innerHTML=
+`<div class='pill'><b>${j.current.temperature_2m}°C</b><br>Aria</div>
+<div class='pill'><b>${j.current.wind_speed_10m} km/h</b><br>Vento</div>`;
+
+}catch{}
+
+try{
+
+const r=await fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&current=wave_height,sea_surface_temperature`);
+
+const j=await r.json();
+
+marine.innerHTML=
+`<div class='pill'><b>${j.current.sea_surface_temperature||'--'}°C</b><br>Acqua</div>
+<div class='pill'><b>${j.current.wave_height||'--'} m</b><br>Onde</div>`;
+
+}catch{}
+
+}
+
+meteo();
+
 </script>
-</body></html>"""
-path = Path("/mnt/data/index.html")
-path.write_text(html, encoding="utf-8")
-print(path)
+
+</body>
+</html>

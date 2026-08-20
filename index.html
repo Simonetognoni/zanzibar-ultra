@@ -1,61 +1,274 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zanzibar ULTRA 2026</title>
-  <style>
-    body{margin:0;font-family:-apple-system,Arial;background:#08111d;color:#fff}
-    header{background:linear-gradient(135deg,#0f766e,#2563eb);padding:24px}
-    .wrap{padding:18px;max-width:900px;margin:auto}
-    .card{background:#13223c;border-radius:16px;padding:16px;margin-bottom:14px}
-    h1,h2{margin:0 0 10px}
-    .day{border-left:4px solid #23d3b5;padding-left:10px;margin:14px 0}
-    a{color:#8ec5ff;text-decoration:none}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zanzibar ULTRA 2026</title>
+
+<style>
+body{
+margin:0;
+font-family:-apple-system,Arial;
+background:#08111d;
+color:#fff;
+}
+header{
+background:linear-gradient(135deg,#0f766e,#2563eb);
+padding:22px;
+}
+h1{margin:0}
+.wrap{padding:16px;max-width:900px;margin:auto}
+.card{
+background:#12203a;
+border-radius:16px;
+padding:16px;
+margin-bottom:14px;
+}
+.tabs{
+display:flex;
+gap:8px;
+overflow:auto;
+margin-bottom:14px;
+}
+.tabs button{
+background:#1b2d4d;
+color:white;
+border:0;
+padding:10px 14px;
+border-radius:999px;
+cursor:pointer;
+}
+.tabs button.active{
+background:#23d3b5;
+color:#042821;
+font-weight:bold;
+}
+.page{display:none}
+.page.active{display:block}
+.day{
+border-left:4px solid #23d3b5;
+padding-left:10px;
+margin:12px 0;
+}
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+.pill{
+background:#0d1628;
+padding:12px;
+border-radius:12px;
+text-align:center;
+}
+input{
+width:80px;
+background:#0d1628;
+border:0;
+color:white;
+padding:6px;
+border-radius:8px;
+}
+.row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin:8px 0;
+}
+a{color:#8ec5ff}
+</style>
 </head>
+
 <body>
 
 <header>
-  <h1>🌴 Zanzibar ULTRA 2026</h1>
-  <p>31 Agosto → 7 Settembre 2026</p>
+<h1>🌴 Zanzibar ULTRA</h1>
+<div>31 Agosto → 7 Settembre 2026</div>
 </header>
 
 <div class="wrap">
 
-  <div class="card">
-    <h2>🏨 Hotel</h2>
-    <p><b>ZAN Orient Bwejuu Beach</b></p>
-    <p>Bwejuu · Zanzibar</p>
-  </div>
+<div class="tabs">
+<button class="active" onclick="show('home',this)">Home</button>
+<button onclick="show('trip',this)">Viaggio</button>
+<button onclick="show('budget',this)">Budget</button>
+<button onclick="show('maps',this)">Mappe</button>
+</div>
 
-  <div class="card">
-    <h2>🍽️ Evento principale</h2>
-    <p><b>The Rock Restaurant</b></p>
-    <p>📅 4 Settembre 2026 · Ore 12:00</p>
-  </div>
+<div id="home" class="page active">
 
-  <div class="card">
-    <h2>📅 Itinerario</h2>
+<div class="card">
+<h2>Benvenuto Simone 👋</h2>
+<p>ZAN Orient Bwejuu Beach</p>
+<p>🍽️ The Rock 4 Settembre ore 12:00</p>
+</div>
 
-    <div class="day"><b>1 Settembre</b><br>Arrivo · Ritiro auto · Relax Bwejuu</div>
-    <div class="day"><b>2 Settembre</b><br>Spice Farm + Villaggio</div>
-    <div class="day"><b>3 Settembre</b><br>Kayak + Snorkeling</div>
-    <div class="day"><b>4 Settembre</b><br>The Rock ore 12:00</div>
-    <div class="day"><b>5 Settembre</b><br>Delfini + Salaam Cave</div>
-    <div class="day"><b>6 Settembre</b><br>Cheetah's Rock</div>
-    <div class="day"><b>7 Settembre</b><br>Stone Town + Aeroporto</div>
-  </div>
+<div class="card">
+<h3>🌤️ Meteo Live</h3>
 
-  <div class="card">
-    <h2>🗺️ Google Maps</h2>
-    <p><a href="https://maps.google.com/?q=ZAN+Orient+Bwejuu+Beach+Zanzibar" target="_blank">🏨 Hotel</a></p>
-    <p><a href="https://maps.google.com/?q=The+Rock+Restaurant+Pingwe+Zanzibar" target="_blank">🍽️ The Rock</a></p>
-    <p><a href="https://maps.google.com/?q=Michamvi+Blue+Lagoon+Zanzibar" target="_blank">🤿 Blue Lagoon</a></p>
-    <p><a href="https://maps.google.com/?q=Salaam+Cave+Kizimkazi+Zanzibar" target="_blank">🐢 Salaam Cave</a></p>
-  </div>
+<div id="weather" class="grid">
+<div class="pill">Caricamento...</div>
+</div>
 
 </div>
+
+<div class="card">
+<h3>🌊 Mare</h3>
+
+<div id="marine" class="grid">
+<div class="pill">Caricamento...</div>
+</div>
+
+</div>
+
+</div>
+
+<div id="trip" class="page">
+
+<div class="card">
+<h2>📅 Itinerario</h2>
+
+<div class="day"><b>1 Set</b><br>Arrivo • Ritiro auto • Relax</div>
+<div class="day"><b>2 Set</b><br>Spice Farm + Villaggio</div>
+<div class="day"><b>3 Set</b><br>Kayak + Snorkeling</div>
+<div class="day"><b>4 Set</b><br>🍽️ The Rock 12:00</div>
+<div class="day"><b>5 Set</b><br>Delfini + Salaam Cave</div>
+<div class="day"><b>6 Set</b><br>Cheetah's Rock</div>
+<div class="day"><b>7 Set</b><br>Stone Town</div>
+
+</div>
+
+</div>
+
+<div id="budget" class="page">
+
+<div class="card">
+
+<h2>💰 Budget</h2>
+
+<div class="row"><span>Auto</span><input id="car" type="number" value="245"></div>
+<div class="row"><span>Carburante</span><input id="fuel" type="number" value="55"></div>
+<div class="row"><span>The Rock</span><input id="rock" type="number" value="110"></div>
+<div class="row"><span>Escursioni</span><input id="tour" type="number" value="320"></div>
+<div class="row"><span>Cibo</span><input id="food" type="number" value="280"></div>
+
+<hr>
+
+<h2>Totale € <span id="tot">1010</span></h2>
+
+</div>
+
+</div>
+
+<div id="maps" class="page">
+
+<div class="card">
+
+<h2>🗺️ Google Maps</h2>
+
+<p><a target="_blank" href="https://maps.google.com/?q=ZAN+Orient+Bwejuu+Beach+Zanzibar">🏨 Hotel</a></p>
+
+<p><a target="_blank" href="https://maps.google.com/?q=The+Rock+Restaurant+Pingwe+Zanzibar">🍽️ The Rock</a></p>
+
+<p><a target="_blank" href="https://maps.google.com/?q=Michamvi+Blue+Lagoon+Zanzibar">🤿 Michamvi</a></p>
+
+<p><a target="_blank" href="https://maps.google.com/?q=Salaam+Cave+Kizimkazi+Zanzibar">🐢 Salaam Cave</a></p>
+
+<p><a target="_blank" href="https://maps.google.com/?q=Cheetah's+Rock+Fukuchani+Zanzibar">🦁 Cheetah's Rock</a></p>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function show(id,btn){
+
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+
+document.getElementById(id).classList.add('active');
+
+document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+
+btn.classList.add('active');
+
+}
+
+const ids=['car','fuel','rock','tour','food'];
+
+function calc(){
+
+let t=0;
+
+ids.forEach(i=>{
+
+const e=document.getElementById(i);
+
+const v=Number(e.value||0);
+
+t+=v;
+
+localStorage.setItem(i,v);
+
+});
+
+document.getElementById('tot').textContent=t;
+
+}
+
+ids.forEach(i=>{
+
+const e=document.getElementById(i);
+
+const s=localStorage.getItem(i);
+
+if(s)e.value=s;
+
+e.oninput=calc;
+
+});
+
+calc();
+
+async function meteo(){
+
+const lat=-6.24,lon=39.53;
+
+try{
+
+const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m`);
+
+const j=await r.json();
+
+document.getElementById('weather').innerHTML=
+
+`<div class="pill"><b>${j.current.temperature_2m}°C</b><br>Aria</div>
+
+<div class="pill"><b>${j.current.wind_speed_10m} km/h</b><br>Vento</div>`;
+
+}catch{}
+
+try{
+
+const r=await fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&current=wave_height,sea_surface_temperature`);
+
+const j=await r.json();
+
+document.getElementById('marine').innerHTML=
+
+`<div class="pill"><b>${j.current.sea_surface_temperature||'--'}°C</b><br>Acqua</div>
+
+<div class="pill"><b>${j.current.wave_height||'--'} m</b><br>Onde</div>`;
+
+}catch{}
+
+}
+
+meteo();
+
+</script>
 
 </body>
 </html>

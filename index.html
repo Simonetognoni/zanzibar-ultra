@@ -206,45 +206,7 @@ overflow:hidden;
     </p>
   </div>
 
-</div>
-</div>
 
-<div class="card">
-<h2>🌊 Mare</h2>
-<div id="marine" class="grid">
-<div class="pill">Caricamento...</div>
-</div>
-</div>
-
-<div class="card">
-<h2>📸 Zanzibar Gallery</h2>
-
-<div class="gallery">
-<img id="galleryImg" src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=80">
-<button id="prev" onclick="change(-1)">‹</button>
-<button id="next" onclick="change(1)">›</button>
-</div>
-
-<h3 id="galleryTitle">The Rock Restaurant</h3>
-<p id="galleryDesc">Il ristorante più famoso di Zanzibar costruito su uno scoglio nell'Oceano Indiano.</p>
-
-</div>
-
-<div class="card">
-<h2>✅ Checklist</h2>
-
-<label class="check"><input type="checkbox" data-id="1"> Passaporto</label>
-<label class="check"><input type="checkbox" data-id="2"> Patente</label>
-<label class="check"><input type="checkbox" data-id="3"> The Rock</label>
-<label class="check"><input type="checkbox" data-id="4"> Delfini</label>
-<label class="check"><input type="checkbox" data-id="5"> Cheetah's Rock</label>
-
-<div class="progress"><div id="bar" class="bar"></div></div>
-<div id="percent">0%</div>
-
-</div>
-
-</div>
 
 <!-- VIAGGIO -->
 
@@ -446,11 +408,11 @@ render();
 
 // COUNTDOWN
 
-const departure=new Date("2026-08-31T08:00:00");
+const homeDeparture=new Date("2026-08-31T08:00:00");
 
 function count(){
 const now=new Date();
-const diff=departure-now;
+const diff=homeDeparture-now;
 
 if(diff<0){
 countdown.innerHTML="SI PARTE!";
@@ -567,10 +529,10 @@ marine.innerHTML=
 
 meteo();
 
-</script>
+
 /* ===== HOME PRO ===== */
 
-const photos = [
+const homePhotos = [
 {
 title:"The Rock Restaurant",
 desc:"Il ristorante costruito sullo scoglio più famoso dell'Africa.",
@@ -593,16 +555,16 @@ img:"https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fi
 }
 ];
 
-let photoIndex=0;
+let homePhotoIndex=0;
 
 function renderGallery(){
-galleryImg.src=photos[photoIndex].img;
-galleryTitle.innerHTML=photos[photoIndex].title;
-galleryDesc.innerHTML=photos[photoIndex].desc;
+galleryImg.src=homePhotos[homePhotoIndex].img;
+galleryTitle.innerHTML=homePhotos[homePhotoIndex].title;
+galleryDesc.innerHTML=homePhotos[homePhotoIndex].desc;
 }
 
 function change(step){
-photoIndex=(photoIndex+step+photos.length)%photos.length;
+homePhotoIndex=(homePhotoIndex+step+homePhotos.length)%homePhotos.length;
 renderGallery();
 }
 
@@ -610,12 +572,12 @@ renderGallery();
 
 /* Countdown */
 
-const departure=new Date("2026-08-31T08:00:00");
+const homeDeparture=new Date("2026-08-31T08:00:00");
 
 function updateCountdown(){
 
 const now=new Date();
-const diff=departure-now;
+const diff=homeDeparture-now;
 
 if(diff<=0){
 countdown.innerHTML="SI PARTE!";

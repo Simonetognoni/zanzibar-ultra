@@ -206,8 +206,7 @@ overflow:hidden;
     </p>
   </div>
 
-
-
+</div>
 <!-- VIAGGIO -->
 
 <div id="trip" class="page">
@@ -555,16 +554,16 @@ img:"https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fi
 }
 ];
 
-let homePhotoIndex=0;
+let photoIndex=0;
 
 function renderGallery(){
-galleryImg.src=homePhotos[homePhotoIndex].img;
-galleryTitle.innerHTML=homePhotos[homePhotoIndex].title;
-galleryDesc.innerHTML=homePhotos[homePhotoIndex].desc;
+galleryImg.src=homePhotos[photoIndex].img;
+galleryTitle.innerHTML=homePhotos[photoIndex].title;
+galleryDesc.innerHTML=homePhotos[photoIndex].desc;
 }
 
 function change(step){
-homePhotoIndex=(homePhotoIndex+step+homePhotos.length)%homePhotos.length;
+photoIndex=(photoIndex+step+homePhotos.length)%homePhotos.length;
 renderGallery();
 }
 
@@ -628,3 +627,4 @@ seaTemp.innerHTML=(j.current.sea_surface_temperature??27)+"°C";
 updateWeather();
 </body>
 </html>
+</script>

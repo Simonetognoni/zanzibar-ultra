@@ -195,8 +195,8 @@ overflow:hidden;
       <img id="galleryImg"
       src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=80">
 
-      <button id="prev" onclick="change(-1)">‹</button>
-      <button id="next" onclick="change(1)">›</button>
+      <button id="prev" onclick="changeHome(-1)">‹</button>
+      <button id="next" onclick="changeHome(1)">›</button>
     </div>
 
     <h3 id="galleryTitle">The Rock Restaurant</h3>
@@ -407,7 +407,7 @@ render();
 
 // COUNTDOWN
 
-const homeDeparture=new Date("2026-08-31T08:00:00");
+// homeDeparture già definito
 
 function count(){
 const now=new Date();
@@ -506,7 +506,7 @@ const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&long
 
 const j=await r.json();
 
-weather.innerHTML=
+if(document.getElementById("weather")) weather.innerHTML=
 `<div class='pill'><b>${j.current.temperature_2m}°C</b><br>Aria</div>
 <div class='pill'><b>${j.current.wind_speed_10m} km/h</b><br>Vento</div>`;
 
@@ -518,7 +518,7 @@ const r=await fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${lat}
 
 const j=await r.json();
 
-marine.innerHTML=
+if(document.getElementById("marine")) marine.innerHTML=
 `<div class='pill'><b>${j.current.sea_surface_temperature||'--'}°C</b><br>Acqua</div>
 <div class='pill'><b>${j.current.wave_height||'--'} m</b><br>Onde</div>`;
 
@@ -562,7 +562,7 @@ galleryTitle.innerHTML=homePhotos[photoIndex].title;
 galleryDesc.innerHTML=homePhotos[photoIndex].desc;
 }
 
-function change(step){
+function changeHome(step){
 photoIndex=(photoIndex+step+homePhotos.length)%homePhotos.length;
 renderGallery();
 }
@@ -627,4 +627,3 @@ seaTemp.innerHTML=(j.current.sea_surface_temperature??27)+"°C";
 updateWeather();
 </body>
 </html>
-</script>

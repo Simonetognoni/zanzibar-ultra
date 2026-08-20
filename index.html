@@ -34,6 +34,42 @@ a{color:#8ec5ff}
 .bar{height:100%;width:0;background:linear-gradient(90deg,#23d3b5,#59efd7)}
 .check{display:flex;align-items:center;gap:10px;margin:8px 0}
 </style>
+/* ===== LEAFLET MAP ===== */
+
+#leafletMap{
+    width:100%;
+    height:420px;
+    border-radius:16px;
+    overflow:hidden;
+}
+
+.map-popup{
+    text-align:center;
+    min-width:180px;
+}
+
+.map-popup img{
+    width:160px;
+    height:95px;
+    object-fit:cover;
+    border-radius:8px;
+    margin-bottom:6px;
+}
+
+.map-btn{
+    display:inline-block;
+    margin-top:6px;
+    background:#23d3b5;
+    color:#042821;
+    padding:6px 10px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:13px;
+}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 
 <body>
@@ -170,20 +206,52 @@ Pingwe · 4 Settembre ore 12:00
 <div id="maps" class="page">
 
 <div class="card">
-<h2>🗺️ Mappa Zanzibar</h2>
+<!-- MAPPA -->
 
-<iframe src="https://www.google.com/maps?q=Bwejuu,Zanzibar&output=embed"></iframe>
+<div id="maps" class="page">
 
-<p><b>Base:</b> ZAN Orient Bwejuu Beach</p>
+<div class="card">
+<h2>🗺️ Mappa Interattiva Zanzibar</h2>
+<p>Hotel, attrazioni e navigazione rapida</p>
+</div>
 
-<hr>
+<div class="card">
+<div id="leafletMap"></div>
+</div>
 
-<p><a target="_blank" href="https://maps.google.com/?q=ZAN+Orient+Bwejuu+Beach+Zanzibar">🏨 Hotel</a></p>
-<p><a target="_blank" href="https://maps.google.com/?q=The+Rock+Restaurant+Pingwe+Zanzibar">🍽️ The Rock</a></p>
-<p><a target="_blank" href="https://maps.google.com/?q=Michamvi+Blue+Lagoon+Zanzibar">🤿 Blue Lagoon</a></p>
-<p><a target="_blank" href="https://maps.google.com/?q=Kizimkazi+Salaam+Cave+Zanzibar">🐢 Salaam Cave</a></p>
-<p><a target="_blank" href="https://maps.google.com/?q=Cheetah's+Rock+Zanzibar">🦁 Cheetah's Rock</a></p>
-<p><a target="_blank" href="https://maps.google.com/?q=Stone+Town+Zanzibar">🏛️ Stone Town</a></p>
+<div class="card">
+
+<h3>🚗 Distanze dal tuo hotel</h3>
+
+<div class="row">
+<span>🏨 ZAN Orient</span>
+<b>Sei qui</b>
+</div>
+
+<div class="row">
+<span>🍽️ The Rock</span>
+<b>11 km • 15 min</b>
+</div>
+
+<div class="row">
+<span>🤿 Blue Lagoon</span>
+<b>13 km • 18 min</b>
+</div>
+
+<div class="row">
+<span>🐢 Salaam Cave</span>
+<b>67 km • 1h20</b>
+</div>
+
+<div class="row">
+<span>🦁 Cheetah's Rock</span>
+<b>82 km • 1h35</b>
+</div>
+
+<div class="row">
+<span>🏛️ Stone Town</span>
+<b>56 km • 1h15</b>
+</div>
 
 </div>
 
@@ -418,7 +486,94 @@ marine.innerHTML=
 }
 
 meteo();
+/* ===========================
+   LEAFLET ZANZIBAR MAP
+=========================== */
 
+const map = L.map('leafletMap').setView([-6.2408,39.5324],11);
+
+L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+maxZoom:19,
+attribution:'© OpenStreetMap'
+}).addTo(map);
+
+const places=[
+
+{
+name:"🏨 ZAN Orient Hotel",
+lat:-6.2408,
+lng:39.5324,
+img:"https://images.openai.com/static-rsc-4/AKQrOfUUsABRPVR0pgAQLC0tT0xEoyq0mA3KnGTsRqw?purpose=fullsize",
+maps:"https://maps.google.com/?q=ZAN+Orient+Bwejuu+Beach+Zanzibar"
+},
+
+{
+name:"🍽️ The Rock",
+lat:-6.1563,
+lng:39.5246,
+img:"https://images.openai.com/static-rsc-4/T0JtJcKaclF3REZJSMZzFZONsdN0fJbGZfGxhXIqof8?purpose=fullsize",
+maps:"https://maps.google.com/?q=The+Rock+Restaurant+Pingwe+Zanzibar"
+},
+
+{
+name:"🤿 Blue Lagoon",
+lat:-6.1299,
+lng:39.5005,
+img:"https://images.openai.com/static-rsc-4/AKQrOfUUsABRPVR0pgAQLC0tT0xEoyq0mA3KnGTsRqw?purpose=fullsize",
+maps:"https://maps.google.com/?q=Michamvi+Blue+Lagoon+Zanzibar"
+},
+
+{
+name:"🐢 Salaam Cave",
+lat:-6.4537,
+lng:39.5028,
+img:"https://images.openai.com/static-rsc-4/kjA9Wq0GlFfNXXhHZYrJj4qrpFVL-1M4C0GKBtbNJP0?purpose=fullsize",
+maps:"https://maps.google.com/?q=Kizimkazi+Salaam+Cave+Zanzibar"
+},
+
+{
+name:"🦁 Cheetah's Rock",
+lat:-6.1007,
+lng:39.2092,
+img:"https://images.openai.com/static-rsc-4/m4iM2Dz0q4pk3j8QoP9e3S5HtgN3kvXJBpD0VYQJQFQ?purpose=fullsize",
+maps:"https://maps.google.com/?q=Cheetah's+Rock+Zanzibar"
+},
+
+{
+name:"🏛️ Stone Town",
+lat:-6.1659,
+lng:39.2026,
+img:"https://images.openai.com/static-rsc-4/9c7gJf0QJf5sAq4jM4V1b0j0pJ5xL8Y9G2fVQkQ2T6M?purpose=fullsize",
+maps:"https://maps.google.com/?q=Stone+Town+Zanzibar"
+}
+
+];
+
+places.forEach(p=>{
+
+L.marker([p.lat,p.lng])
+.addTo(map)
+.bindPopup(`
+<div class="map-popup">
+
+<img src="${p.img}">
+
+<b>${p.name}</b><br>
+
+<a class="map-btn"
+href="${p.maps}"
+target="_blank">
+
+📍 Portami qui
+
+</a>
+
+</div>
+`);
+
+});
 </script>
 
 </body>

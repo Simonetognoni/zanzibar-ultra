@@ -83,32 +83,129 @@ overflow:hidden;
 
 <div id="home" class="page active">
 
-<div class="hero">
-<img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1200&q=80">
-<div>📍 Bwejuu Beach</div>
-</div>
+  <!-- HERO -->
+  <div class="hero">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80">
+    <div>📍 ZAN ORIENT • BWEJUU BEACH</div>
+  </div>
 
-<div class="card">
-<h2>⏳ Countdown</h2>
-<div style="font-size:34px;font-weight:bold" id="countdown">...</div>
-<div>alla partenza</div>
-</div>
+  <!-- METEO LIVE -->
+  <div class="card">
+    <h2>🌤️ Meteo Live</h2>
 
-<div class="grid">
-<div class="card"><small>HOTEL</small><h3>ZAN Orient</h3></div>
-<div class="card"><small>ARRIVO</small><h3>01/09 · 07:00</h3></div>
-</div>
+    <div class="grid">
+      <div class="pill">
+        <div style="font-size:30px">☀️</div>
+        <b id="airTemp">28°C</b><br>Aria
+      </div>
 
-<div class="card">
-<h2>🍽️ Evento principale</h2>
-<b>The Rock Restaurant</b><br>
-Pingwe · 4 Settembre ore 12:00
-</div>
+      <div class="pill">
+        <div style="font-size:30px">🌊</div>
+        <b id="seaTemp">27°C</b><br>Mare
+      </div>
 
-<div class="card">
-<h2>🌤️ Meteo Live</h2>
-<div id="weather" class="grid">
-<div class="pill">Caricamento...</div>
+      <div class="pill">
+        <div style="font-size:30px">💨</div>
+        <b id="windNow">12 km/h</b><br>Vento
+      </div>
+
+      <div class="pill">
+        <div style="font-size:30px">🌦️</div>
+        <b id="rainNow">5%</b><br>Pioggia
+      </div>
+    </div>
+
+    <caption>Ultimo aggiornamento automatico Open-Meteo</caption>
+  </div>
+
+  <!-- DOVE ANDARE -->
+  <div class="card" style="background:linear-gradient(135deg,#0f766e,#164e63)">
+    <h2>⭐ Dove andare adesso</h2>
+
+    <div style="font-size:22px;font-weight:bold;margin-bottom:8px" id="bestPlace">
+      Blue Lagoon
+    </div>
+
+    <p id="bestReason">
+      Marea alta, mare cristallino e vento debole: è il momento perfetto per fare snorkeling.
+    </p>
+
+    <div class="row">
+      <span>🚗 Distanza hotel</span>
+      <b>13 km • 18 min</b>
+    </div>
+
+    <div class="row">
+      <span>📸 Foto perfette</span>
+      <b>17:40</b>
+    </div>
+
+    <div class="row">
+      <span>🤿 Snorkeling</span>
+      <b>★★★★★</b>
+    </div>
+  </div>
+
+  <!-- COUNTDOWN -->
+  <div class="card">
+    <h2>⏳ Countdown Vacanza</h2>
+
+    <div id="countdown" style="font-size:36px;font-weight:bold;text-align:center">
+      ...
+    </div>
+
+    <caption>31 Agosto 2026 • Partenza Italia</caption>
+  </div>
+
+  <!-- EVENTI -->
+  <div class="card">
+    <h2>🎯 Eventi prenotati</h2>
+
+    <div class="row">
+      <span>🍽️ The Rock Restaurant</span>
+      <b>4 Set • 12:00</b>
+    </div>
+
+    <div class="row">
+      <span>🐬 Delfini Kizimkazi</span>
+      <b>5 Set • 06:00</b>
+    </div>
+
+    <div class="row">
+      <span>🦁 Cheetah's Rock</span>
+      <b>6 Set • 09:00</b>
+    </div>
+  </div>
+
+  <!-- DISTANZE -->
+  <div class="card">
+    <h2>🚗 Partendo dal tuo hotel</h2>
+
+    <div class="row"><span>🍽️ The Rock</span><b>15 min</b></div>
+    <div class="row"><span>🤿 Blue Lagoon</span><b>18 min</b></div>
+    <div class="row"><span>🌿 Spice Farm</span><b>55 min</b></div>
+    <div class="row"><span>🏛️ Stone Town</span><b>1h 15</b></div>
+  </div>
+
+  <!-- GALLERIA -->
+  <div class="card">
+    <h2>📸 Zanzibar HD</h2>
+
+    <div class="gallery">
+      <img id="galleryImg"
+      src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=80">
+
+      <button id="prev" onclick="change(-1)">‹</button>
+      <button id="next" onclick="change(1)">›</button>
+    </div>
+
+    <h3 id="galleryTitle">The Rock Restaurant</h3>
+
+    <p id="galleryDesc">
+      Il ristorante costruito sullo scoglio più famoso dell'Africa.
+    </p>
+  </div>
+
 </div>
 </div>
 
@@ -471,6 +568,101 @@ marine.innerHTML=
 meteo();
 
 </script>
+/* ===== HOME PRO ===== */
 
+const photos = [
+{
+title:"The Rock Restaurant",
+desc:"Il ristorante costruito sullo scoglio più famoso dell'Africa.",
+img:"https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=80"
+},
+{
+title:"Blue Lagoon",
+desc:"Acqua trasparente e snorkeling spettacolare.",
+img:"https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80"
+},
+{
+title:"Bwejuu Beach",
+desc:"La spiaggia davanti al tuo hotel.",
+img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
+},
+{
+title:"Stone Town",
+desc:"Centro storico patrimonio UNESCO.",
+img:"https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80"
+}
+];
+
+let photoIndex=0;
+
+function renderGallery(){
+galleryImg.src=photos[photoIndex].img;
+galleryTitle.innerHTML=photos[photoIndex].title;
+galleryDesc.innerHTML=photos[photoIndex].desc;
+}
+
+function change(step){
+photoIndex=(photoIndex+step+photos.length)%photos.length;
+renderGallery();
+}
+
+renderGallery();
+
+/* Countdown */
+
+const departure=new Date("2026-08-31T08:00:00");
+
+function updateCountdown(){
+
+const now=new Date();
+const diff=departure-now;
+
+if(diff<=0){
+countdown.innerHTML="SI PARTE!";
+return;
+}
+
+const days=Math.floor(diff/86400000);
+const hours=Math.floor((diff%86400000)/3600000);
+
+countdown.innerHTML=`${days} giorni ${hours} ore`;
+
+}
+
+updateCountdown();
+setInterval(updateCountdown,60000);
+
+/* Meteo Live */
+
+async function updateWeather(){
+
+const lat=-6.24;
+const lon=39.53;
+
+try{
+
+const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,precipitation`);
+
+const j=await r.json();
+
+airTemp.innerHTML=j.current.temperature_2m+"°C";
+windNow.innerHTML=Math.round(j.current.wind_speed_10m)+" km/h";
+rainNow.innerHTML=(j.current.precipitation??0)+"%";
+
+}catch{}
+
+try{
+
+const r=await fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&current=sea_surface_temperature`);
+
+const j=await r.json();
+
+seaTemp.innerHTML=(j.current.sea_surface_temperature??27)+"°C";
+
+}catch{}
+
+}
+
+updateWeather();
 </body>
 </html>

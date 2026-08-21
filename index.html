@@ -325,6 +325,26 @@ input[type=number]:focus{outline:none;border-color:var(--accent);}
 .goto-btn:hover{opacity:.85;}
 .food-card .goto-btn{margin-top:0;}
 
+/* ==== CONFERMA SÌ/NO ==== */
+.confirm-toggle{
+  display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap;
+}
+.confirm-toggle .confirm-label{font-size:12px;color:var(--muted);font-weight:700;}
+.confirm-btn{
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.06);
+  color:var(--muted);
+  padding:5px 14px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s;
+}
+.confirm-btn:hover{background:rgba(255,255,255,.12);}
+.confirm-btn.yes.active{background:linear-gradient(135deg,#10b981,#059669);color:#022c22;border-color:transparent;}
+.confirm-btn.no.active{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff;border-color:transparent;}
+
 /* ==== BOOKING CARD ==== */
 .booking{
   display:flex;align-items:center;gap:12px;
@@ -338,6 +358,13 @@ input[type=number]:focus{outline:none;border-color:var(--accent);}
 .booking-status{
   font-size:11px;font-weight:700;padding:4px 10px;
   border-radius:999px;background:rgba(16,185,129,.15);color:#10b981;
+}
+.booking-check{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  font-size:10px;color:var(--muted);flex-shrink:0;font-weight:700;
+}
+.booking-check input[type=checkbox]{
+  width:20px;height:20px;accent-color:var(--green);cursor:pointer;
 }
 
 /* ==== WEATHER ICON ==== */
@@ -519,39 +546,8 @@ textarea:focus{outline:none;border-color:var(--accent);}
   <!-- PRENOTAZIONI -->
   <div class="card">
     <div class="section-title">🎯 Prenotazioni Confermate</div>
-    <div class="section-sub">4 attività prenotate</div>
-    <div class="booking">
-      <div class="booking-icon">🍽️</div>
-      <div class="booking-info">
-        <div class="booking-name">The Rock Restaurant</div>
-        <div class="booking-date">4 Settembre • 12:00</div>
-      </div>
-      <div class="booking-status">✓ Conf.</div>
-    </div>
-    <div class="booking">
-      <div class="booking-icon">🐬</div>
-      <div class="booking-info">
-        <div class="booking-name">Kizimkazi Dolphins</div>
-        <div class="booking-date">5 Settembre • 06:00</div>
-      </div>
-      <div class="booking-status">✓ Conf.</div>
-    </div>
-    <div class="booking">
-      <div class="booking-icon">🐢</div>
-      <div class="booking-info">
-        <div class="booking-name">Salaam Cave – Tartarughe</div>
-        <div class="booking-date">5 Settembre • 09:30</div>
-      </div>
-      <div class="booking-status">✓ Conf.</div>
-    </div>
-    <div class="booking">
-      <div class="booking-icon">🦁</div>
-      <div class="booking-info">
-        <div class="booking-name">Cheetah's Rock</div>
-        <div class="booking-date">6 Settembre • 09:00</div>
-      </div>
-      <div class="booking-status">✓ Conf.</div>
-    </div>
+    <div class="section-sub" id="bookingCount">4 attività prenotate</div>
+    <div id="bookingsList"></div>
   </div>
 
   <!-- DISTANZE -->
@@ -761,7 +757,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
     <div class="row"><span>💨 Vento</span><b>8 km/h</b></div>
     <div class="row"><span>🌊 Onde</span><b>0.2 m</b></div>
     <div class="row"><span>🏖️ Bagno ideale</span><b>11:00–14:00</b></div>
-    <div class="row"><span>🤿 Snorkeling</span><b class="stars">★★★★★</b></div>
+    <div class="row"><span>🤿 Snorkeling</span><b class="stars">★★★★</b></div>
     <div class="row"><span>📸 Foto golden hour</span><b>17:42</b></div>
     <div class="row"><span>⭐ Spiaggia consigliata</span><b>Blue Lagoon</b></div>
   </div>
@@ -821,7 +817,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
     <div class="row"><span>💨 Vento</span><b>14 km/h</b></div>
     <div class="row"><span>🌊 Onde</span><b>0.5 m</b></div>
     <div class="row"><span>🏖️ Bagno ideale</span><b>13:00–16:00</b></div>
-    <div class="row"><span>🪁 Kitesurf</span><b class="stars">★★★★★</b></div>
+    <div class="row"><span>🪁 Kitesurf</span><b class="stars">★★★★</b></div>
     <div class="row"><span>📸 Foto golden hour</span><b>17:36</b></div>
     <div class="row"><span>⭐ Spiaggia consigliata</span><b>Paje Beach</b></div>
   </div>
@@ -900,6 +896,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-dist">11 km · 15 min · Prenotato 4 Set</div>
         <div class="place-desc">Il ristorante costruito sullo scoglio più famoso di Zanzibar. Pesce fresco e vista mozzafiato.</div>
         <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=The+Rock+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+        <div class="confirm-toggle" data-id="place_rock">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('place_rock', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('place_rock', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="place-card">
@@ -909,6 +910,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-dist">13 km · 18 min</div>
         <div class="place-desc">Snorkeling con acqua cristallina, pesci tropicali e coralli colorati.</div>
         <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Blue+Lagoon+Pingwe+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+        <div class="confirm-toggle" data-id="place_bluelagoon">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('place_bluelagoon', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('place_bluelagoon', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="place-card">
@@ -918,6 +924,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-dist">15 km · 20 min</div>
         <div class="place-desc">La spiaggia delle stelle marine. Acque basse e trasparenti.</div>
         <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Starfish+Beach+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+        <div class="confirm-toggle" data-id="place_starfish">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('place_starfish', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('place_starfish', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="place-card">
@@ -927,6 +938,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-dist">67 km · 1h 20 · Prenotato 5 Set</div>
         <div class="place-desc">Nuota insieme alle tartarughe marine in acque protette.</div>
         <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Salaam+Cave+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+        <div class="confirm-toggle" data-id="place_salaam">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('place_salaam', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('place_salaam', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="place-card">
@@ -936,6 +952,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-dist">69 km · 1h 25 · Prenotato 5 Set</div>
         <div class="place-desc">Escursione all'alba per nuotare con i delfini selvatici.</div>
         <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Kizimkazi+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+        <div class="confirm-toggle" data-id="place_kizimkazi">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('place_kizimkazi', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('place_kizimkazi', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="place-card">
@@ -945,6 +966,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-dist">82 km · 1h 35 · Prenotato 6 Set</div>
         <div class="place-desc">Esperienza privata con ghepardi, leoni e animali salvati.</div>
         <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Cheetah%27s+Rock+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+        <div class="confirm-toggle" data-id="place_cheetah">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('place_cheetah', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('place_cheetah', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="place-card">
@@ -954,6 +980,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-dist">42 km · 55 min</div>
         <div class="place-desc">Visita guidata tra vaniglia, cannella, chiodi di garofano e noce moscata.</div>
         <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Spice+Farm+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+        <div class="confirm-toggle" data-id="place_spicefarm">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('place_spicefarm', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('place_spicefarm', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="place-card">
@@ -963,6 +994,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-dist">31 km · 35 min</div>
         <div class="place-desc">Foresta delle scimmie Red Colobus, endemiche di Zanzibar.</div>
         <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Jozani+Forest+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+        <div class="confirm-toggle" data-id="place_jozani">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('place_jozani', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('place_jozani', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="place-card">
@@ -972,6 +1008,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-dist">56 km · 1h 15</div>
         <div class="place-desc">Centro storico patrimonio UNESCO. Architettura araba e swahili.</div>
         <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Stone+Town+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+        <div class="confirm-toggle" data-id="place_stonetown">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('place_stonetown', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('place_stonetown', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="place-card">
@@ -981,6 +1022,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-dist">56 km · 1h 15 (in Stone Town)</div>
         <div class="place-desc">La fortezza araba del XVII secolo. Ingresso gratuito.</div>
         <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Old+Fort+Stone+Town+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+        <div class="confirm-toggle" data-id="place_oldfort">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('place_oldfort', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('place_oldfort', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="place-card">
@@ -990,6 +1036,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-dist">56 km · 1h 15 (in Stone Town)</div>
         <div class="place-desc">Street food serale più famoso dell'isola. Imperdibile la sera.</div>
         <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Forodhani+Gardens+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+        <div class="confirm-toggle" data-id="place_forodhani">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('place_forodhani', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('place_forodhani', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="place-card">
@@ -999,6 +1050,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-dist">56 km · 1h 15 (in Stone Town)</div>
         <div class="place-desc">Mercato autentico di spezie, tessuti e souvenir.</div>
         <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Darajani+Market+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+        <div class="confirm-toggle" data-id="place_darajani">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('place_darajani', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('place_darajani', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="place-card">
@@ -1008,6 +1064,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-dist">18 km · 22 min</div>
         <div class="place-desc">Paradiso del kitesurf. Spiaggia bianchissima e acque turchesi.</div>
         <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Paje+Beach+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+        <div class="confirm-toggle" data-id="place_paje">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('place_paje', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('place_paje', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="place-card">
@@ -1017,6 +1078,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-dist">16 km · 18 min</div>
         <div class="place-desc">Il punto migliore di tutta Zanzibar per fotografare il tramonto.</div>
         <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Michamvi+Sunset+Point+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+        <div class="confirm-toggle" data-id="place_michamvi">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('place_michamvi', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('place_michamvi', false)">No</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1041,6 +1107,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=The+Rock+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€€€</div>
         </div>
+        <div class="confirm-toggle" data-id="food_rock">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_rock', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_rock', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="food-card">
@@ -1051,6 +1122,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="food-bottom">
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Abdi%27s+Place+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€</div>
+        </div>
+        <div class="confirm-toggle" data-id="food_abdi">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_abdi', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_abdi', false)">No</button>
         </div>
       </div>
     </div>
@@ -1063,6 +1139,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Leo+Bar+%26+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€€</div>
         </div>
+        <div class="confirm-toggle" data-id="food_leo">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_leo', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_leo', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="food-card">
@@ -1073,6 +1154,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="food-bottom">
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Sahari+Zanzibar+Restaurant" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€€</div>
+        </div>
+        <div class="confirm-toggle" data-id="food_sahari">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_sahari', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_sahari', false)">No</button>
         </div>
       </div>
     </div>
@@ -1085,6 +1171,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Usumba+Rock+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€€</div>
         </div>
+        <div class="confirm-toggle" data-id="food_usumba">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_usumba', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_usumba', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="food-card">
@@ -1095,6 +1186,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="food-bottom">
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Mr+Kahawa+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€€</div>
+        </div>
+        <div class="confirm-toggle" data-id="food_kahawa">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_kahawa', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_kahawa', false)">No</button>
         </div>
       </div>
     </div>
@@ -1107,6 +1203,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Mapacha+Food+Court+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€</div>
         </div>
+        <div class="confirm-toggle" data-id="food_mapacha">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_mapacha', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_mapacha', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="food-card">
@@ -1117,6 +1218,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="food-bottom">
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=African+BBQ+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€</div>
+        </div>
+        <div class="confirm-toggle" data-id="food_bbq">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_bbq', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_bbq', false)">No</button>
         </div>
       </div>
     </div>
@@ -1129,6 +1235,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Paje+by+Night+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€€</div>
         </div>
+        <div class="confirm-toggle" data-id="food_pajenight">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_pajenight', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_pajenight', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="food-card">
@@ -1139,6 +1250,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="food-bottom">
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Ocean+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€€€</div>
+        </div>
+        <div class="confirm-toggle" data-id="food_ocean">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_ocean', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_ocean', false)">No</button>
         </div>
       </div>
     </div>
@@ -1151,6 +1267,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Blue+Reef+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€€</div>
         </div>
+        <div class="confirm-toggle" data-id="food_bluereef">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_bluereef', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_bluereef', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="food-card">
@@ -1161,6 +1282,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="food-bottom">
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Bahari+Pizza+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€€</div>
+        </div>
+        <div class="confirm-toggle" data-id="food_baharipizza">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_baharipizza', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_baharipizza', false)">No</button>
         </div>
       </div>
     </div>
@@ -1173,6 +1299,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Jambo+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€</div>
         </div>
+        <div class="confirm-toggle" data-id="food_jambo">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_jambo', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_jambo', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="food-card">
@@ -1183,6 +1314,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="food-bottom">
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Tatu+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€€</div>
+        </div>
+        <div class="confirm-toggle" data-id="food_tatu">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_tatu', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_tatu', false)">No</button>
         </div>
       </div>
     </div>
@@ -1195,6 +1331,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Palm+Beach+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€€</div>
         </div>
+        <div class="confirm-toggle" data-id="food_palmbeach">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_palmbeach', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_palmbeach', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="food-card">
@@ -1205,6 +1346,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="food-bottom">
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Coral+Reef+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€€€</div>
+        </div>
+        <div class="confirm-toggle" data-id="food_coralreef">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_coralreef', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_coralreef', false)">No</button>
         </div>
       </div>
     </div>
@@ -1217,6 +1363,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Fisherman+Grill+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€</div>
         </div>
+        <div class="confirm-toggle" data-id="food_fisherman">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_fisherman', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_fisherman', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="food-card">
@@ -1227,6 +1378,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="food-bottom">
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Breeze+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€€</div>
+        </div>
+        <div class="confirm-toggle" data-id="food_breeze">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_breeze', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_breeze', false)">No</button>
         </div>
       </div>
     </div>
@@ -1239,6 +1395,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Sails+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€€€</div>
         </div>
+        <div class="confirm-toggle" data-id="food_sails">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_sails', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_sails', false)">No</button>
+        </div>
       </div>
     </div>
     <div class="food-card">
@@ -1249,6 +1410,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="food-bottom">
           <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Zanzi+Food+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
           <div class="food-price">€</div>
+        </div>
+        <div class="confirm-toggle" data-id="food_zanzifood">
+          <span class="confirm-label">Confermato:</span>
+          <button class="confirm-btn yes" onclick="setConfirm('food_zanzifood', true)">Sì</button>
+          <button class="confirm-btn no" onclick="setConfirm('food_zanzifood', false)">No</button>
         </div>
       </div>
     </div>
@@ -1462,10 +1628,9 @@ textarea:focus{outline:none;border-color:var(--accent);}
 
 <script>
 /* ====
-   ZANZIBAR ULTRA PRO v4.0 – FIXED & ENHANCED
-   Bug fix principale: rimosso il doppio `const checks` e
-   `function updateChecks` che causava SyntaxError bloccando
-   tutto il JavaScript (tabs, countdown, ecc.)
+   ZANZIBAR ULTRA PRO v5.0 – CONFERME DINAMICHE
+   Aggiunta gestione prenotazioni confermate: Sì/No
+   sincronizzato tra Home, Luoghi e Ristoranti.
    ==== */
 
 /* ==== NAVIGAZIONE PAGINE ==== */
@@ -1500,9 +1665,9 @@ function updateCountdown() {
     return;
   }
 
-  const days  = Math.floor(diff / 86400000);
-  const hours = Math.floor((diff % 86400000) / 3600000);
-  const mins  = Math.floor((diff % 3600000) / 60000);
+  const days  = Math.floor(diff / 8640000);
+  const hours = Math.floor((diff % 8640000) / 360000);
+  const mins  = Math.floor((diff % 360000) / 60000);
   const secs  = Math.floor((diff % 60000) / 1000);
 
   document.getElementById('cdDays').textContent  = pad(days);
@@ -1549,7 +1714,7 @@ async function updateWeather() {
   try {
     const r = await fetch(
       'https://api.open-meteo.com/v1/forecast?latitude=' + LAT + '&longitude=' + LON +
-      '&current=temperature_2m,wind_speed_10m,wind_direction_10m,precipitation,weather_code' +
+      '¤t=temperature_2m,wind_speed_10m,wind_direction_10m,precipitation,weather_code' +
       '&timezone=Africa%2FDar_es_Salaam'
     );
     const j = await r.json();
@@ -1571,7 +1736,7 @@ async function updateWeather() {
   try {
     const r = await fetch(
       'https://marine-api.open-meteo.com/v1/marine?latitude=' + LAT + '&longitude=' + LON +
-      '&current=sea_surface_temperature,wave_height'
+      '¤t=sea_surface_temperature,wave_height'
     );
     const j = await r.json();
     document.getElementById('seaTemp').textContent = Math.round(j.current.sea_surface_temperature ?? 27) + '°C';
@@ -1828,6 +1993,107 @@ function saveNote(id) {
   btn.textContent = '✅ Salvato!';
   setTimeout(() => btn.textContent = orig, 1500);
 }
+
+/* ====================================================
+   ==== PRENOTAZIONI CONFERMATE (Luoghi + Ristoranti) ====
+   Sincronizzazione Sì/No tra Luoghi, Ristoranti e Home
+   ==================================================== */
+
+// Dati di ogni luogo/ristorante che può essere confermato
+const bookableData = {
+  place_rock:       { icon:'🍽️', name:'The Rock Restaurant',        date:'4 Settembre • 12:00' },
+  place_bluelagoon: { icon:'🤿', name:'Blue Lagoon',                 date:'' },
+  place_starfish:   { icon:'⭐', name:'Starfish Beach',              date:'' },
+  place_salaam:     { icon:'🐢', name:'Salaam Cave – Tartarughe',    date:'5 Settembre • 09:30' },
+  place_kizimkazi:  { icon:'🐬', name:'Kizimkazi Dolphins',          date:'5 Settembre • 06:00' },
+  place_cheetah:    { icon:'🦁', name:"Cheetah's Rock",              date:'6 Settembre • 09:00' },
+  place_spicefarm:  { icon:'🌿', name:'Spice Farm',                  date:'' },
+  place_jozani:     { icon:'🌳', name:'Jozani Forest',               date:'' },
+  place_stonetown:  { icon:'🏛️', name:'Stone Town',                  date:'' },
+  place_oldfort:    { icon:'🕌', name:'Old Fort',                    date:'' },
+  place_forodhani:  { icon:'🌙', name:'Forodhani Gardens',           date:'' },
+  place_darajani:   { icon:'🛍️', name:'Darajani Market',             date:'' },
+  place_paje:       { icon:'🏖️', name:'Paje Beach',                  date:'' },
+  place_michamvi:   { icon:'🌅', name:'Michamvi Sunset Point',       date:'' },
+  food_rock:        { icon:'🍽️', name:'The Rock Restaurant',        date:'' },
+  food_abdi:        { icon:'🥘', name:"Abdi's Place",                date:'' },
+  food_leo:         { icon:'🌅', name:'Leo Bar & Restaurant',        date:'' },
+  food_sahari:      { icon:'🦞', name:'Sahari Zanzibar',             date:'' },
+  food_usumba:      { icon:'🪨', name:'Usumba Rock',                 date:'' },
+  food_kahawa:      { icon:'☕', name:'Mr Kahawa',                   date:'' },
+  food_mapacha:     { icon:'🍢', name:'Mapacha Food Court',          date:'' },
+  food_bbq:         { icon:'🔥', name:'African BBQ',                date:'' },
+  food_pajenight:   { icon:'🌙', name:'Paje by Night',               date:'' },
+  food_ocean:       { icon:'🌊', name:'Ocean Restaurant',            date:'' },
+  food_bluereef:    { icon:'🐟', name:'Blue Reef',                   date:'' },
+  food_baharipizza: { icon:'🍕', name:'Bahari Pizza',                date:'' },
+  food_jambo:       { icon:'🍛', name:'Jambo Restaurant',            date:'' },
+  food_tatu:        { icon:'🥗', name:'Tatu',                        date:'' },
+  food_palmbeach:   { icon:'🌴', name:'Palm Beach Restaurant',       date:'' },
+  food_coralreef:   { icon:'🪸', name:'Coral Reef',                  date:'' },
+  food_fisherman:   { icon:'🎣', name:'Fisherman Grill',             date:'' },
+  food_breeze:      { icon:'🌬️', name:'Breeze',                     date:'' },
+  food_sails:       { icon:'⛵', name:'Sails Restaurant',            date:'' },
+  food_zanzifood:   { icon:'🍽️', name:'Zanzi Food',                 date:'' }
+};
+
+// Prenotazioni già confermate di default (come nella versione originale)
+const defaultConfirmed = ['place_rock', 'place_salaam', 'place_kizimkazi', 'place_cheetah'];
+
+function getConfirm(id) {
+  const saved = localStorage.getItem('confirm_' + id);
+  if (saved !== null) return saved === '1';
+  return defaultConfirmed.includes(id);
+}
+
+function setConfirm(id, value) {
+  localStorage.setItem('confirm_' + id, value ? '1' : '0');
+  updateConfirmButtons();
+  renderBookings();
+}
+
+function updateConfirmButtons() {
+  document.querySelectorAll('.confirm-toggle').forEach(el => {
+    const id = el.dataset.id;
+    const val = getConfirm(id);
+    const yesBtn = el.querySelector('.confirm-btn.yes');
+    const noBtn = el.querySelector('.confirm-btn.no');
+    if (yesBtn) yesBtn.classList.toggle('active', val);
+    if (noBtn) noBtn.classList.toggle('active', !val);
+  });
+}
+
+function renderBookings() {
+  const listEl = document.getElementById('bookingsList');
+  const countEl = document.getElementById('bookingCount');
+  if (!listEl || !countEl) return;
+
+  const confirmedIds = Object.keys(bookableData).filter(id => getConfirm(id));
+  countEl.textContent = confirmedIds.length + (confirmedIds.length === 1 ? ' attività prenotata' : ' attività prenotate');
+
+  if (confirmedIds.length === 0) {
+    listEl.innerHTML = '<p style="color:var(--muted);font-size:13px;">Nessuna prenotazione confermata. Vai su 📍 Luoghi o 🍽️ Ristoranti per confermare le tue attività.</p>';
+    return;
+  }
+
+  listEl.innerHTML = confirmedIds.map(id => {
+    const d = bookableData[id];
+    return `<div class="booking">
+      <div class="booking-icon">${d.icon}</div>
+      <div class="booking-info">
+        <div class="booking-name">${d.name}</div>
+        <div class="booking-date">${d.date || 'Data da definire'}</div>
+      </div>
+      <label class="booking-check">
+        <input type="checkbox" checked onchange="setConfirm('${id}', this.checked)">
+        Sì
+      </label>
+    </div>`;
+  }).join('');
+}
+
+updateConfirmButtons();
+renderBookings();
 </script>
 </body>
 </html>

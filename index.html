@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌴 Zanzibar ULTRA PRO 2026</title>
+<title>🌴 Zanzibar 2026 Calling</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
@@ -30,7 +30,7 @@ body{
   min-height:100vh;
 }
 
-/* ===== HEADER ===== */
+/* ==== HEADER ==== */
 header{
   background:linear-gradient(135deg,#0c4a6e 0%,#0f766e 50%,#1d4ed8 100%);
   padding:0;
@@ -68,7 +68,7 @@ header{
   white-space:nowrap;
 }
 
-/* ===== TABS ===== */
+/* ==== TABS ==== */
 .tabs-wrap{
   background:rgba(7,16,28,.95);
   border-bottom:1px solid rgba(255,255,255,.06);
@@ -107,13 +107,13 @@ header{
   box-shadow:0 4px 14px rgba(14,165,233,.35);
 }
 
-/* ===== LAYOUT ===== */
+/* ==== LAYOUT ==== */
 .wrap{max-width:980px;margin:auto;padding:18px;}
 .page{display:none;animation:fade .3s ease;}
 .page.active{display:block;}
 @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 
-/* ===== CARDS ===== */
+/* ==== CARDS ==== */
 .card{
   background:var(--card);
   border-radius:20px;
@@ -126,7 +126,7 @@ header{
 .card-gold{background:linear-gradient(135deg,#78350f,#1c1917);}
 .card-blue{background:linear-gradient(135deg,#1e3a5f,#0f1e35);}
 
-/* ===== ROWS ===== */
+/* ==== ROWS ==== */
 .row{
   display:flex;
   justify-content:space-between;
@@ -139,7 +139,7 @@ header{
 .row span{color:var(--muted);font-size:14px;}
 .row b{font-size:14px;text-align:right;}
 
-/* ===== GRID / PILLS ===== */
+/* ==== GRID / PILLS ==== */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;}
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
 .pill{
@@ -153,7 +153,7 @@ header{
 .pill h3{font-size:18px;font-weight:800;margin:2px 0;}
 .pill small{color:var(--muted);font-size:11px;}
 
-/* ===== COUNTDOWN HERO ===== */
+/* ==== COUNTDOWN HERO ==== */
 .countdown-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -176,7 +176,7 @@ header{
 }
 .cd-label{font-size:11px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.5px;}
 
-/* ===== HERO ===== */
+/* ==== HERO ==== */
 .hero{position:relative;overflow:hidden;border-radius:20px;margin-bottom:16px;}
 .hero img{width:100%;height:260px;object-fit:cover;display:block;}
 .hero .overlay{
@@ -187,7 +187,7 @@ header{
 }
 .hero h2{font-size:28px;font-weight:900;margin-bottom:4px;}
 
-/* ===== BADGE ===== */
+/* ==== BADGE ==== */
 .badge{
   display:inline-block;
   background:linear-gradient(135deg,#0ea5e9,#22d3ee);
@@ -203,7 +203,7 @@ header{
 .badge-gold{background:linear-gradient(135deg,#f59e0b,#d97706);color:#1c1917;}
 .badge-green{background:linear-gradient(135deg,#10b981,#059669);color:#022c22;}
 
-/* ===== GALLERY ===== */
+/* ==== GALLERY ==== */
 .gallery{position:relative;border-radius:16px;overflow:hidden;}
 .gallery img{width:100%;height:240px;object-fit:cover;display:block;transition:.4s;}
 .gallery-btn{
@@ -219,11 +219,11 @@ header{
 .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:.2s;}
 .dot.active{background:var(--accent);width:20px;border-radius:4px;}
 
-/* ===== PROGRESS ===== */
+/* ==== PROGRESS ==== */
 .progress{height:10px;background:var(--card2);border-radius:30px;overflow:hidden;margin-top:10px;}
 .bar{height:100%;width:0%;background:linear-gradient(90deg,#22d3ee,#38bdf8);transition:.5s;border-radius:30px;}
 
-/* ===== CHECKLIST ===== */
+/* ==== CHECKLIST ==== */
 .check{
   display:flex;align-items:center;gap:12px;
   padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);
@@ -236,7 +236,7 @@ header{
 .check span{font-size:14px;}
 .check.done span{text-decoration:line-through;color:var(--muted);}
 
-/* ===== INPUTS ===== */
+/* ==== INPUTS ==== */
 input[type=number]{
   width:100px;
   background:var(--card2);
@@ -249,25 +249,25 @@ input[type=number]{
 }
 input[type=number]:focus{outline:none;border-color:var(--accent);}
 
-/* ===== MAP ===== */
+/* ==== MAP ==== */
 #leafletMap{height:480px;border-radius:16px;overflow:hidden;}
 
-/* ===== TIDE VISUAL ===== */
+/* ==== TIDE VISUAL ==== */
 .tide-bar-wrap{margin:10px 0;}
 .tide-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px;}
 .tide-bar{height:8px;background:var(--card2);border-radius:30px;overflow:hidden;}
 .tide-fill{height:100%;border-radius:30px;background:linear-gradient(90deg,#0ea5e9,#22d3ee);}
 
-/* ===== STARS ===== */
+/* ==== STARS ==== */
 .stars{color:#f59e0b;letter-spacing:1px;}
 
-/* ===== SECTION TITLE ===== */
+/* ==== SECTION TITLE ==== */
 .section-title{
   font-size:20px;font-weight:800;margin-bottom:4px;
 }
 .section-sub{color:var(--muted);font-size:13px;margin-bottom:14px;}
 
-/* ===== TIMELINE ===== */
+/* ==== TIMELINE ==== */
 .timeline{position:relative;padding-left:24px;}
 .timeline::before{
   content:'';position:absolute;left:8px;top:0;bottom:0;
@@ -286,9 +286,9 @@ input[type=number]:focus{outline:none;border-color:var(--accent);}
 .tl-time{font-size:12px;color:var(--muted);font-weight:700;}
 .tl-text{font-size:14px;font-weight:600;margin-top:2px;}
 
-/* ===== FOOD CARD ===== */
+/* ==== FOOD CARD ==== */
 .food-card{
-  display:flex;align-items:center;gap:14px;
+  display:flex;align-items:flex-start;gap:14px;
   padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05);
 }
 .food-card:last-child{border:0;}
@@ -300,9 +300,10 @@ input[type=number]:focus{outline:none;border-color:var(--accent);}
 .food-info{flex:1;}
 .food-name{font-size:14px;font-weight:700;}
 .food-meta{font-size:12px;color:var(--muted);margin-top:2px;}
-.food-price{font-size:13px;font-weight:700;color:var(--accent);}
+.food-price{font-size:13px;font-weight:700;color:var(--accent);flex-shrink:0;}
+.food-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;flex-wrap:wrap;}
 
-/* ===== PLACE CARD ===== */
+/* ==== PLACE CARD ==== */
 .place-card{
   display:flex;gap:14px;align-items:flex-start;
   padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05);
@@ -313,8 +314,18 @@ input[type=number]:focus{outline:none;border-color:var(--accent);}
 .place-name{font-size:15px;font-weight:700;}
 .place-dist{font-size:12px;color:var(--accent);margin-top:2px;}
 .place-desc{font-size:13px;color:var(--muted);margin-top:4px;}
+.goto-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:8px;padding:7px 14px;
+  background:linear-gradient(135deg,#0f766e,#0ea5e9);
+  color:white;text-decoration:none;
+  border-radius:999px;font-size:12px;font-weight:700;
+  transition:.2s;
+}
+.goto-btn:hover{opacity:.85;}
+.food-card .goto-btn{margin-top:0;}
 
-/* ===== BOOKING CARD ===== */
+/* ==== BOOKING CARD ==== */
 .booking{
   display:flex;align-items:center;gap:12px;
   padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);
@@ -329,10 +340,10 @@ input[type=number]:focus{outline:none;border-color:var(--accent);}
   border-radius:999px;background:rgba(16,185,129,.15);color:#10b981;
 }
 
-/* ===== WEATHER ICON ===== */
+/* ==== WEATHER ICON ==== */
 #weatherIcon{font-size:48px;text-align:center;margin:8px 0;}
 
-/* ===== RESPONSIVE ===== */
+/* ==== RESPONSIVE ==== */
 @media(max-width:480px){
   .grid4{grid-template-columns:repeat(2,1fr);}
   .countdown-grid{grid-template-columns:repeat(4,1fr);}
@@ -340,12 +351,12 @@ input[type=number]:focus{outline:none;border-color:var(--accent);}
   .header-left h1{font-size:18px;}
 }
 
-/* ===== SCROLLBAR ===== */
+/* ==== SCROLLBAR ==== */
 ::-webkit-scrollbar{width:6px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:#1e3a5f;border-radius:3px;}
 
-/* ===== NOTES ===== */
+/* ==== NOTES ==== */
 textarea{
   width:100%;background:var(--card2);border:1px solid rgba(255,255,255,.1);
   color:white;padding:12px;border-radius:12px;font-size:14px;
@@ -360,14 +371,14 @@ textarea:focus{outline:none;border-color:var(--accent);}
 }
 .save-btn:hover{opacity:.85;}
 
-/* ===== ALERT ===== */
+/* ==== ALERT ==== */
 .alert{
   background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);
   border-radius:12px;padding:12px 14px;font-size:13px;color:#fcd34d;
   margin-bottom:12px;
 }
 
-/* ===== METEO FORECAST ===== */
+/* ==== METEO FORECAST ==== */
 .forecast-row{
   display:flex;gap:8px;overflow-x:auto;padding:4px 0;
   scrollbar-width:none;
@@ -390,7 +401,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
 <header>
   <div class="header-inner">
     <div class="header-left">
-      <h1>🌴 Zanzibar ULTRA PRO</h1>
+      <h1>🌴 Zanzibar 2026 Calling</h1>
       <p>31 Ago → 7 Set 2026 · Hotel ZAN Orient · Bwejuu</p>
     </div>
     <div class="header-right">
@@ -418,7 +429,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
 
 <div class="wrap">
 
-<!-- ==================== HOME ==================== -->
+<!-- ==== HOME ==== -->
 <div id="home" class="page active">
 
   <!-- HERO -->
@@ -502,7 +513,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
     <div class="row"><span>🚗 Dal tuo hotel</span><b>18 minuti</b></div>
     <div class="row"><span>🌊 Marea</span><b>Alta</b></div>
     <div class="row"><span>📸 Foto perfette</span><b>17:40</b></div>
-    <div class="row"><span>🤿 Snorkeling</span><b class="stars">★★★★★</b></div>
+    <div class="row"><span>🤿 Snorkeling</span><b class="stars">★★★★</b></div>
   </div>
 
   <!-- PRENOTAZIONI -->
@@ -560,15 +571,15 @@ textarea:focus{outline:none;border-color:var(--accent);}
   <!-- GALLERIA -->
   <div class="card">
     <div class="section-title">📸 Galleria Zanzibar</div>
-    <div class="section-sub" id="galleryTitle">The Rock Restaurant</div>
+    <div class="section-sub" id="galleryTitle">Spiaggia di Zanzibar</div>
     <div class="gallery">
-      <img id="galleryImg" src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=80" alt="">
+      <img id="galleryImg" src="https://images.unsplash.com/photo-1621583628955-42fbc37bf424?auto=format&fit=crop&w=1200&q=80" alt="">
       <button class="gallery-btn" id="gPrev" onclick="changeGallery(-1)">‹</button>
       <button class="gallery-btn" id="gNext" onclick="changeGallery(1)">›</button>
     </div>
     <div class="gallery-dots" id="galleryDots"></div>
     <p id="galleryDesc" style="font-size:13px;color:var(--muted);margin-top:10px;">
-      Il ristorante più iconico costruito direttamente sull'oceano.
+      Sabbia bianchissima e acqua turchese cristallina, tipiche delle spiagge di Zanzibar.
     </p>
   </div>
 
@@ -587,7 +598,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
 
 </div>
 
-<!-- ==================== VIAGGIO ==================== -->
+<!-- ==== VIAGGIO ==== -->
 <div id="trip" class="page">
 
   <div class="card">
@@ -687,7 +698,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
 
 </div>
 
-<!-- ==================== MAREA ==================== -->
+<!-- ==== MAREA ==== -->
 <div id="tide" class="page">
 
   <div class="card">
@@ -710,7 +721,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
     <div class="row"><span>💨 Vento</span><b>12 km/h</b></div>
     <div class="row"><span>🌊 Onde</span><b>0.4 m</b></div>
     <div class="row"><span>🏖️ Bagno ideale</span><b>10:00–13:00</b></div>
-    <div class="row"><span>🤿 Snorkeling</span><b class="stars">★★★★★</b></div>
+    <div class="row"><span>🤿 Snorkeling</span><b class="stars">★★★★</b></div>
     <div class="row"><span>📸 Foto golden hour</span><b>17:40</b></div>
     <div class="row"><span>⭐ Spiaggia consigliata</span><b>Blue Lagoon</b></div>
   </div>
@@ -718,7 +729,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
   <!-- 2 SET -->
   <div class="card">
     <div class="badge">2 SETTEMBRE · MERCOLEDÌ</div>
-    <div class="section-title">Spice Farm Day</div>
+    <div class="section-title">🌿 Spice Farm Day</div>
     <div class="row"><span>⬆️ Alta marea</span><b>09:55 · 3.6 m</b></div>
     <div class="row"><span>⬇️ Bassa marea</span><b>16:20 · 0.4 m</b></div>
     <div class="tide-bar-wrap">
@@ -730,6 +741,8 @@ textarea:focus{outline:none;border-color:var(--accent);}
     <div class="row"><span>💨 Vento</span><b>10 km/h</b></div>
     <div class="row"><span>🌊 Onde</span><b>0.3 m</b></div>
     <div class="row"><span>🏖️ Bagno ideale</span><b>10:30–13:30</b></div>
+    <div class="row"><span>🤿 Snorkeling</span><b class="stars">★★★</b></div>
+    <div class="row"><span>📸 Foto golden hour</span><b>17:41</b></div>
     <div class="row"><span>⭐ Spiaggia consigliata</span><b>Bwejuu</b></div>
   </div>
 
@@ -744,9 +757,11 @@ textarea:focus{outline:none;border-color:var(--accent);}
       <div class="tide-bar"><div class="tide-fill" style="width:70%"></div></div>
     </div>
     <div class="row"><span>🌤️ Aria</span><b>28°C</b></div>
-    <div class="row"><span>💨 Vento</span><b>8 km/h – Ideale</b></div>
-    <div class="row"><span>🌊 Onde</span><b>0.2 m – Piatto</b></div>
-    <div class="row"><span>🤿 Snorkeling</span><b>Eccezionale</b></div>
+    <div class="row"><span>🌊 Mare</span><b>27°C</b></div>
+    <div class="row"><span>💨 Vento</span><b>8 km/h</b></div>
+    <div class="row"><span>🌊 Onde</span><b>0.2 m</b></div>
+    <div class="row"><span>🏖️ Bagno ideale</span><b>11:00–14:00</b></div>
+    <div class="row"><span>🤿 Snorkeling</span><b class="stars">★★★★★</b></div>
     <div class="row"><span>📸 Foto golden hour</span><b>17:42</b></div>
     <div class="row"><span>⭐ Spiaggia consigliata</span><b>Blue Lagoon</b></div>
   </div>
@@ -761,34 +776,54 @@ textarea:focus{outline:none;border-color:var(--accent);}
       <div class="tide-label"><span>Bassa</span><span>Alta</span></div>
       <div class="tide-bar"><div class="tide-fill" style="width:65%"></div></div>
     </div>
-    <div class="row"><span>🍽️ The Rock</span><b class="stars">★★★★★</b></div>
-    <div class="row"><span>🚗 Partenza hotel</span><b>11:15</b></div>
-    <div class="row"><span>🍽️ Pranzo</span><b>12:00</b></div>
-    <div class="row"><span>🌅 Tramonto Michamvi</span><b>18:18</b></div>
+    <div class="row"><span>🌤️ Aria</span><b>29°C</b></div>
+    <div class="row"><span>🌊 Mare</span><b>28°C</b></div>
+    <div class="row"><span>💨 Vento</span><b>9 km/h</b></div>
+    <div class="row"><span>🌊 Onde</span><b>0.3 m</b></div>
+    <div class="row"><span>🏖️ Bagno ideale</span><b>11:30–14:30</b></div>
+    <div class="row"><span>🍽️ The Rock</span><b class="stars">★★★★</b></div>
+    <div class="row"><span>📸 Foto golden hour</span><b>18:18</b></div>
+    <div class="row"><span>⭐ Spiaggia consigliata</span><b>Michamvi</b></div>
   </div>
 
   <!-- 5 SET -->
   <div class="card">
     <div class="badge badge-green">5 SETTEMBRE · SABATO</div>
     <div class="section-title">🐬 Delfini & 🐢 Tartarughe</div>
-    <div class="row"><span>🐬 Escursione delfini</span><b>06:00 – Mare calmo</b></div>
-    <div class="row"><span>🌊 Condizioni mare</span><b class="stars">★★★★★</b></div>
-    <div class="row"><span>🐢 Salaam Cave</span><b>09:30</b></div>
-    <div class="row"><span>🌊 Temperatura acqua</span><b>27°C</b></div>
+    <div class="row"><span>⬆️ Alta marea</span><b>12:10 · 3.1 m</b></div>
+    <div class="row"><span>⬇️ Bassa marea</span><b>18:35 · 0.7 m</b></div>
+    <div class="tide-bar-wrap">
+      <div class="tide-label"><span>Bassa</span><span>Alta</span></div>
+      <div class="tide-bar"><div class="tide-fill" style="width:60%"></div></div>
+    </div>
+    <div class="row"><span>🌤️ Aria</span><b>28°C</b></div>
+    <div class="row"><span>🌊 Mare</span><b>27°C</b></div>
     <div class="row"><span>💨 Vento</span><b>9 km/h</b></div>
+    <div class="row"><span>🌊 Onde</span><b>0.3 m</b></div>
+    <div class="row"><span>🏖️ Bagno ideale</span><b>06:00–09:00</b></div>
+    <div class="row"><span>🐬 Snorkeling</span><b class="stars">★★★★</b></div>
     <div class="row"><span>📸 Foto golden hour</span><b>17:38</b></div>
+    <div class="row"><span>⭐ Spiaggia consigliata</span><b>Kizimkazi</b></div>
   </div>
 
   <!-- 6 SET -->
   <div class="card">
     <div class="badge">6 SETTEMBRE · DOMENICA</div>
     <div class="section-title">🦁 Cheetah's Rock & Paje</div>
-    <div class="row"><span>☀️ Alba</span><b>06:18</b></div>
-    <div class="row"><span>💨 Vento</span><b>8 km/h – Leggero</b></div>
-    <div class="row"><span>🌊 Onde</span><b>0.2 m – Piatto</b></div>
-    <div class="row"><span>🦁 Cheetah's Rock</span><b>09:00</b></div>
-    <div class="row"><span>🏖️ Paje Beach</span><b>16:00</b></div>
+    <div class="row"><span>⬆️ Alta marea</span><b>12:55 · 2.9 m</b></div>
+    <div class="row"><span>⬇️ Bassa marea</span><b>19:20 · 0.8 m</b></div>
+    <div class="tide-bar-wrap">
+      <div class="tide-label"><span>Bassa</span><span>Alta</span></div>
+      <div class="tide-bar"><div class="tide-fill" style="width:55%"></div></div>
+    </div>
+    <div class="row"><span>🌤️ Aria</span><b>28°C</b></div>
+    <div class="row"><span>🌊 Mare</span><b>27°C</b></div>
+    <div class="row"><span>💨 Vento</span><b>14 km/h</b></div>
+    <div class="row"><span>🌊 Onde</span><b>0.5 m</b></div>
+    <div class="row"><span>🏖️ Bagno ideale</span><b>13:00–16:00</b></div>
     <div class="row"><span>🪁 Kitesurf</span><b class="stars">★★★★★</b></div>
+    <div class="row"><span>📸 Foto golden hour</span><b>17:36</b></div>
+    <div class="row"><span>⭐ Spiaggia consigliata</span><b>Paje Beach</b></div>
   </div>
 
   <!-- 7 SET -->
@@ -796,15 +831,24 @@ textarea:focus{outline:none;border-color:var(--accent);}
     <div class="badge badge-gold">7 SETTEMBRE · LUNEDÌ</div>
     <div class="section-title">🏛️ Stone Town & Partenza</div>
     <div class="row"><span>⬆️ Alta marea</span><b>07:48 · 3.9 m</b></div>
+    <div class="row"><span>⬇️ Bassa marea</span><b>14:10 · 0.3 m</b></div>
+    <div class="tide-bar-wrap">
+      <div class="tide-label"><span>Bassa</span><span>Alta</span></div>
+      <div class="tide-bar"><div class="tide-fill" style="width:80%"></div></div>
+    </div>
+    <div class="row"><span>🌤️ Aria</span><b>29°C</b></div>
+    <div class="row"><span>🌊 Mare</span><b>27°C</b></div>
+    <div class="row"><span>💨 Vento</span><b>10 km/h</b></div>
+    <div class="row"><span>🌊 Onde</span><b>0.4 m</b></div>
+    <div class="row"><span>🏖️ Bagno ideale</span><b>Non previsto – Rientro</b></div>
     <div class="row"><span>🏛️ Stone Town</span><b>08:30</b></div>
-    <div class="row"><span>🛍️ Souvenir</span><b>10:30</b></div>
-    <div class="row"><span>✈️ Aeroporto</span><b>14:30</b></div>
-    <div class="row"><span>🛫 Volo</span><b>17:50</b></div>
+    <div class="row"><span>✈️ Volo di rientro</span><b>17:50</b></div>
+    <div class="row"><span>⭐ Spiaggia consigliata</span><b>Forodhani Gardens</b></div>
   </div>
 
 </div>
 
-<!-- ==================== MAPPA ==================== -->
+<!-- ==== MAPPA ==== -->
 <div id="maps" class="page">
 
   <div class="card">
@@ -831,7 +875,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
 
 </div>
 
-<!-- ==================== LUOGHI ==================== -->
+<!-- ==== LUOGHI ==== -->
 <div id="places" class="page">
 
   <div class="card">
@@ -846,6 +890,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-name">ZAN Orient Bwejuu</div>
         <div class="place-dist">📍 Sei qui – Base vacanza</div>
         <div class="place-desc">Il tuo hotel direttamente sulla spiaggia di Bwejuu.</div>
+        <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=-6.085,39.532" target="_blank" rel="noopener">🧭 Portami qui</a>
       </div>
     </div>
     <div class="place-card">
@@ -854,6 +899,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-name">The Rock Restaurant</div>
         <div class="place-dist">11 km · 15 min · Prenotato 4 Set</div>
         <div class="place-desc">Il ristorante costruito sullo scoglio più famoso di Zanzibar. Pesce fresco e vista mozzafiato.</div>
+        <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=-6.149,39.533" target="_blank" rel="noopener">🧭 Portami qui</a>
       </div>
     </div>
     <div class="place-card">
@@ -862,6 +908,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-name">Blue Lagoon</div>
         <div class="place-dist">13 km · 18 min</div>
         <div class="place-desc">Snorkeling con acqua cristallina, pesci tropicali e coralli colorati.</div>
+        <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=-6.134,39.557" target="_blank" rel="noopener">🧭 Portami qui</a>
       </div>
     </div>
     <div class="place-card">
@@ -870,6 +917,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-name">Starfish Beach</div>
         <div class="place-dist">15 km · 20 min</div>
         <div class="place-desc">La spiaggia delle stelle marine. Acque basse e trasparenti.</div>
+        <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=-6.140,39.560" target="_blank" rel="noopener">🧭 Portami qui</a>
       </div>
     </div>
     <div class="place-card">
@@ -878,6 +926,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-name">Salaam Cave – Tartarughe</div>
         <div class="place-dist">67 km · 1h 20 · Prenotato 5 Set</div>
         <div class="place-desc">Nuota insieme alle tartarughe marine in acque protette.</div>
+        <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=-6.450,39.460" target="_blank" rel="noopener">🧭 Portami qui</a>
       </div>
     </div>
     <div class="place-card">
@@ -886,6 +935,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-name">Kizimkazi – Delfini</div>
         <div class="place-dist">69 km · 1h 25 · Prenotato 5 Set</div>
         <div class="place-desc">Escursione all'alba per nuotare con i delfini selvatici.</div>
+        <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=-6.451,39.455" target="_blank" rel="noopener">🧭 Portami qui</a>
       </div>
     </div>
     <div class="place-card">
@@ -894,6 +944,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-name">Cheetah's Rock</div>
         <div class="place-dist">82 km · 1h 35 · Prenotato 6 Set</div>
         <div class="place-desc">Esperienza privata con ghepardi, leoni e animali salvati.</div>
+        <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=-6.080,39.210" target="_blank" rel="noopener">🧭 Portami qui</a>
       </div>
     </div>
     <div class="place-card">
@@ -902,6 +953,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-name">Spice Farm</div>
         <div class="place-dist">42 km · 55 min</div>
         <div class="place-desc">Visita guidata tra vaniglia, cannella, chiodi di garofano e noce moscata.</div>
+        <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Spice+Farm+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
       </div>
     </div>
     <div class="place-card">
@@ -910,6 +962,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-name">Jozani Forest</div>
         <div class="place-dist">31 km · 35 min</div>
         <div class="place-desc">Foresta delle scimmie Red Colobus, endemiche di Zanzibar.</div>
+        <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=-6.250,39.410" target="_blank" rel="noopener">🧭 Portami qui</a>
       </div>
     </div>
     <div class="place-card">
@@ -918,6 +971,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-name">Stone Town</div>
         <div class="place-dist">56 km · 1h 15</div>
         <div class="place-desc">Centro storico patrimonio UNESCO. Architettura araba e swahili.</div>
+        <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=-6.165,39.202" target="_blank" rel="noopener">🧭 Portami qui</a>
       </div>
     </div>
     <div class="place-card">
@@ -926,6 +980,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-name">Old Fort</div>
         <div class="place-dist">56 km · 1h 15 (in Stone Town)</div>
         <div class="place-desc">La fortezza araba del XVII secolo. Ingresso gratuito.</div>
+        <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=-6.162,39.188" target="_blank" rel="noopener">🧭 Portami qui</a>
       </div>
     </div>
     <div class="place-card">
@@ -934,6 +989,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-name">Forodhani Gardens</div>
         <div class="place-dist">56 km · 1h 15 (in Stone Town)</div>
         <div class="place-desc">Street food serale più famoso dell'isola. Imperdibile la sera.</div>
+        <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=-6.161,39.188" target="_blank" rel="noopener">🧭 Portami qui</a>
       </div>
     </div>
     <div class="place-card">
@@ -942,6 +998,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-name">Darajani Market</div>
         <div class="place-dist">56 km · 1h 15 (in Stone Town)</div>
         <div class="place-desc">Mercato autentico di spezie, tessuti e souvenir.</div>
+        <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=-6.162,39.196" target="_blank" rel="noopener">🧭 Portami qui</a>
       </div>
     </div>
     <div class="place-card">
@@ -950,6 +1007,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-name">Paje Beach</div>
         <div class="place-dist">18 km · 22 min</div>
         <div class="place-desc">Paradiso del kitesurf. Spiaggia bianchissima e acque turchesi.</div>
+        <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=-6.266,39.534" target="_blank" rel="noopener">🧭 Portami qui</a>
       </div>
     </div>
     <div class="place-card">
@@ -958,13 +1016,14 @@ textarea:focus{outline:none;border-color:var(--accent);}
         <div class="place-name">Michamvi Sunset Point</div>
         <div class="place-dist">16 km · 18 min</div>
         <div class="place-desc">Il punto migliore di tutta Zanzibar per fotografare il tramonto.</div>
+        <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=-6.120,39.490" target="_blank" rel="noopener">🧭 Portami qui</a>
       </div>
     </div>
   </div>
 
 </div>
 
-<!-- ==================== RISTORANTI ==================== -->
+<!-- ==== RISTORANTI ==== -->
 <div id="food" class="page">
 
   <div class="card">
@@ -978,130 +1037,220 @@ textarea:focus{outline:none;border-color:var(--accent);}
       <div class="food-info">
         <div class="food-name">🍽️ The Rock Restaurant</div>
         <div class="food-meta">Pesce gourmet sullo scoglio · <span class="stars">★★★★☆</span> 4.4</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=The+Rock+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€€€</div>
+        </div>
       </div>
-      <div class="food-price">€€€</div>
     </div>
     <div class="food-card">
       <div class="food-num">2</div>
       <div class="food-info">
         <div class="food-name">🥘 Abdi's Place</div>
-        <div class="food-meta">Cucina locale autentica · <span class="stars">★★★★★</span> 4.8</div>
+        <div class="food-meta">Cucina locale autentica · <span class="stars">★★★★</span> 4.8</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Abdi%27s+Place+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€</div>
+        </div>
       </div>
-      <div class="food-price">€</div>
     </div>
     <div class="food-card">
       <div class="food-num">3</div>
       <div class="food-info">
         <div class="food-name">🌅 Leo Bar & Restaurant</div>
-        <div class="food-meta">Tramonti spettacolari · <span class="stars">★★★★★</span> 4.9</div>
+        <div class="food-meta">Tramonti spettacolari · <span class="stars">★★★★</span> 4.9</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Leo+Bar+%26+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€€</div>
+        </div>
       </div>
-      <div class="food-price">€€</div>
     </div>
     <div class="food-card">
       <div class="food-num">4</div>
       <div class="food-info">
         <div class="food-name">🦞 Sahari Zanzibar</div>
         <div class="food-meta">Seafood e cocktail · <span class="stars">★★★★☆</span> 4.5</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Sahari+Zanzibar+Restaurant" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€€</div>
+        </div>
       </div>
-      <div class="food-price">€€</div>
     </div>
     <div class="food-card">
       <div class="food-num">5</div>
       <div class="food-info">
         <div class="food-name">🪨 Usumba Rock</div>
         <div class="food-meta">Vista oceano · <span class="stars">★★★★☆</span> 4.3</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Usumba+Rock+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€€</div>
+        </div>
       </div>
-      <div class="food-price">€€</div>
     </div>
     <div class="food-card">
       <div class="food-num">6</div>
       <div class="food-info">
         <div class="food-name">☕ Mr Kahawa</div>
-        <div class="food-meta">Colazione perfetta · <span class="stars">★★★★★</span> 4.7</div>
+        <div class="food-meta">Colazione perfetta · <span class="stars">★★★★</span> 4.7</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Mr+Kahawa+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€€</div>
+        </div>
       </div>
-      <div class="food-price">€€</div>
     </div>
     <div class="food-card">
       <div class="food-num">7</div>
       <div class="food-info">
         <div class="food-name">🍢 Mapacha Food Court</div>
         <div class="food-meta">Street food locale · <span class="stars">★★★★☆</span> 4.6</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Mapacha+Food+Court+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€</div>
+        </div>
       </div>
-      <div class="food-price">€</div>
     </div>
     <div class="food-card">
       <div class="food-num">8</div>
       <div class="food-info">
         <div class="food-name">🔥 African BBQ</div>
         <div class="food-meta">Grigliate swahili · <span class="stars">★★★★☆</span> 4.5</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=African+BBQ+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€</div>
+        </div>
       </div>
-      <div class="food-price">€</div>
     </div>
     <div class="food-card">
       <div class="food-num">9</div>
       <div class="food-info">
         <div class="food-name">🌙 Paje by Night</div>
         <div class="food-meta">Atmosfera giovane · <span class="stars">★★★★☆</span> 4.4</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Paje+by+Night+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€€</div>
+        </div>
       </div>
-      <div class="food-price">€€</div>
     </div>
     <div class="food-card">
       <div class="food-num">10</div>
       <div class="food-info">
         <div class="food-name">🌊 Ocean Restaurant</div>
-        <div class="food-meta">Cena romantica · <span class="stars">★★★★★</span> 4.8</div>
+        <div class="food-meta">Cena romantica · <span class="stars">★★★★</span> 4.8</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Ocean+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€€€</div>
+        </div>
       </div>
-      <div class="food-price">€€€</div>
     </div>
     <div class="food-card">
       <div class="food-num">11</div>
-      <div class="food-info"><div class="food-name">🐟 Blue Reef</div><div class="food-meta"><span class="stars">★★★★☆</span> 4.6</div></div>
-      <div class="food-price">€€</div>
+      <div class="food-info">
+        <div class="food-name">🐟 Blue Reef</div>
+        <div class="food-meta"><span class="stars">★★★★☆</span> 4.6</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Blue+Reef+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€€</div>
+        </div>
+      </div>
     </div>
     <div class="food-card">
       <div class="food-num">12</div>
-      <div class="food-info"><div class="food-name">🍕 Bahari Pizza</div><div class="food-meta"><span class="stars">★★★★☆</span> 4.5</div></div>
-      <div class="food-price">€€</div>
+      <div class="food-info">
+        <div class="food-name">🍕 Bahari Pizza</div>
+        <div class="food-meta"><span class="stars">★★★★☆</span> 4.5</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Bahari+Pizza+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€€</div>
+        </div>
+      </div>
     </div>
     <div class="food-card">
       <div class="food-num">13</div>
-      <div class="food-info"><div class="food-name">🍛 Jambo Restaurant</div><div class="food-meta"><span class="stars">★★★★☆</span> 4.4</div></div>
-      <div class="food-price">€</div>
+      <div class="food-info">
+        <div class="food-name">🍛 Jambo Restaurant</div>
+        <div class="food-meta"><span class="stars">★★★★☆</span> 4.4</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Jambo+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€</div>
+        </div>
+      </div>
     </div>
     <div class="food-card">
       <div class="food-num">14</div>
-      <div class="food-info"><div class="food-name">🥗 Tatu</div><div class="food-meta"><span class="stars">★★★★☆</span> 4.6</div></div>
-      <div class="food-price">€€</div>
+      <div class="food-info">
+        <div class="food-name">🥗 Tatu</div>
+        <div class="food-meta"><span class="stars">★★★★☆</span> 4.6</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Tatu+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€€</div>
+        </div>
+      </div>
     </div>
     <div class="food-card">
       <div class="food-num">15</div>
-      <div class="food-info"><div class="food-name">🌴 Palm Beach Restaurant</div><div class="food-meta"><span class="stars">★★★★☆</span> 4.5</div></div>
-      <div class="food-price">€€</div>
+      <div class="food-info">
+        <div class="food-name">🌴 Palm Beach Restaurant</div>
+        <div class="food-meta"><span class="stars">★★★★☆</span> 4.5</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Palm+Beach+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€€</div>
+        </div>
+      </div>
     </div>
     <div class="food-card">
       <div class="food-num">16</div>
-      <div class="food-info"><div class="food-name">🪸 Coral Reef</div><div class="food-meta"><span class="stars">★★★★★</span> 4.7</div></div>
-      <div class="food-price">€€€</div>
+      <div class="food-info">
+        <div class="food-name">🪸 Coral Reef</div>
+        <div class="food-meta"><span class="stars">★★★★</span> 4.7</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Coral+Reef+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€€€</div>
+        </div>
+      </div>
     </div>
     <div class="food-card">
       <div class="food-num">17</div>
-      <div class="food-info"><div class="food-name">🎣 Fisherman Grill</div><div class="food-meta"><span class="stars">★★★★☆</span> 4.3</div></div>
-      <div class="food-price">€</div>
+      <div class="food-info">
+        <div class="food-name">🎣 Fisherman Grill</div>
+        <div class="food-meta"><span class="stars">★★★★☆</span> 4.3</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Fisherman+Grill+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€</div>
+        </div>
+      </div>
     </div>
     <div class="food-card">
       <div class="food-num">18</div>
-      <div class="food-info"><div class="food-name">🌬️ Breeze</div><div class="food-meta"><span class="stars">★★★★★</span> 4.8</div></div>
-      <div class="food-price">€€</div>
+      <div class="food-info">
+        <div class="food-name">🌬️ Breeze</div>
+        <div class="food-meta"><span class="stars">★★★★</span> 4.8</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Breeze+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€€</div>
+        </div>
+      </div>
     </div>
     <div class="food-card">
       <div class="food-num">19</div>
-      <div class="food-info"><div class="food-name">⛵ Sails Restaurant</div><div class="food-meta"><span class="stars">★★★★★</span> 4.9</div></div>
-      <div class="food-price">€€€</div>
+      <div class="food-info">
+        <div class="food-name">⛵ Sails Restaurant</div>
+        <div class="food-meta"><span class="stars">★★★★</span> 4.9</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Sails+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€€€</div>
+        </div>
+      </div>
     </div>
     <div class="food-card">
       <div class="food-num">20</div>
-      <div class="food-info"><div class="food-name">🍽️ Zanzi Food</div><div class="food-meta"><span class="stars">★★★★☆</span> 4.4</div></div>
-      <div class="food-price">€</div>
+      <div class="food-info">
+        <div class="food-name">🍽️ Zanzi Food</div>
+        <div class="food-meta"><span class="stars">★★★★☆</span> 4.4</div>
+        <div class="food-bottom">
+          <a class="goto-btn" href="https://www.google.com/maps/search/?api=1&query=Zanzi+Food+Restaurant+Zanzibar" target="_blank" rel="noopener">🧭 Portami qui</a>
+          <div class="food-price">€</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1117,7 +1266,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
 
 </div>
 
-<!-- ==================== VALUTA ==================== -->
+<!-- ==== VALUTA ==== -->
 <div id="currency" class="page">
 
   <div class="card">
@@ -1164,7 +1313,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
 
 </div>
 
-<!-- ==================== VALIGIA ==================== -->
+<!-- ==== VALIGIA ==== -->
 <div id="bag" class="page">
 
   <div class="card">
@@ -1228,7 +1377,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
 
 </div>
 
-<!-- ==================== BUDGET ==================== -->
+<!-- ==== BUDGET ==== -->
 <div id="budget" class="page">
 
   <div class="card">
@@ -1265,7 +1414,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
 
 </div>
 
-<!-- ==================== NOTE ==================== -->
+<!-- ==== NOTE ==== -->
 <div id="notes" class="page">
 
   <div class="card">
@@ -1312,14 +1461,14 @@ textarea:focus{outline:none;border-color:var(--accent);}
 </div><!-- /wrap -->
 
 <script>
-/* ============================================================
+/* ====
    ZANZIBAR ULTRA PRO v4.0 – FIXED & ENHANCED
    Bug fix principale: rimosso il doppio `const checks` e
    `function updateChecks` che causava SyntaxError bloccando
    tutto il JavaScript (tabs, countdown, ecc.)
-   ============================================================ */
+   ==== */
 
-/* ===== NAVIGAZIONE PAGINE ===== */
+/* ==== NAVIGAZIONE PAGINE ==== */
 let leafletMap = null;
 let mapReady = false;
 
@@ -1331,7 +1480,7 @@ function show(id, btn) {
   if (id === 'maps') setTimeout(initMap, 200);
 }
 
-/* ===== COUNTDOWN (aggiornato ogni secondo, con secondi) ===== */
+/* ==== COUNTDOWN (aggiornato ogni secondo, con secondi) ==== */
 const departure = new Date('2026-08-31T08:00:00');
 
 function pad(n) { return String(n).padStart(2, '0'); }
@@ -1351,9 +1500,9 @@ function updateCountdown() {
     return;
   }
 
-  const days  = Math.floor(diff / 86400000);
-  const hours = Math.floor((diff % 86400000) / 3600000);
-  const mins  = Math.floor((diff % 3600000) / 60000);
+  const days  = Math.floor(diff / 8640000);
+  const hours = Math.floor((diff % 8640000) / 360000);
+  const mins  = Math.floor((diff % 360000) / 60000);
   const secs  = Math.floor((diff % 60000) / 1000);
 
   document.getElementById('cdDays').textContent  = pad(days);
@@ -1378,7 +1527,7 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000); // ogni secondo!
 
-/* ===== METEO LIVE (Open-Meteo API) ===== */
+/* ==== METEO LIVE (Open-Meteo API) ==== */
 const LAT = -6.24, LON = 39.53;
 
 const weatherIcons = {
@@ -1400,7 +1549,7 @@ async function updateWeather() {
   try {
     const r = await fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}` +
-      `&current=temperature_2m,wind_speed_10m,wind_direction_10m,precipitation,weather_code` +
+      `¤t=temperature_2m,wind_speed_10m,wind_direction_10m,precipitation,weather_code` +
       `&timezone=Africa%2FDar_es_Salaam`
     );
     const j = await r.json();
@@ -1422,7 +1571,7 @@ async function updateWeather() {
   try {
     const r = await fetch(
       `https://marine-api.open-meteo.com/v1/marine?latitude=${LAT}&longitude=${LON}` +
-      `&current=sea_surface_temperature,wave_height`
+      `¤t=sea_surface_temperature,wave_height`
     );
     const j = await r.json();
     document.getElementById('seaTemp').textContent = Math.round(j.current.sea_surface_temperature ?? 27) + '°C';
@@ -1434,39 +1583,39 @@ async function updateWeather() {
 }
 
 updateWeather();
-setInterval(updateWeather, 600000); // ogni 10 minuti
+setInterval(updateWeather, 60000); // ogni 10 minuti
 
-/* ===== GALLERIA ===== */
+/* ==== GALLERIA ==== */
 const gallery = [
   {
-    title: 'The Rock Restaurant',
-    desc: 'Il ristorante più iconico di Zanzibar, costruito direttamente sullo scoglio nell\'oceano.',
-    img: 'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=80'
+    title: 'Spiaggia di Zanzibar',
+    desc: 'Sabbia bianchissima e acqua turchese cristallina, tipiche delle spiagge di Zanzibar.',
+    img: 'https://images.unsplash.com/photo-1621583628955-42fbc37bf424?auto=format&fit=crop&w=1200&q=80'
   },
   {
-    title: 'Blue Lagoon – Snorkeling',
-    desc: 'Acqua cristallina, pesci tropicali e coralli colorati. Snorkeling eccezionale.',
-    img: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80'
+    title: 'Isola di Zanzibar',
+    desc: 'Vista sull\'isola con palme e oceano turchese dell\'Oceano Indiano.',
+    img: 'https://images.unsplash.com/photo-1575999502951-4ab25b5ca889?auto=format&fit=crop&w=1200&q=80'
   },
   {
-    title: 'Bwejuu Beach',
-    desc: 'La spiaggia davanti al tuo hotel. Sabbia bianca e oceano turchese.',
-    img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80'
+    title: 'Palme sulla spiaggia',
+    desc: 'Amaca tra due palme su una spiaggia di Zanzibar. Relax puro.',
+    img: 'https://images.unsplash.com/photo-1646668072507-b2215b873c70?auto=format&fit=crop&w=1200&q=80'
   },
   {
     title: 'Stone Town – UNESCO',
-    desc: 'Centro storico patrimonio UNESCO. Architettura araba, swahili e coloniale.',
-    img: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80'
+    desc: 'Vista aerea di Stone Town, il centro storico patrimonio UNESCO di Zanzibar.',
+    img: 'https://images.unsplash.com/photo-1628531895969-df353541bafe?auto=format&fit=crop&w=1200&q=80'
   },
   {
     title: 'Tramonto sull\'Oceano Indiano',
-    desc: 'I tramonti di Zanzibar sono tra i più belli del mondo. Michamvi è il posto perfetto.',
-    img: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80'
+    desc: 'Silhouette di una barca a vela al tramonto sulle coste di Zanzibar.',
+    img: 'https://images.unsplash.com/photo-1575992042651-e35f5a391252?auto=format&fit=crop&w=1200&q=80'
   },
   {
-    title: 'Paje Beach – Kitesurf',
-    desc: 'Spiaggia bianchissima e vento costante. Paradiso del kitesurf.',
-    img: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80'
+    title: 'Spiaggia con palme',
+    desc: 'Spiaggia bianchissima bordata di palme e acque turchesi di Zanzibar.',
+    img: 'https://images.unsplash.com/photo-1665449417444-fe7fec4b7425?auto=format&fit=crop&w=1200&q=80'
   }
 ];
 
@@ -1503,7 +1652,7 @@ renderGallery();
 // Auto-avanzamento galleria ogni 5 secondi
 setInterval(() => changeGallery(1), 5000);
 
-/* ===== MAPPA LEAFLET ===== */
+/* ==== MAPPA LEAFLET ==== */
 const mapMarkers = [
   { name: '🏨 ZAN Orient (Hotel)', lat: -6.085, lon: 39.532, color: '#22d3ee' },
   { name: '🍽️ The Rock Restaurant', lat: -6.149, lon: 39.533, color: '#f59e0b' },
@@ -1546,7 +1695,7 @@ function initMap() {
   });
 }
 
-/* ===== BUDGET ===== */
+/* ==== BUDGET ==== */
 const budgetItems = [
   { id: 'car',       label: '🚗 Noleggio Auto' },
   { id: 'fuel',      label: '⛽ Carburante' },
@@ -1603,7 +1752,7 @@ budgetItems.forEach(item => {
 
 calcBudget();
 
-/* ===== CHECKLIST VALIGIA ===== */
+/* ==== CHECKLIST VALIGIA ==== */
 const bagChecks = document.querySelectorAll('[data-id]');
 
 function updateBag() {
@@ -1639,7 +1788,7 @@ function resetChecklist() {
 
 updateBag();
 
-/* ===== CONVERTITORE VALUTA ===== */
+/* ==== CONVERTITORE VALUTA ==== */
 const RATE = 2950;
 const eurEl = document.getElementById('eur');
 const tzsEl = document.getElementById('tzs');
@@ -1661,7 +1810,7 @@ function swapCurrency() {
   tzsEl.value = Math.round(e * RATE).toLocaleString('it-IT');
 }
 
-/* ===== NOTE ===== */
+/* ==== NOTE ==== */
 ['note1','note2','note3','note4'].forEach(id => {
   const el = document.getElementById(id);
   if (!el) return;
@@ -1679,6 +1828,5 @@ function saveNote(id) {
   setTimeout(() => btn.textContent = orig, 1500);
 }
 </script>
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"f0f03d0605bf45f1a3b17cf7d5e6861f"}' crossorigin="anonymous"></script>
 </body>
 </html>

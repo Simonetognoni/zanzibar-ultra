@@ -3,1357 +3,1682 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Zanzibar ULTRA 2026 PRO</title>
-
-<link rel="stylesheet"
-href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
+<title>🌴 Zanzibar ULTRA PRO 2026</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <style>
+*{margin:0;padding:0;box-sizing:border-box;}
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+:root{
+  --bg:#07101c;
+  --card:#0f1e35;
+  --card2:#0a1628;
+  --accent:#22d3ee;
+  --accent2:#0ea5e9;
+  --teal:#0f766e;
+  --gold:#f59e0b;
+  --green:#10b981;
+  --red:#ef4444;
+  --text:#e2eaf5;
+  --muted:#7a9bbf;
 }
 
 body{
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-background:#08111d;
-color:white;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
 }
 
+/* ===== HEADER ===== */
 header{
-background:linear-gradient(135deg,#0f766e,#2563eb);
-padding:22px;
-position:sticky;
-top:0;
-z-index:999;
-box-shadow:0 8px 20px rgba(0,0,0,.25);
+  background:linear-gradient(135deg,#0c4a6e 0%,#0f766e 50%,#1d4ed8 100%);
+  padding:0;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 4px 30px rgba(0,0,0,.5);
+}
+.header-inner{
+  max-width:980px;
+  margin:auto;
+  padding:14px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.header-left h1{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:-.3px;
+}
+.header-left p{
+  font-size:12px;
+  opacity:.8;
+  margin-top:2px;
+}
+.header-right{
+  text-align:right;
+}
+#headerCountdown{
+  font-size:13px;
+  font-weight:700;
+  color:#22d3ee;
+  white-space:nowrap;
 }
 
-header h1{
-font-size:30px;
-margin-bottom:6px;
+/* ===== TABS ===== */
+.tabs-wrap{
+  background:rgba(7,16,28,.95);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  position:sticky;
+  top:62px;
+  z-index:999;
 }
-
-.wrap{
-max-width:980px;
-margin:auto;
-padding:18px;
-}
-
 .tabs{
-display:flex;
-gap:8px;
-overflow-x:auto;
-padding-bottom:10px;
-margin-bottom:18px;
-scrollbar-width:none;
+  max-width:980px;
+  margin:auto;
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding:10px 18px;
+  scrollbar-width:none;
 }
-
-.tabs::-webkit-scrollbar{
-display:none;
-}
-
+.tabs::-webkit-scrollbar{display:none;}
 .tabs button{
-background:#162746;
-color:white;
-border:0;
-padding:11px 16px;
-border-radius:30px;
-font-weight:700;
-cursor:pointer;
-white-space:nowrap;
-transition:.25s;
+  background:rgba(255,255,255,.06);
+  color:var(--muted);
+  border:1px solid rgba(255,255,255,.08);
+  padding:9px 15px;
+  border-radius:30px;
+  font-weight:700;
+  font-size:13px;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:.2s;
+  flex-shrink:0;
 }
-
-.tabs button:hover{
-background:#24406d;
-}
-
+.tabs button:hover{background:rgba(255,255,255,.12);color:white;}
 .tabs button.active{
-background:#22d3ee;
-color:#04263a;
+  background:linear-gradient(135deg,#0f766e,#0ea5e9);
+  color:white;
+  border-color:transparent;
+  box-shadow:0 4px 14px rgba(14,165,233,.35);
 }
 
-.page{
-display:none;
-animation:fade .25s;
-}
+/* ===== LAYOUT ===== */
+.wrap{max-width:980px;margin:auto;padding:18px;}
+.page{display:none;animation:fade .3s ease;}
+.page.active{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 
-.page.active{
-display:block;
-}
-
-@keyframes fade{
-from{
-opacity:0;
-transform:translateY(6px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
+/* ===== CARDS ===== */
 .card{
-background:#12203a;
-border-radius:20px;
-padding:16px;
-margin-bottom:16px;
-box-shadow:0 8px 18px rgba(0,0,0,.18);
+  background:var(--card);
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:16px;
+  border:1px solid rgba(255,255,255,.05);
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
 }
+.card-teal{background:linear-gradient(135deg,#0f766e,#0c4a6e);}
+.card-gold{background:linear-gradient(135deg,#78350f,#1c1917);}
+.card-blue{background:linear-gradient(135deg,#1e3a5f,#0f1e35);}
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-gap:12px;
-}
-
-.pill{
-background:#0d1628;
-border-radius:16px;
-padding:14px;
-text-align:center;
-}
-
+/* ===== ROWS ===== */
 .row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:8px 0;
-border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:9px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  gap:8px;
 }
+.row:last-child{border:0;}
+.row span{color:var(--muted);font-size:14px;}
+.row b{font-size:14px;text-align:right;}
 
-.row:last-child{
-border:0;
+/* ===== GRID / PILLS ===== */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.pill{
+  background:var(--card2);
+  border-radius:16px;
+  padding:14px 10px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.05);
 }
+.pill .icon{font-size:26px;margin-bottom:4px;}
+.pill h3{font-size:18px;font-weight:800;margin:2px 0;}
+.pill small{color:var(--muted);font-size:11px;}
 
-.hero{
-position:relative;
-overflow:hidden;
-border-radius:18px;
+/* ===== COUNTDOWN HERO ===== */
+.countdown-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin:16px 0;
 }
-
-.hero img{
-width:100%;
-height:240px;
-object-fit:cover;
-display:block;
+.cd-box{
+  background:var(--card2);
+  border-radius:16px;
+  padding:14px 8px;
+  text-align:center;
+  border:1px solid rgba(34,211,238,.15);
 }
+.cd-num{
+  font-size:32px;
+  font-weight:900;
+  color:var(--accent);
+  line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.cd-label{font-size:11px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.5px;}
 
+/* ===== HERO ===== */
+.hero{position:relative;overflow:hidden;border-radius:20px;margin-bottom:16px;}
+.hero img{width:100%;height:260px;object-fit:cover;display:block;}
 .hero .overlay{
-position:absolute;
-left:0;
-right:0;
-bottom:0;
-padding:20px;
-background:linear-gradient(transparent,rgba(0,0,0,.7));
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 60%);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:20px;
 }
+.hero h2{font-size:28px;font-weight:900;margin-bottom:4px;}
 
-.hero h2{
-font-size:30px;
-margin-bottom:4px;
-}
-
-.gallery{
-position:relative;
-}
-
-.gallery img{
-width:100%;
-height:240px;
-object-fit:cover;
-border-radius:16px;
-}
-
-.gallery button{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-width:42px;
-height:42px;
-border-radius:50%;
-border:0;
-background:rgba(0,0,0,.45);
-color:white;
-font-size:22px;
-cursor:pointer;
-}
-
-#prev{
-left:10px;
-}
-
-#next{
-right:10px;
-}
-
-.progress{
-height:10px;
-background:#0d1628;
-border-radius:30px;
-overflow:hidden;
-margin-top:10px;
-}
-
-.bar{
-height:100%;
-width:0%;
-background:linear-gradient(90deg,#22d3ee,#38bdf8);
-}
-
-.check{
-display:flex;
-align-items:center;
-gap:10px;
-margin:8px 0;
-}
-
-input[type=number]{
-width:90px;
-background:#0d1628;
-border:0;
-color:white;
-padding:8px;
-border-radius:10px;
-}
-
-#leafletMap{
-height:520px;
-border-radius:18px;
-overflow:hidden;
-}
-
+/* ===== BADGE ===== */
 .badge{
-display:inline-block;
-background:#0ea5e9;
-padding:6px 10px;
-border-radius:999px;
-font-size:12px;
-font-weight:700;
-margin-bottom:10px;
+  display:inline-block;
+  background:linear-gradient(135deg,#0ea5e9,#22d3ee);
+  color:#04263a;
+  padding:5px 12px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.badge-gold{background:linear-gradient(135deg,#f59e0b,#d97706);color:#1c1917;}
+.badge-green{background:linear-gradient(135deg,#10b981,#059669);color:#022c22;}
+
+/* ===== GALLERY ===== */
+.gallery{position:relative;border-radius:16px;overflow:hidden;}
+.gallery img{width:100%;height:240px;object-fit:cover;display:block;transition:.4s;}
+.gallery-btn{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:44px;height:44px;border-radius:50%;border:0;
+  background:rgba(0,0,0,.55);color:white;font-size:22px;
+  cursor:pointer;backdrop-filter:blur(4px);transition:.2s;
+}
+.gallery-btn:hover{background:rgba(0,0,0,.8);}
+#gPrev{left:10px;}
+#gNext{right:10px;}
+.gallery-dots{display:flex;justify-content:center;gap:6px;margin-top:10px;}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:.2s;}
+.dot.active{background:var(--accent);width:20px;border-radius:4px;}
+
+/* ===== PROGRESS ===== */
+.progress{height:10px;background:var(--card2);border-radius:30px;overflow:hidden;margin-top:10px;}
+.bar{height:100%;width:0%;background:linear-gradient(90deg,#22d3ee,#38bdf8);transition:.5s;border-radius:30px;}
+
+/* ===== CHECKLIST ===== */
+.check{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);
+  cursor:pointer;
+}
+.check:last-child{border:0;}
+.check input[type=checkbox]{
+  width:20px;height:20px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;
+}
+.check span{font-size:14px;}
+.check.done span{text-decoration:line-through;color:var(--muted);}
+
+/* ===== INPUTS ===== */
+input[type=number]{
+  width:100px;
+  background:var(--card2);
+  border:1px solid rgba(255,255,255,.1);
+  color:white;
+  padding:8px 10px;
+  border-radius:10px;
+  font-size:14px;
+  text-align:right;
+}
+input[type=number]:focus{outline:none;border-color:var(--accent);}
+
+/* ===== MAP ===== */
+#leafletMap{height:480px;border-radius:16px;overflow:hidden;}
+
+/* ===== TIDE VISUAL ===== */
+.tide-bar-wrap{margin:10px 0;}
+.tide-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px;}
+.tide-bar{height:8px;background:var(--card2);border-radius:30px;overflow:hidden;}
+.tide-fill{height:100%;border-radius:30px;background:linear-gradient(90deg,#0ea5e9,#22d3ee);}
+
+/* ===== STARS ===== */
+.stars{color:#f59e0b;letter-spacing:1px;}
+
+/* ===== SECTION TITLE ===== */
+.section-title{
+  font-size:20px;font-weight:800;margin-bottom:4px;
+}
+.section-sub{color:var(--muted);font-size:13px;margin-bottom:14px;}
+
+/* ===== TIMELINE ===== */
+.timeline{position:relative;padding-left:24px;}
+.timeline::before{
+  content:'';position:absolute;left:8px;top:0;bottom:0;
+  width:2px;background:rgba(255,255,255,.08);
+}
+.tl-item{
+  position:relative;padding:10px 0 10px 16px;
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+.tl-item:last-child{border:0;}
+.tl-item::before{
+  content:'';position:absolute;left:-20px;top:16px;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--accent);border:2px solid var(--bg);
+}
+.tl-time{font-size:12px;color:var(--muted);font-weight:700;}
+.tl-text{font-size:14px;font-weight:600;margin-top:2px;}
+
+/* ===== FOOD CARD ===== */
+.food-card{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05);
+}
+.food-card:last-child{border:0;}
+.food-num{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--card2);display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;color:var(--muted);flex-shrink:0;
+}
+.food-info{flex:1;}
+.food-name{font-size:14px;font-weight:700;}
+.food-meta{font-size:12px;color:var(--muted);margin-top:2px;}
+.food-price{font-size:13px;font-weight:700;color:var(--accent);}
+
+/* ===== PLACE CARD ===== */
+.place-card{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05);
+}
+.place-card:last-child{border:0;}
+.place-icon{font-size:28px;flex-shrink:0;width:44px;text-align:center;}
+.place-info{flex:1;}
+.place-name{font-size:15px;font-weight:700;}
+.place-dist{font-size:12px;color:var(--accent);margin-top:2px;}
+.place-desc{font-size:13px;color:var(--muted);margin-top:4px;}
+
+/* ===== BOOKING CARD ===== */
+.booking{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);
+}
+.booking:last-child{border:0;}
+.booking-icon{font-size:22px;flex-shrink:0;}
+.booking-info{flex:1;}
+.booking-name{font-size:14px;font-weight:700;}
+.booking-date{font-size:12px;color:var(--accent);margin-top:1px;}
+.booking-status{
+  font-size:11px;font-weight:700;padding:4px 10px;
+  border-radius:999px;background:rgba(16,185,129,.15);color:#10b981;
 }
 
-small{
-color:#9db7d7;
+/* ===== WEATHER ICON ===== */
+#weatherIcon{font-size:48px;text-align:center;margin:8px 0;}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:480px){
+  .grid4{grid-template-columns:repeat(2,1fr);}
+  .countdown-grid{grid-template-columns:repeat(4,1fr);}
+  .cd-num{font-size:24px;}
+  .header-left h1{font-size:18px;}
 }
 
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:#1e3a5f;border-radius:3px;}
+
+/* ===== NOTES ===== */
+textarea{
+  width:100%;background:var(--card2);border:1px solid rgba(255,255,255,.1);
+  color:white;padding:12px;border-radius:12px;font-size:14px;
+  resize:vertical;min-height:100px;font-family:inherit;
+}
+textarea:focus{outline:none;border-color:var(--accent);}
+.save-btn{
+  background:linear-gradient(135deg,#0f766e,#0ea5e9);
+  color:white;border:0;padding:10px 20px;border-radius:12px;
+  font-weight:700;cursor:pointer;margin-top:8px;font-size:14px;
+  transition:.2s;
+}
+.save-btn:hover{opacity:.85;}
+
+/* ===== ALERT ===== */
+.alert{
+  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);
+  border-radius:12px;padding:12px 14px;font-size:13px;color:#fcd34d;
+  margin-bottom:12px;
+}
+
+/* ===== METEO FORECAST ===== */
+.forecast-row{
+  display:flex;gap:8px;overflow-x:auto;padding:4px 0;
+  scrollbar-width:none;
+}
+.forecast-row::-webkit-scrollbar{display:none;}
+.fc-day{
+  background:var(--card2);border-radius:14px;padding:12px 10px;
+  text-align:center;flex-shrink:0;min-width:70px;
+  border:1px solid rgba(255,255,255,.05);
+}
+.fc-day .fc-name{font-size:11px;color:var(--muted);font-weight:700;}
+.fc-day .fc-icon{font-size:22px;margin:6px 0;}
+.fc-day .fc-temp{font-size:15px;font-weight:800;}
+.fc-day .fc-wind{font-size:11px;color:var(--muted);}
 </style>
 </head>
-
 <body>
 
+<!-- HEADER -->
 <header>
-<h1>🌴 Zanzibar ULTRA PRO</h1>
-<div>31 Agosto → 7 Settembre 2026 · Hotel ZAN Orient · Bwejuu</div>
+  <div class="header-inner">
+    <div class="header-left">
+      <h1>🌴 Zanzibar ULTRA PRO</h1>
+      <p>31 Ago → 7 Set 2026 · Hotel ZAN Orient · Bwejuu</p>
+    </div>
+    <div class="header-right">
+      <div id="headerCountdown">⏳ Calcolo...</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:2px;">alla partenza</div>
+    </div>
+  </div>
 </header>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="active" onclick="show('home',this)">🏠 Home</button>
+    <button onclick="show('trip',this)">📅 Viaggio</button>
+    <button onclick="show('tide',this)">🌊 Marea</button>
+    <button onclick="show('maps',this)">🗺️ Mappa</button>
+    <button onclick="show('places',this)">📍 Luoghi</button>
+    <button onclick="show('food',this)">🍽️ Ristoranti</button>
+    <button onclick="show('currency',this)">💵 Valuta</button>
+    <button onclick="show('bag',this)">🧳 Valigia</button>
+    <button onclick="show('budget',this)">💰 Budget</button>
+    <button onclick="show('notes',this)">📝 Note</button>
+  </div>
+</div>
 
 <div class="wrap">
 
-<div class="tabs">
-
-<button class="active" onclick="show('home',this)">🏠 Home</button>
-
-<button onclick="show('trip',this)">📅 Viaggio</button>
-
-<button onclick="show('tide',this)">🌊 Marea PRO</button>
-
-<button onclick="show('maps',this)">🗺️ Mappa</button>
-
-<button onclick="show('places',this)">📍 Luoghi</button>
-
-<button onclick="show('food',this)">🍽️ Ristoranti</button>
-
-<button onclick="show('currency',this)">💵 Valuta</button>
-
-<button onclick="show('bag',this)">🧳 Valigia</button>
-
-<button onclick="show('budget',this)">💰 Budget</button>
-
-</div>
-
-<!-- HOME -->
+<!-- ==================== HOME ==================== -->
 <div id="home" class="page active">
 
   <!-- HERO -->
   <div class="hero">
-    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80" alt="Zanzibar">
     <div class="overlay">
       <div class="badge">BWEJUU BEACH</div>
       <h2>Zanzibar ti aspetta 🌴</h2>
-      <small>Hotel ZAN Orient • Oceano Indiano</small>
+      <small style="color:rgba(255,255,255,.8)">Hotel ZAN Orient • Oceano Indiano</small>
     </div>
-  </div>
-
-  <!-- METEO -->
-  <div class="card">
-    <h2>🌤️ Meteo Live</h2>
-
-    <div class="grid">
-
-      <div class="pill">
-        <div style="font-size:30px">☀️</div>
-        <h3 id="airTemp">28°C</h3>
-        <small>Temperatura</small>
-      </div>
-
-      <div class="pill">
-        <div style="font-size:30px">🌊</div>
-        <h3 id="seaTemp">27°C</h3>
-        <small>Mare</small>
-      </div>
-
-      <div class="pill">
-        <div style="font-size:30px">💨</div>
-        <h3 id="windNow">12</h3>
-        <small>km/h</small>
-      </div>
-
-      <div class="pill">
-        <div style="font-size:30px">🌧️</div>
-        <h3 id="rainNow">5%</h3>
-        <small>Pioggia</small>
-      </div>
-
-    </div>
-
-    <div class="row">
-      <span>Alba</span>
-      <b>06:23</b>
-    </div>
-
-    <div class="row">
-      <span>Tramonto</span>
-      <b>18:22</b>
-    </div>
-
-  </div>
-
-  <!-- DOVE ANDARE -->
-  <div class="card" style="background:linear-gradient(135deg,#0f766e,#164e63)">
-
-    <div class="badge">CONSIGLIO SMART</div>
-
-    <h2 id="bestPlace">🤿 Blue Lagoon</h2>
-
-    <p id="bestReason">
-      Acqua trasparente, marea perfetta e vento leggero. È il momento migliore della giornata.
-    </p>
-
-    <div class="row">
-      <span>🚗 Tempo dal tuo hotel</span>
-      <b>18 minuti</b>
-    </div>
-
-    <div class="row">
-      <span>🌊 Marea</span>
-      <b>Alta</b>
-    </div>
-
-    <div class="row">
-      <span>📸 Foto perfette</span>
-      <b>17:40</b>
-    </div>
-
-    <div class="row">
-      <span>🤿 Snorkeling</span>
-      <b>★★★★★</b>
-    </div>
-
   </div>
 
   <!-- COUNTDOWN -->
   <div class="card">
-
-    <h2>⏳ Countdown alla partenza</h2>
-
-    <div id="countdown"
-      style="font-size:38px;font-weight:bold;text-align:center;margin:20px 0">
-      ...
+    <div class="section-title">⏳ Countdown alla Partenza</div>
+    <div class="section-sub">31 Agosto 2026 · ore 08:00</div>
+    <div class="countdown-grid">
+      <div class="cd-box"><div class="cd-num" id="cdDays">--</div><div class="cd-label">Giorni</div></div>
+      <div class="cd-box"><div class="cd-num" id="cdHours">--</div><div class="cd-label">Ore</div></div>
+      <div class="cd-box"><div class="cd-num" id="cdMins">--</div><div class="cd-label">Minuti</div></div>
+      <div class="cd-box"><div class="cd-num" id="cdSecs">--</div><div class="cd-label">Secondi</div></div>
     </div>
-
-    <div class="grid">
-
-      <div class="pill">
-        <h3>31</h3>
-        <small>Agosto</small>
-      </div>
-
-      <div class="pill">
-        <h3>08:00</h3>
-        <small>Partenza</small>
-      </div>
-
-      <div class="pill">
-        <h3>7</h3>
-        <small>Giorni</small>
-      </div>
-
-      <div class="pill">
-        <h3>🇹🇿</h3>
-        <small>Zanzibar</small>
-      </div>
-
-    </div>
-
+    <div id="cdMessage" style="text-align:center;font-size:13px;color:var(--muted);"></div>
   </div>
 
-  <!-- EVENTI -->
+  <!-- METEO LIVE -->
   <div class="card">
-
-    <h2>🎯 Prenotazioni confermate</h2>
-
-    <div class="row">
-      <span>🍽️ The Rock Restaurant</span>
-      <b>4 Set • 12:00</b>
+    <div class="section-title">🌤️ Meteo Live – Zanzibar</div>
+    <div class="section-sub" id="weatherTime">Aggiornamento in corso...</div>
+    <div id="weatherIcon">⏳</div>
+    <div class="grid4" style="margin-bottom:14px;">
+      <div class="pill">
+        <div class="icon">🌡️</div>
+        <h3 id="airTemp">--</h3>
+        <small>Aria</small>
+      </div>
+      <div class="pill">
+        <div class="icon">🌊</div>
+        <h3 id="seaTemp">--</h3>
+        <small>Mare</small>
+      </div>
+      <div class="pill">
+        <div class="icon">💨</div>
+        <h3 id="windNow">--</h3>
+        <small>Vento</small>
+      </div>
+      <div class="pill">
+        <div class="icon">🌧️</div>
+        <h3 id="rainNow">--</h3>
+        <small>Pioggia</small>
+      </div>
     </div>
+    <div class="row"><span>☀️ Alba</span><b>06:23</b></div>
+    <div class="row"><span>🌅 Tramonto</span><b>18:22</b></div>
+    <div class="row"><span>🌊 Altezza onde</span><b id="waveHeight">--</b></div>
+    <div class="row"><span>🧭 Direzione vento</span><b id="windDir">--</b></div>
+  </div>
 
-    <div class="row">
-      <span>🐬 Kizimkazi Dolphins</span>
-      <b>5 Set • 06:00</b>
+  <!-- PREVISIONI 7 GIORNI -->
+  <div class="card">
+    <div class="section-title">📅 Previsioni Vacanza</div>
+    <div class="section-sub">1–7 Settembre 2026 · Bwejuu</div>
+    <div class="forecast-row" id="forecastRow">
+      <div class="fc-day"><div class="fc-name">1 Set</div><div class="fc-icon">☀️</div><div class="fc-temp">28°</div><div class="fc-wind">12 km/h</div></div>
+      <div class="fc-day"><div class="fc-name">2 Set</div><div class="fc-icon">⛅</div><div class="fc-temp">29°</div><div class="fc-wind">10 km/h</div></div>
+      <div class="fc-day"><div class="fc-name">3 Set</div><div class="fc-icon">☀️</div><div class="fc-temp">28°</div><div class="fc-wind">8 km/h</div></div>
+      <div class="fc-day"><div class="fc-name">4 Set</div><div class="fc-icon">☀️</div><div class="fc-temp">29°</div><div class="fc-wind">9 km/h</div></div>
+      <div class="fc-day"><div class="fc-name">5 Set</div><div class="fc-icon">⛅</div><div class="fc-temp">27°</div><div class="fc-wind">11 km/h</div></div>
+      <div class="fc-day"><div class="fc-name">6 Set</div><div class="fc-icon">☀️</div><div class="fc-temp">28°</div><div class="fc-wind">8 km/h</div></div>
+      <div class="fc-day"><div class="fc-name">7 Set</div><div class="fc-icon">☀️</div><div class="fc-temp">29°</div><div class="fc-wind">7 km/h</div></div>
     </div>
+  </div>
 
-    <div class="row">
-      <span>🐢 Salaam Cave</span>
-      <b>5 Set • 09:30</b>
+  <!-- CONSIGLIO SMART -->
+  <div class="card card-teal">
+    <div class="badge badge-gold">✨ CONSIGLIO SMART</div>
+    <div class="section-title" id="bestPlace">🤿 Blue Lagoon</div>
+    <p id="bestReason" style="font-size:14px;opacity:.9;margin-bottom:14px;">
+      Acqua trasparente, marea perfetta e vento leggero. È il momento migliore della giornata.
+    </p>
+    <div class="row"><span>🚗 Dal tuo hotel</span><b>18 minuti</b></div>
+    <div class="row"><span>🌊 Marea</span><b>Alta</b></div>
+    <div class="row"><span>📸 Foto perfette</span><b>17:40</b></div>
+    <div class="row"><span>🤿 Snorkeling</span><b class="stars">★★★★★</b></div>
+  </div>
+
+  <!-- PRENOTAZIONI -->
+  <div class="card">
+    <div class="section-title">🎯 Prenotazioni Confermate</div>
+    <div class="section-sub">4 attività prenotate</div>
+    <div class="booking">
+      <div class="booking-icon">🍽️</div>
+      <div class="booking-info">
+        <div class="booking-name">The Rock Restaurant</div>
+        <div class="booking-date">4 Settembre • 12:00</div>
+      </div>
+      <div class="booking-status">✓ Conf.</div>
     </div>
-
-    <div class="row">
-      <span>🦁 Cheetah's Rock</span>
-      <b>6 Set • 09:00</b>
+    <div class="booking">
+      <div class="booking-icon">🐬</div>
+      <div class="booking-info">
+        <div class="booking-name">Kizimkazi Dolphins</div>
+        <div class="booking-date">5 Settembre • 06:00</div>
+      </div>
+      <div class="booking-status">✓ Conf.</div>
     </div>
-
+    <div class="booking">
+      <div class="booking-icon">🐢</div>
+      <div class="booking-info">
+        <div class="booking-name">Salaam Cave – Tartarughe</div>
+        <div class="booking-date">5 Settembre • 09:30</div>
+      </div>
+      <div class="booking-status">✓ Conf.</div>
+    </div>
+    <div class="booking">
+      <div class="booking-icon">🦁</div>
+      <div class="booking-info">
+        <div class="booking-name">Cheetah's Rock</div>
+        <div class="booking-date">6 Settembre • 09:00</div>
+      </div>
+      <div class="booking-status">✓ Conf.</div>
+    </div>
   </div>
 
   <!-- DISTANZE -->
   <div class="card">
-
-    <h2>🚗 Distanze dal tuo hotel</h2>
-
-    <div class="row">
-      <span>🍽️ The Rock</span>
-      <b>11 km • 15 min</b>
-    </div>
-
-    <div class="row">
-      <span>🤿 Blue Lagoon</span>
-      <b>13 km • 18 min</b>
-    </div>
-
-    <div class="row">
-      <span>🌿 Spice Farm</span>
-      <b>42 km • 55 min</b>
-    </div>
-
-    <div class="row">
-      <span>🏛️ Stone Town</span>
-      <b>56 km • 1h 15</b>
-    </div>
-
-    <div class="row">
-      <span>🦁 Cheetah's Rock</span>
-      <b>82 km • 1h 35</b>
-    </div>
-
+    <div class="section-title">🚗 Distanze dal tuo Hotel</div>
+    <div class="section-sub">ZAN Orient Bwejuu come punto di partenza</div>
+    <div class="row"><span>🍽️ The Rock Restaurant</span><b>11 km · 15 min</b></div>
+    <div class="row"><span>🤿 Blue Lagoon</span><b>13 km · 18 min</b></div>
+    <div class="row"><span>⭐ Starfish Beach</span><b>15 km · 20 min</b></div>
+    <div class="row"><span>🌳 Jozani Forest</span><b>31 km · 35 min</b></div>
+    <div class="row"><span>🌿 Spice Farm</span><b>42 km · 55 min</b></div>
+    <div class="row"><span>🏛️ Stone Town</span><b>56 km · 1h 15</b></div>
+    <div class="row"><span>🐬 Kizimkazi</span><b>69 km · 1h 25</b></div>
+    <div class="row"><span>🦁 Cheetah's Rock</span><b>82 km · 1h 35</b></div>
   </div>
 
   <!-- GALLERIA -->
   <div class="card">
-
-    <h2>📸 Galleria HD</h2>
-
+    <div class="section-title">📸 Galleria Zanzibar</div>
+    <div class="section-sub" id="galleryTitle">The Rock Restaurant</div>
     <div class="gallery">
-
-      <img id="galleryImg"
-      src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=80">
-
-      <button id="prev" onclick="changeHome(-1)">‹</button>
-      <button id="next" onclick="changeHome(1)">›</button>
-
+      <img id="galleryImg" src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=80" alt="">
+      <button class="gallery-btn" id="gPrev" onclick="changeGallery(-1)">‹</button>
+      <button class="gallery-btn" id="gNext" onclick="changeGallery(1)">›</button>
     </div>
-
-    <h3 id="galleryTitle">The Rock Restaurant</h3>
-
-    <p id="galleryDesc">
+    <div class="gallery-dots" id="galleryDots"></div>
+    <p id="galleryDesc" style="font-size:13px;color:var(--muted);margin-top:10px;">
       Il ristorante più iconico costruito direttamente sull'oceano.
     </p>
+  </div>
 
+  <!-- INFO UTILI -->
+  <div class="card card-blue">
+    <div class="section-title">ℹ️ Info Utili Zanzibar</div>
+    <div class="row"><span>🕐 Fuso orario</span><b>UTC+3 (EAT)</b></div>
+    <div class="row"><span>💊 Malaria</span><b>Profilassi consigliata</b></div>
+    <div class="row"><span>🔌 Prese</span><b>Tipo G (UK) 230V</b></div>
+    <div class="row"><span>📶 SIM locale</span><b>Vodacom / Airtel</b></div>
+    <div class="row"><span>🚗 Guida</span><b>Sinistra (UK style)</b></div>
+    <div class="row"><span>🌡️ Stagione</span><b>Asciutta – Ottima</b></div>
+    <div class="row"><span>💧 Acqua</span><b>Solo in bottiglia</b></div>
+    <div class="row"><span>🏥 Emergenza</span><b>+255 24 223 0114</b></div>
   </div>
 
 </div>
 
-<!-- VIAGGIO -->
+<!-- ==================== VIAGGIO ==================== -->
 <div id="trip" class="page">
 
   <div class="card">
-    <h2>📅 Itinerario Completo</h2>
-    <small>31 Agosto → 7 Settembre 2026</small>
+    <div class="section-title">📅 Itinerario Completo</div>
+    <div class="section-sub">31 Agosto → 7 Settembre 2026 · 8 giorni</div>
   </div>
 
   <div class="card">
-    <h3>31 Agosto • Lunedì</h3>
-
-    <div class="row"><span>18:30</span><b>🚗 Partenza da casa</b></div>
-    <div class="row"><span>20:00</span><b>🛫 Check-in aeroporto</b></div>
-    <div class="row"><span>22:40</span><b>✈️ Volo per Zanzibar</b></div>
-
-    <p style="margin-top:10px">
-      Preparare passaporto, patente e voucher hotel.
-    </p>
+    <div class="badge">31 AGO · LUNEDÌ</div>
+    <div class="section-title">✈️ Giorno della Partenza</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">18:30</div><div class="tl-text">🚗 Partenza da casa</div></div>
+      <div class="tl-item"><div class="tl-time">20:00</div><div class="tl-text">🛫 Check-in aeroporto</div></div>
+      <div class="tl-item"><div class="tl-time">22:40</div><div class="tl-text">✈️ Volo per Zanzibar</div></div>
+    </div>
+    <div class="alert" style="margin-top:12px;">📋 Ricorda: passaporto, patente, voucher hotel, assicurazione</div>
   </div>
 
   <div class="card">
-    <h3>1 Settembre • Martedì</h3>
-
-    <div class="row"><span>07:10</span><b>🇹🇿 Arrivo Zanzibar</b></div>
-    <div class="row"><span>08:00</span><b>🚗 Ritiro auto</b></div>
-    <div class="row"><span>09:30</span><b>🏨 Check-in Hotel</b></div>
-    <div class="row"><span>16:30</span><b>🏖️ Relax Bwejuu</b></div>
-    <div class="row"><span>18:10</span><b>🌅 Tramonto</b></div>
+    <div class="badge badge-green">1 SET · MARTEDÌ</div>
+    <div class="section-title">🇹🇿 Arrivo a Zanzibar</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">07:10</div><div class="tl-text">🇹🇿 Atterraggio Zanzibar Airport</div></div>
+      <div class="tl-item"><div class="tl-time">08:00</div><div class="tl-text">🚗 Ritiro auto a noleggio</div></div>
+      <div class="tl-item"><div class="tl-time">09:30</div><div class="tl-text">🏨 Check-in Hotel ZAN Orient</div></div>
+      <div class="tl-item"><div class="tl-time">16:30</div><div class="tl-text">🏖️ Prima spiaggia – Bwejuu</div></div>
+      <div class="tl-item"><div class="tl-time">18:10</div><div class="tl-text">🌅 Tramonto sull'Oceano Indiano</div></div>
+    </div>
   </div>
 
   <div class="card">
-    <h3>2 Settembre • Mercoledì</h3>
-
-    <div class="row"><span>09:00</span><b>🌿 Spice Farm</b></div>
-    <div class="row"><span>12:30</span><b>🍛 Pranzo locale</b></div>
-    <div class="row"><span>15:00</span><b>🛍️ Villaggio Swahili</b></div>
-    <div class="row"><span>18:00</span><b>🌊 Spiaggia Bwejuu</b></div>
+    <div class="badge">2 SET · MERCOLEDÌ</div>
+    <div class="section-title">🌿 Spice Farm & Cultura</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">09:00</div><div class="tl-text">🌿 Visita Spice Farm (55 min)</div></div>
+      <div class="tl-item"><div class="tl-time">12:30</div><div class="tl-text">🍛 Pranzo locale autentico</div></div>
+      <div class="tl-item"><div class="tl-time">15:00</div><div class="tl-text">🛍️ Villaggio Swahili</div></div>
+      <div class="tl-item"><div class="tl-time">18:00</div><div class="tl-text">🌊 Spiaggia Bwejuu – relax</div></div>
+    </div>
   </div>
 
   <div class="card">
-    <h3>3 Settembre • Giovedì</h3>
-
-    <div class="row"><span>08:30</span><b>🚗 Blue Lagoon</b></div>
-    <div class="row"><span>10:00</span><b>🤿 Snorkeling</b></div>
-    <div class="row"><span>13:00</span><b>🥥 Pranzo mare</b></div>
-    <div class="row"><span>17:30</span><b>📸 Foto golden hour</b></div>
+    <div class="badge">3 SET · GIOVEDÌ</div>
+    <div class="section-title">🤿 Blue Lagoon – Snorkeling</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">08:30</div><div class="tl-text">🚗 Partenza per Blue Lagoon</div></div>
+      <div class="tl-item"><div class="tl-time">10:00</div><div class="tl-text">🤿 Snorkeling – acqua cristallina</div></div>
+      <div class="tl-item"><div class="tl-time">13:00</div><div class="tl-text">🥥 Pranzo sul mare</div></div>
+      <div class="tl-item"><div class="tl-time">17:30</div><div class="tl-text">📸 Golden hour – foto perfette</div></div>
+    </div>
   </div>
 
   <div class="card">
-    <h3>4 Settembre • Venerdì</h3>
-
-    <div class="row"><span>11:15</span><b>🚗 Partenza hotel</b></div>
-    <div class="row"><span>11:30</span><b>📷 Pingwe</b></div>
-    <div class="row"><span>12:00</span><b>🍽️ The Rock</b></div>
-    <div class="row"><span>15:30</span><b>🏖️ Michamvi</b></div>
-    <div class="row"><span>18:05</span><b>🌅 Sunset</b></div>
+    <div class="badge badge-gold">4 SET · VENERDÌ</div>
+    <div class="section-title">🍽️ The Rock Restaurant ⭐</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">11:15</div><div class="tl-text">🚗 Partenza dall'hotel</div></div>
+      <div class="tl-item"><div class="tl-time">11:30</div><div class="tl-text">📷 Sosta fotografica a Pingwe</div></div>
+      <div class="tl-item"><div class="tl-time">12:00</div><div class="tl-text">🍽️ Pranzo al The Rock Restaurant</div></div>
+      <div class="tl-item"><div class="tl-time">15:30</div><div class="tl-text">🏖️ Spiaggia di Michamvi</div></div>
+      <div class="tl-item"><div class="tl-time">18:05</div><div class="tl-text">🌅 Tramonto da Michamvi</div></div>
+    </div>
   </div>
 
   <div class="card">
-    <h3>5 Settembre • Sabato</h3>
-
-    <div class="row"><span>06:00</span><b>🐬 Delfini</b></div>
-    <div class="row"><span>09:30</span><b>🐢 Salaam Cave</b></div>
-    <div class="row"><span>13:00</span><b>🍍 Pranzo</b></div>
-    <div class="row"><span>17:00</span><b>🌊 Relax</b></div>
+    <div class="badge badge-green">5 SET · SABATO</div>
+    <div class="section-title">🐬 Delfini & 🐢 Tartarughe</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">06:00</div><div class="tl-text">🐬 Escursione delfini – Kizimkazi</div></div>
+      <div class="tl-item"><div class="tl-time">09:30</div><div class="tl-text">🐢 Salaam Cave – nuoto con tartarughe</div></div>
+      <div class="tl-item"><div class="tl-time">13:00</div><div class="tl-text">🍍 Pranzo</div></div>
+      <div class="tl-item"><div class="tl-time">17:00</div><div class="tl-text">🌊 Relax in spiaggia</div></div>
+    </div>
   </div>
 
   <div class="card">
-    <h3>6 Settembre • Domenica</h3>
-
-    <div class="row"><span>09:00</span><b>🦁 Cheetah's Rock</b></div>
-    <div class="row"><span>13:00</span><b>🍽️ Ristorante</b></div>
-    <div class="row"><span>16:00</span><b>🏖️ Paje Beach</b></div>
+    <div class="badge">6 SET · DOMENICA</div>
+    <div class="section-title">🦁 Cheetah's Rock & Paje</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">09:00</div><div class="tl-text">🦁 Cheetah's Rock – animali salvati</div></div>
+      <div class="tl-item"><div class="tl-time">13:00</div><div class="tl-text">🍽️ Pranzo in ristorante</div></div>
+      <div class="tl-item"><div class="tl-time">16:00</div><div class="tl-text">🏖️ Paje Beach – kitesurf & relax</div></div>
+    </div>
   </div>
 
   <div class="card">
-    <h3>7 Settembre • Lunedì</h3>
-
-    <div class="row"><span>08:30</span><b>🏛️ Stone Town</b></div>
-    <div class="row"><span>10:30</span><b>🛍️ Souvenir</b></div>
-    <div class="row"><span>14:30</span><b>✈️ Aeroporto</b></div>
+    <div class="badge badge-gold">7 SET · LUNEDÌ</div>
+    <div class="section-title">🏛️ Stone Town & Rientro</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">08:30</div><div class="tl-text">🏛️ Stone Town – UNESCO</div></div>
+      <div class="tl-item"><div class="tl-time">10:30</div><div class="tl-text">🛍️ Shopping souvenir</div></div>
+      <div class="tl-item"><div class="tl-time">12:30</div><div class="tl-text">🌙 Forodhani Gardens – street food</div></div>
+      <div class="tl-item"><div class="tl-time">14:30</div><div class="tl-text">✈️ Aeroporto – check-in</div></div>
+      <div class="tl-item"><div class="tl-time">17:50</div><div class="tl-text">🛫 Volo di rientro</div></div>
+    </div>
   </div>
 
 </div>
 
-<!-- BUDGET -->
-
-<div id="budget" class="page">
-
-  <div class="card">
-    <h2>💰 Budget Intelligente</h2>
-    <small>I valori vengono salvati automaticamente.</small>
-  </div>
-
-  <div class="card">
-
-    <div class="row">
-      <span>🚗 Noleggio Auto</span>
-      <input id="car" type="number" value="245">
-    </div>
-
-    <div class="row">
-      <span>⛽ Carburante</span>
-      <input id="fuel" type="number" value="55">
-    </div>
-
-    <div class="row">
-      <span>🍽️ The Rock</span>
-      <input id="rock" type="number" value="110">
-    </div>
-
-    <div class="row">
-      <span>🤿 Escursioni</span>
-      <input id="tour" type="number" value="320">
-    </div>
-
-    <div class="row">
-      <span>🥥 Cibo</span>
-      <input id="foodBudget" type="number" value="280">
-    </div>
-
-    <div class="row">
-      <span>🛍️ Shopping</span>
-      <input id="shop" type="number" value="120">
-    </div>
-
-  </div>
-
-  <div class="card" style="background:#0f766e">
-
-    <h2>Totale Vacanza</h2>
-
-    <div style="font-size:42px;font-weight:bold" id="tot">
-      € 1130
-    </div>
-
-    <div class="progress">
-      <div class="bar" id="budgetBar" style="width:65%"></div>
-    </div>
-
-    <small>Budget consigliato: 1.500 €</small>
-
-  </div>
-
-</div>
-
-<!-- MAREA -->
+<!-- ==================== MAREA ==================== -->
 <div id="tide" class="page">
 
   <div class="card">
-    <h2>🌊 MAREA PRO</h2>
-    <small>Bwejuu • Pingwe • Michamvi | 1–7 Settembre 2026</small>
+    <div class="section-title">🌊 Marea PRO</div>
+    <div class="section-sub">Bwejuu · Pingwe · Michamvi · 1–7 Settembre 2026</div>
   </div>
 
-  <!-- 1 SETTEMBRE -->
+  <!-- 1 SET -->
   <div class="card">
-    <h3>1 Settembre • Martedì</h3>
-    <div class="row"><span>⬆️ Alta marea</span><b>09:10 • 3.8 m</b></div>
-    <div class="row"><span>⬇️ Bassa marea</span><b>15:35 • 0.3 m</b></div>
-    <div class="row"><span>☀️ Alba</span><b>06:23</b></div>
-    <div class="row"><span>🌅 Tramonto</span><b>18:22</b></div>
+    <div class="badge badge-green">1 SETTEMBRE · MARTEDÌ</div>
+    <div class="section-title">Arrivo – Prima giornata</div>
+    <div class="row"><span>⬆️ Alta marea</span><b>09:10 · 3.8 m</b></div>
+    <div class="row"><span>⬇️ Bassa marea</span><b>15:35 · 0.3 m</b></div>
+    <div class="tide-bar-wrap">
+      <div class="tide-label"><span>Bassa</span><span>Alta</span></div>
+      <div class="tide-bar"><div class="tide-fill" style="width:80%"></div></div>
+    </div>
     <div class="row"><span>🌤️ Aria</span><b>28°C</b></div>
     <div class="row"><span>🌊 Mare</span><b>27°C</b></div>
     <div class="row"><span>💨 Vento</span><b>12 km/h</b></div>
-    <div class="row"><span>🌧️ Pioggia</span><b>5%</b></div>
     <div class="row"><span>🌊 Onde</span><b>0.4 m</b></div>
     <div class="row"><span>🏖️ Bagno ideale</span><b>10:00–13:00</b></div>
-    <div class="row"><span>🤿 Snorkeling</span><b>★★★★★</b></div>
-    <div class="row"><span>📸 Foto</span><b>17:40</b></div>
-    <div class="row"><span>⭐ Spiaggia</span><b>Blue Lagoon</b></div>
+    <div class="row"><span>🤿 Snorkeling</span><b class="stars">★★★★★</b></div>
+    <div class="row"><span>📸 Foto golden hour</span><b>17:40</b></div>
+    <div class="row"><span>⭐ Spiaggia consigliata</span><b>Blue Lagoon</b></div>
   </div>
 
-  <!-- 2 -->
+  <!-- 2 SET -->
   <div class="card">
-    <h3>2 Settembre</h3>
-    <div class="row"><span>Alta</span><b>09:55</b></div>
-    <div class="row"><span>Bassa</span><b>16:20</b></div>
-    <div class="row"><span>Aria</span><b>29°C</b></div>
-    <div class="row"><span>Mare</span><b>27°C</b></div>
-    <div class="row"><span>Vento</span><b>10 km/h</b></div>
-    <div class="row"><span>Onde</span><b>0.3 m</b></div>
-    <div class="row"><span>Bagno</span><b>10:30–13:30</b></div>
-    <div class="row"><span>Spiaggia</span><b>Bwejuu</b></div>
+    <div class="badge">2 SETTEMBRE · MERCOLEDÌ</div>
+    <div class="section-title">Spice Farm Day</div>
+    <div class="row"><span>⬆️ Alta marea</span><b>09:55 · 3.6 m</b></div>
+    <div class="row"><span>⬇️ Bassa marea</span><b>16:20 · 0.4 m</b></div>
+    <div class="tide-bar-wrap">
+      <div class="tide-label"><span>Bassa</span><span>Alta</span></div>
+      <div class="tide-bar"><div class="tide-fill" style="width:75%"></div></div>
+    </div>
+    <div class="row"><span>🌤️ Aria</span><b>29°C</b></div>
+    <div class="row"><span>🌊 Mare</span><b>27°C</b></div>
+    <div class="row"><span>💨 Vento</span><b>10 km/h</b></div>
+    <div class="row"><span>🌊 Onde</span><b>0.3 m</b></div>
+    <div class="row"><span>🏖️ Bagno ideale</span><b>10:30–13:30</b></div>
+    <div class="row"><span>⭐ Spiaggia consigliata</span><b>Bwejuu</b></div>
   </div>
 
-  <!-- 3 -->
+  <!-- 3 SET -->
   <div class="card">
-    <h3>3 Settembre</h3>
-    <div class="row"><span>Alta</span><b>10:40</b></div>
-    <div class="row"><span>Bassa</span><b>17:05</b></div>
-    <div class="row"><span>Aria</span><b>28°C</b></div>
-    <div class="row"><span>Vento</span><b>8 km/h</b></div>
-    <div class="row"><span>Onde</span><b>0.2 m</b></div>
-    <div class="row"><span>Snorkeling</span><b>Eccezionale</b></div>
-    <div class="row"><span>Foto</span><b>17:42</b></div>
-    <div class="row"><span>Spiaggia</span><b>Blue Lagoon</b></div>
+    <div class="badge badge-gold">3 SETTEMBRE · GIOVEDÌ</div>
+    <div class="section-title">🤿 Blue Lagoon – Snorkeling Day</div>
+    <div class="row"><span>⬆️ Alta marea</span><b>10:40 · 3.5 m</b></div>
+    <div class="row"><span>⬇️ Bassa marea</span><b>17:05 · 0.5 m</b></div>
+    <div class="tide-bar-wrap">
+      <div class="tide-label"><span>Bassa</span><span>Alta</span></div>
+      <div class="tide-bar"><div class="tide-fill" style="width:70%"></div></div>
+    </div>
+    <div class="row"><span>🌤️ Aria</span><b>28°C</b></div>
+    <div class="row"><span>💨 Vento</span><b>8 km/h – Ideale</b></div>
+    <div class="row"><span>🌊 Onde</span><b>0.2 m – Piatto</b></div>
+    <div class="row"><span>🤿 Snorkeling</span><b>Eccezionale</b></div>
+    <div class="row"><span>📸 Foto golden hour</span><b>17:42</b></div>
+    <div class="row"><span>⭐ Spiaggia consigliata</span><b>Blue Lagoon</b></div>
   </div>
 
-  <!-- 4 -->
+  <!-- 4 SET -->
   <div class="card">
-    <h3>4 Settembre</h3>
-    <div class="row"><span>Alta</span><b>11:25</b></div>
-    <div class="row"><span>Bassa</span><b>17:50</b></div>
-    <div class="row"><span>The Rock</span><b>⭐⭐⭐⭐⭐</b></div>
-    <div class="row"><span>Partenza Hotel</span><b>11:15</b></div>
-    <div class="row"><span>Pranzo</span><b>12:00</b></div>
-    <div class="row"><span>Tramonto</span><b>18:18</b></div>
+    <div class="badge badge-gold">4 SETTEMBRE · VENERDÌ</div>
+    <div class="section-title">🍽️ The Rock Day</div>
+    <div class="row"><span>⬆️ Alta marea</span><b>11:25 · 3.3 m</b></div>
+    <div class="row"><span>⬇️ Bassa marea</span><b>17:50 · 0.6 m</b></div>
+    <div class="tide-bar-wrap">
+      <div class="tide-label"><span>Bassa</span><span>Alta</span></div>
+      <div class="tide-bar"><div class="tide-fill" style="width:65%"></div></div>
+    </div>
+    <div class="row"><span>🍽️ The Rock</span><b class="stars">★★★★★</b></div>
+    <div class="row"><span>🚗 Partenza hotel</span><b>11:15</b></div>
+    <div class="row"><span>🍽️ Pranzo</span><b>12:00</b></div>
+    <div class="row"><span>🌅 Tramonto Michamvi</span><b>18:18</b></div>
   </div>
 
-  <!-- 5 -->
+  <!-- 5 SET -->
   <div class="card">
-    <h3>5 Settembre</h3>
-    <div class="row"><span>Delfini</span><b>06:00</b></div>
-    <div class="row"><span>Mare calmo</span><b>★★★★★</b></div>
-    <div class="row"><span>Salaam Cave</span><b>09:30</b></div>
-    <div class="row"><span>Acqua</span><b>27°C</b></div>
-    <div class="row"><span>Foto</span><b>17:38</b></div>
+    <div class="badge badge-green">5 SETTEMBRE · SABATO</div>
+    <div class="section-title">🐬 Delfini & 🐢 Tartarughe</div>
+    <div class="row"><span>🐬 Escursione delfini</span><b>06:00 – Mare calmo</b></div>
+    <div class="row"><span>🌊 Condizioni mare</span><b class="stars">★★★★★</b></div>
+    <div class="row"><span>🐢 Salaam Cave</span><b>09:30</b></div>
+    <div class="row"><span>🌊 Temperatura acqua</span><b>27°C</b></div>
+    <div class="row"><span>💨 Vento</span><b>9 km/h</b></div>
+    <div class="row"><span>📸 Foto golden hour</span><b>17:38</b></div>
   </div>
 
-  <!-- 6 -->
+  <!-- 6 SET -->
   <div class="card">
-    <h3>6 Settembre</h3>
-    <div class="row"><span>Alba</span><b>06:18</b></div>
-    <div class="row"><span>Vento</span><b>8 km/h</b></div>
-    <div class="row"><span>Onde</span><b>0.2 m</b></div>
-    <div class="row"><span>Cheetah's Rock</span><b>09:00</b></div>
-    <div class="row"><span>Paje Beach</span><b>16:00</b></div>
+    <div class="badge">6 SETTEMBRE · DOMENICA</div>
+    <div class="section-title">🦁 Cheetah's Rock & Paje</div>
+    <div class="row"><span>☀️ Alba</span><b>06:18</b></div>
+    <div class="row"><span>💨 Vento</span><b>8 km/h – Leggero</b></div>
+    <div class="row"><span>🌊 Onde</span><b>0.2 m – Piatto</b></div>
+    <div class="row"><span>🦁 Cheetah's Rock</span><b>09:00</b></div>
+    <div class="row"><span>🏖️ Paje Beach</span><b>16:00</b></div>
+    <div class="row"><span>🪁 Kitesurf</span><b class="stars">★★★★★</b></div>
   </div>
 
-  <!-- 7 -->
+  <!-- 7 SET -->
   <div class="card">
-    <h3>7 Settembre</h3>
-    <div class="row"><span>Alta</span><b>07:48</b></div>
-    <div class="row"><span>Stone Town</span><b>08:30</b></div>
-    <div class="row"><span>Souvenir</span><b>10:30</b></div>
-    <div class="row"><span>Aeroporto</span><b>14:30</b></div>
-    <div class="row"><span>Volo</span><b>17:50</b></div>
+    <div class="badge badge-gold">7 SETTEMBRE · LUNEDÌ</div>
+    <div class="section-title">🏛️ Stone Town & Partenza</div>
+    <div class="row"><span>⬆️ Alta marea</span><b>07:48 · 3.9 m</b></div>
+    <div class="row"><span>🏛️ Stone Town</span><b>08:30</b></div>
+    <div class="row"><span>🛍️ Souvenir</span><b>10:30</b></div>
+    <div class="row"><span>✈️ Aeroporto</span><b>14:30</b></div>
+    <div class="row"><span>🛫 Volo</span><b>17:50</b></div>
   </div>
 
 </div>
 
-<!-- MAPPA -->
+<!-- ==================== MAPPA ==================== -->
 <div id="maps" class="page">
 
   <div class="card">
-    <h2>🗺️ Mappa Interattiva Zanzibar</h2>
-    <small>15 luoghi • Leaflet + OpenStreetMap</small>
+    <div class="section-title">🗺️ Mappa Interattiva</div>
+    <div class="section-sub">15 luoghi · Clicca sui marker per i dettagli</div>
   </div>
 
-  <div class="card">
+  <div class="card" style="padding:12px;">
     <div id="leafletMap"></div>
   </div>
 
   <div class="card">
-
-    <h2>🚗 Distanze dal tuo Hotel</h2>
-
-    <div class="row"><span>🏨 ZAN Orient</span><b>0 min</b></div>
-    <div class="row"><span>🍽️ The Rock</span><b>15 min</b></div>
-    <div class="row"><span>🤿 Blue Lagoon</span><b>18 min</b></div>
-    <div class="row"><span>⭐ Starfish Beach</span><b>20 min</b></div>
-    <div class="row"><span>🌿 Spice Farm</span><b>55 min</b></div>
-    <div class="row"><span>🌳 Jozani Forest</span><b>35 min</b></div>
-    <div class="row"><span>🏛️ Stone Town</span><b>1h 15</b></div>
-    <div class="row"><span>🦁 Cheetah's Rock</span><b>1h 35</b></div>
-
+    <div class="section-title">🚗 Distanze dall'Hotel</div>
+    <div class="row"><span>🏨 ZAN Orient (tu sei qui)</span><b>0 min</b></div>
+    <div class="row"><span>🍽️ The Rock Restaurant</span><b>11 km · 15 min</b></div>
+    <div class="row"><span>🤿 Blue Lagoon</span><b>13 km · 18 min</b></div>
+    <div class="row"><span>⭐ Starfish Beach</span><b>15 km · 20 min</b></div>
+    <div class="row"><span>🌳 Jozani Forest</span><b>31 km · 35 min</b></div>
+    <div class="row"><span>🌿 Spice Farm</span><b>42 km · 55 min</b></div>
+    <div class="row"><span>🏛️ Stone Town</span><b>56 km · 1h 15</b></div>
+    <div class="row"><span>🐬 Kizimkazi</span><b>69 km · 1h 25</b></div>
+    <div class="row"><span>🦁 Cheetah's Rock</span><b>82 km · 1h 35</b></div>
   </div>
 
 </div>
 
-<!-- LUOGHI -->
+<!-- ==================== LUOGHI ==================== -->
 <div id="places" class="page">
 
   <div class="card">
-    <h2>📍 15 Luoghi Imperdibili</h2>
-    <small>Tutti calcolati dal tuo hotel ZAN Orient</small>
+    <div class="section-title">📍 15 Luoghi Imperdibili</div>
+    <div class="section-sub">Tutti calcolati dall'Hotel ZAN Orient · Bwejuu</div>
   </div>
 
   <div class="card">
-    <h3>1. 🏨 ZAN Orient Bwejuu</h3>
-    <div class="row"><span>Distanza</span><b>Sei qui</b></div>
-    <p>La tua base per tutta la vacanza.</p>
-  </div>
-
-  <div class="card">
-    <h3>2. 🍽️ The Rock Restaurant</h3>
-    <div class="row"><span>11 km</span><b>15 min</b></div>
-    <p>Il ristorante costruito sullo scoglio più famoso di Zanzibar.</p>
-  </div>
-
-  <div class="card">
-    <h3>3. 🤿 Blue Lagoon</h3>
-    <div class="row"><span>13 km</span><b>18 min</b></div>
-    <p>Snorkeling con acqua cristallina e pesci tropicali.</p>
-  </div>
-
-  <div class="card">
-    <h3>4. ⭐ Starfish Beach</h3>
-    <div class="row"><span>15 km</span><b>20 min</b></div>
-    <p>La spiaggia delle stelle marine.</p>
-  </div>
-
-  <div class="card">
-    <h3>5. 🐢 Salaam Cave</h3>
-    <div class="row"><span>67 km</span><b>1h20</b></div>
-    <p>Nuota insieme alle tartarughe marine.</p>
-  </div>
-
-  <div class="card">
-    <h3>6. 🐬 Kizimkazi Dolphins</h3>
-    <div class="row"><span>69 km</span><b>1h25</b></div>
-    <p>Escursione all'alba con i delfini.</p>
-  </div>
-
-  <div class="card">
-    <h3>7. 🦁 Cheetah's Rock</h3>
-    <div class="row"><span>82 km</span><b>1h35</b></div>
-    <p>Esperienza privata con animali salvati.</p>
-  </div>
-
-  <div class="card">
-    <h3>8. 🌿 Spice Farm</h3>
-    <div class="row"><span>42 km</span><b>55 min</b></div>
-    <p>Visita guidata tra vaniglia, cannella e chiodi di garofano.</p>
-  </div>
-
-  <div class="card">
-    <h3>9. 🌳 Jozani Forest</h3>
-    <div class="row"><span>31 km</span><b>35 min</b></div>
-    <p>Foresta delle scimmie Red Colobus.</p>
-  </div>
-
-  <div class="card">
-    <h3>10. 🏛️ Stone Town</h3>
-    <div class="row"><span>56 km</span><b>1h15</b></div>
-    <p>Centro storico patrimonio UNESCO.</p>
-  </div>
-
-  <div class="card">
-    <h3>11. 🕌 Old Fort</h3>
-    <div class="row"><span>56 km</span><b>1h15</b></div>
-    <p>La fortezza araba del XVII secolo.</p>
-  </div>
-
-  <div class="card">
-    <h3>12. 🌙 Forodhani Gardens</h3>
-    <div class="row"><span>56 km</span><b>1h15</b></div>
-    <p>Street food serale più famoso dell'isola.</p>
-  </div>
-
-  <div class="card">
-    <h3>13. 🛍️ Darajani Market</h3>
-    <div class="row"><span>56 km</span><b>1h15</b></div>
-    <p>Mercato autentico di spezie e souvenir.</p>
-  </div>
-
-  <div class="card">
-    <h3>14. 🏖️ Paje Beach</h3>
-    <div class="row"><span>18 km</span><b>22 min</b></div>
-    <p>Paradiso del kitesurf e spiaggia bianchissima.</p>
-  </div>
-
-  <div class="card">
-    <h3>15. 🌅 Michamvi Sunset</h3>
-    <div class="row"><span>16 km</span><b>18 min</b></div>
-    <p>Il punto migliore di Zanzibar per il tramonto.</p>
+    <div class="place-card">
+      <div class="place-icon">🏨</div>
+      <div class="place-info">
+        <div class="place-name">ZAN Orient Bwejuu</div>
+        <div class="place-dist">📍 Sei qui – Base vacanza</div>
+        <div class="place-desc">Il tuo hotel direttamente sulla spiaggia di Bwejuu.</div>
+      </div>
+    </div>
+    <div class="place-card">
+      <div class="place-icon">🍽️</div>
+      <div class="place-info">
+        <div class="place-name">The Rock Restaurant</div>
+        <div class="place-dist">11 km · 15 min · Prenotato 4 Set</div>
+        <div class="place-desc">Il ristorante costruito sullo scoglio più famoso di Zanzibar. Pesce fresco e vista mozzafiato.</div>
+      </div>
+    </div>
+    <div class="place-card">
+      <div class="place-icon">🤿</div>
+      <div class="place-info">
+        <div class="place-name">Blue Lagoon</div>
+        <div class="place-dist">13 km · 18 min</div>
+        <div class="place-desc">Snorkeling con acqua cristallina, pesci tropicali e coralli colorati.</div>
+      </div>
+    </div>
+    <div class="place-card">
+      <div class="place-icon">⭐</div>
+      <div class="place-info">
+        <div class="place-name">Starfish Beach</div>
+        <div class="place-dist">15 km · 20 min</div>
+        <div class="place-desc">La spiaggia delle stelle marine. Acque basse e trasparenti.</div>
+      </div>
+    </div>
+    <div class="place-card">
+      <div class="place-icon">🐢</div>
+      <div class="place-info">
+        <div class="place-name">Salaam Cave – Tartarughe</div>
+        <div class="place-dist">67 km · 1h 20 · Prenotato 5 Set</div>
+        <div class="place-desc">Nuota insieme alle tartarughe marine in acque protette.</div>
+      </div>
+    </div>
+    <div class="place-card">
+      <div class="place-icon">🐬</div>
+      <div class="place-info">
+        <div class="place-name">Kizimkazi – Delfini</div>
+        <div class="place-dist">69 km · 1h 25 · Prenotato 5 Set</div>
+        <div class="place-desc">Escursione all'alba per nuotare con i delfini selvatici.</div>
+      </div>
+    </div>
+    <div class="place-card">
+      <div class="place-icon">🦁</div>
+      <div class="place-info">
+        <div class="place-name">Cheetah's Rock</div>
+        <div class="place-dist">82 km · 1h 35 · Prenotato 6 Set</div>
+        <div class="place-desc">Esperienza privata con ghepardi, leoni e animali salvati.</div>
+      </div>
+    </div>
+    <div class="place-card">
+      <div class="place-icon">🌿</div>
+      <div class="place-info">
+        <div class="place-name">Spice Farm</div>
+        <div class="place-dist">42 km · 55 min</div>
+        <div class="place-desc">Visita guidata tra vaniglia, cannella, chiodi di garofano e noce moscata.</div>
+      </div>
+    </div>
+    <div class="place-card">
+      <div class="place-icon">🌳</div>
+      <div class="place-info">
+        <div class="place-name">Jozani Forest</div>
+        <div class="place-dist">31 km · 35 min</div>
+        <div class="place-desc">Foresta delle scimmie Red Colobus, endemiche di Zanzibar.</div>
+      </div>
+    </div>
+    <div class="place-card">
+      <div class="place-icon">🏛️</div>
+      <div class="place-info">
+        <div class="place-name">Stone Town</div>
+        <div class="place-dist">56 km · 1h 15</div>
+        <div class="place-desc">Centro storico patrimonio UNESCO. Architettura araba e swahili.</div>
+      </div>
+    </div>
+    <div class="place-card">
+      <div class="place-icon">🕌</div>
+      <div class="place-info">
+        <div class="place-name">Old Fort</div>
+        <div class="place-dist">56 km · 1h 15 (in Stone Town)</div>
+        <div class="place-desc">La fortezza araba del XVII secolo. Ingresso gratuito.</div>
+      </div>
+    </div>
+    <div class="place-card">
+      <div class="place-icon">🌙</div>
+      <div class="place-info">
+        <div class="place-name">Forodhani Gardens</div>
+        <div class="place-dist">56 km · 1h 15 (in Stone Town)</div>
+        <div class="place-desc">Street food serale più famoso dell'isola. Imperdibile la sera.</div>
+      </div>
+    </div>
+    <div class="place-card">
+      <div class="place-icon">🛍️</div>
+      <div class="place-info">
+        <div class="place-name">Darajani Market</div>
+        <div class="place-dist">56 km · 1h 15 (in Stone Town)</div>
+        <div class="place-desc">Mercato autentico di spezie, tessuti e souvenir.</div>
+      </div>
+    </div>
+    <div class="place-card">
+      <div class="place-icon">🏖️</div>
+      <div class="place-info">
+        <div class="place-name">Paje Beach</div>
+        <div class="place-dist">18 km · 22 min</div>
+        <div class="place-desc">Paradiso del kitesurf. Spiaggia bianchissima e acque turchesi.</div>
+      </div>
+    </div>
+    <div class="place-card">
+      <div class="place-icon">🌅</div>
+      <div class="place-info">
+        <div class="place-name">Michamvi Sunset Point</div>
+        <div class="place-dist">16 km · 18 min</div>
+        <div class="place-desc">Il punto migliore di tutta Zanzibar per fotografare il tramonto.</div>
+      </div>
+    </div>
   </div>
 
 </div>
 
-<!-- RISTORANTI -->
+<!-- ==================== RISTORANTI ==================== -->
 <div id="food" class="page">
 
   <div class="card">
-    <h2>🍽️ I 20 migliori ristoranti</h2>
-    <small>Prezzi medi • Valutazioni Google • Zona sud-est Zanzibar</small>
+    <div class="section-title">🍽️ I 20 Migliori Ristoranti</div>
+    <div class="section-sub">Prezzi medi · Valutazioni Google · Zona sud-est Zanzibar</div>
   </div>
 
-  <div class="card"><h3>1. The Rock Restaurant</h3><div class="row"><span>Prezzo</span><b>€€€</b></div><div class="row"><span>Voto</span><b>⭐ 4.4</b></div><p>Pesce gourmet sullo scoglio.</p></div>
+  <div class="card">
+    <div class="food-card">
+      <div class="food-num">1</div>
+      <div class="food-info">
+        <div class="food-name">🍽️ The Rock Restaurant</div>
+        <div class="food-meta">Pesce gourmet sullo scoglio · <span class="stars">★★★★☆</span> 4.4</div>
+      </div>
+      <div class="food-price">€€€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">2</div>
+      <div class="food-info">
+        <div class="food-name">🥘 Abdi's Place</div>
+        <div class="food-meta">Cucina locale autentica · <span class="stars">★★★★★</span> 4.8</div>
+      </div>
+      <div class="food-price">€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">3</div>
+      <div class="food-info">
+        <div class="food-name">🌅 Leo Bar & Restaurant</div>
+        <div class="food-meta">Tramonti spettacolari · <span class="stars">★★★★★</span> 4.9</div>
+      </div>
+      <div class="food-price">€€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">4</div>
+      <div class="food-info">
+        <div class="food-name">🦞 Sahari Zanzibar</div>
+        <div class="food-meta">Seafood e cocktail · <span class="stars">★★★★☆</span> 4.5</div>
+      </div>
+      <div class="food-price">€€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">5</div>
+      <div class="food-info">
+        <div class="food-name">🪨 Usumba Rock</div>
+        <div class="food-meta">Vista oceano · <span class="stars">★★★★☆</span> 4.3</div>
+      </div>
+      <div class="food-price">€€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">6</div>
+      <div class="food-info">
+        <div class="food-name">☕ Mr Kahawa</div>
+        <div class="food-meta">Colazione perfetta · <span class="stars">★★★★★</span> 4.7</div>
+      </div>
+      <div class="food-price">€€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">7</div>
+      <div class="food-info">
+        <div class="food-name">🍢 Mapacha Food Court</div>
+        <div class="food-meta">Street food locale · <span class="stars">★★★★☆</span> 4.6</div>
+      </div>
+      <div class="food-price">€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">8</div>
+      <div class="food-info">
+        <div class="food-name">🔥 African BBQ</div>
+        <div class="food-meta">Grigliate swahili · <span class="stars">★★★★☆</span> 4.5</div>
+      </div>
+      <div class="food-price">€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">9</div>
+      <div class="food-info">
+        <div class="food-name">🌙 Paje by Night</div>
+        <div class="food-meta">Atmosfera giovane · <span class="stars">★★★★☆</span> 4.4</div>
+      </div>
+      <div class="food-price">€€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">10</div>
+      <div class="food-info">
+        <div class="food-name">🌊 Ocean Restaurant</div>
+        <div class="food-meta">Cena romantica · <span class="stars">★★★★★</span> 4.8</div>
+      </div>
+      <div class="food-price">€€€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">11</div>
+      <div class="food-info"><div class="food-name">🐟 Blue Reef</div><div class="food-meta"><span class="stars">★★★★☆</span> 4.6</div></div>
+      <div class="food-price">€€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">12</div>
+      <div class="food-info"><div class="food-name">🍕 Bahari Pizza</div><div class="food-meta"><span class="stars">★★★★☆</span> 4.5</div></div>
+      <div class="food-price">€€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">13</div>
+      <div class="food-info"><div class="food-name">🍛 Jambo Restaurant</div><div class="food-meta"><span class="stars">★★★★☆</span> 4.4</div></div>
+      <div class="food-price">€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">14</div>
+      <div class="food-info"><div class="food-name">🥗 Tatu</div><div class="food-meta"><span class="stars">★★★★☆</span> 4.6</div></div>
+      <div class="food-price">€€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">15</div>
+      <div class="food-info"><div class="food-name">🌴 Palm Beach Restaurant</div><div class="food-meta"><span class="stars">★★★★☆</span> 4.5</div></div>
+      <div class="food-price">€€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">16</div>
+      <div class="food-info"><div class="food-name">🪸 Coral Reef</div><div class="food-meta"><span class="stars">★★★★★</span> 4.7</div></div>
+      <div class="food-price">€€€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">17</div>
+      <div class="food-info"><div class="food-name">🎣 Fisherman Grill</div><div class="food-meta"><span class="stars">★★★★☆</span> 4.3</div></div>
+      <div class="food-price">€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">18</div>
+      <div class="food-info"><div class="food-name">🌬️ Breeze</div><div class="food-meta"><span class="stars">★★★★★</span> 4.8</div></div>
+      <div class="food-price">€€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">19</div>
+      <div class="food-info"><div class="food-name">⛵ Sails Restaurant</div><div class="food-meta"><span class="stars">★★★★★</span> 4.9</div></div>
+      <div class="food-price">€€€</div>
+    </div>
+    <div class="food-card">
+      <div class="food-num">20</div>
+      <div class="food-info"><div class="food-name">🍽️ Zanzi Food</div><div class="food-meta"><span class="stars">★★★★☆</span> 4.4</div></div>
+      <div class="food-price">€</div>
+    </div>
+  </div>
 
-  <div class="card"><h3>2. Abdi's Place</h3><div class="row"><span>Prezzo</span><b>€</b></div><div class="row"><span>Voto</span><b>⭐ 4.8</b></div><p>Cucina locale autentica.</p></div>
-
-  <div class="card"><h3>3. Leo Bar & Restaurant</h3><div class="row"><span>Prezzo</span><b>€€</b></div><div class="row"><span>Voto</span><b>⭐ 4.9</b></div><p>Tramonti spettacolari.</p></div>
-
-  <div class="card"><h3>4. Sahari Zanzibar</h3><div class="row"><span>Prezzo</span><b>€€</b></div><div class="row"><span>Voto</span><b>⭐ 4.5</b></div><p>Seafood e cocktail.</p></div>
-
-  <div class="card"><h3>5. Usumba Rock</h3><div class="row"><span>Prezzo</span><b>€€</b></div><div class="row"><span>Voto</span><b>⭐ 4.3</b></div><p>Vista oceano.</p></div>
-
-  <div class="card"><h3>6. Mr Kahawa</h3><div class="row"><span>Prezzo</span><b>€€</b></div><div class="row"><span>Voto</span><b>⭐ 4.7</b></div><p>Perfetto per colazione.</p></div>
-
-  <div class="card"><h3>7. Mapacha Food Court</h3><div class="row"><span>Prezzo</span><b>€</b></div><div class="row"><span>Voto</span><b>⭐ 4.6</b></div><p>Street food locale.</p></div>
-
-  <div class="card"><h3>8. African BBQ</h3><div class="row"><span>Prezzo</span><b>€</b></div><div class="row"><span>Voto</span><b>⭐ 4.5</b></div><p>Grigliate swahili.</p></div>
-
-  <div class="card"><h3>9. Paje by Night</h3><div class="row"><span>Prezzo</span><b>€€</b></div><div class="row"><span>Voto</span><b>⭐ 4.4</b></div><p>Atmosfera giovane.</p></div>
-
-  <div class="card"><h3>10. Ocean Restaurant</h3><div class="row"><span>Prezzo</span><b>€€€</b></div><div class="row"><span>Voto</span><b>⭐ 4.8</b></div><p>Cena romantica.</p></div>
-
-  <div class="card"><h3>11. Blue Reef</h3><div class="row"><span>Prezzo</span><b>€€</b></div><div class="row"><span>Voto</span><b>⭐ 4.6</b></div></div>
-
-  <div class="card"><h3>12. Bahari Pizza</h3><div class="row"><span>Prezzo</span><b>€€</b></div><div class="row"><span>Voto</span><b>⭐ 4.5</b></div></div>
-
-  <div class="card"><h3>13. Jambo Restaurant</h3><div class="row"><span>Prezzo</span><b>€</b></div><div class="row"><span>Voto</span><b>⭐ 4.4</b></div></div>
-
-  <div class="card"><h3>14. Tatu</h3><div class="row"><span>Prezzo</span><b>€€</b></div><div class="row"><span>Voto</span><b>⭐ 4.6</b></div></div>
-
-  <div class="card"><h3>15. Palm Beach Restaurant</h3><div class="row"><span>Prezzo</span><b>€€</b></div><div class="row"><span>Voto</span><b>⭐ 4.5</b></div></div>
-
-  <div class="card"><h3>16. Coral Reef</h3><div class="row"><span>Prezzo</span><b>€€€</b></div><div class="row"><span>Voto</span><b>⭐ 4.7</b></div></div>
-
-  <div class="card"><h3>17. Fisherman Grill</h3><div class="row"><span>Prezzo</span><b>€</b></div><div class="row"><span>Voto</span><b>⭐ 4.3</b></div></div>
-
-  <div class="card"><h3>18. Breeze</h3><div class="row"><span>Prezzo</span><b>€€</b></div><div class="row"><span>Voto</span><b>⭐ 4.8</b></div></div>
-
-  <div class="card"><h3>19. Sails Restaurant</h3><div class="row"><span>Prezzo</span><b>€€€</b></div><div class="row"><span>Voto</span><b>⭐ 4.9</b></div></div>
-
-  <div class="card"><h3>20. Zanzi Food</h3><div class="row"><span>Prezzo</span><b>€</b></div><div class="row"><span>Voto</span><b>⭐ 4.4</b></div></div>
+  <div class="card card-blue">
+    <div class="section-title">💡 Consigli Gastronomici</div>
+    <div class="row"><span>🦞 Specialità</span><b>Lobster, Octopus, Pilau</b></div>
+    <div class="row"><span>🥥 Da provare</span><b>Urojo (zuppa misto)</b></div>
+    <div class="row"><span>🍺 Birra locale</span><b>Kilimanjaro / Safari</b></div>
+    <div class="row"><span>☕ Caffè</span><b>Kahawa ya Zanzibar</b></div>
+    <div class="row"><span>🌶️ Piccante</span><b>Avverti sempre il cameriere</b></div>
+    <div class="row"><span>💰 Mancia</span><b>5–10% consigliata</b></div>
+  </div>
 
 </div>
 
-<!-- VALUTA -->
+<!-- ==================== VALUTA ==================== -->
 <div id="currency" class="page">
 
   <div class="card">
-    <h2>💵 Convertitore Euro ⇄ Scellino Tanzaniano</h2>
-    <small>Cambio utilizzato: 1 € = 2.950 TZS</small>
+    <div class="section-title">💵 Convertitore Valuta</div>
+    <div class="section-sub">Euro ⇄ Scellino Tanzaniano (TZS)</div>
   </div>
 
   <div class="card">
-
-    <div class="row">
-      <span>🇪🇺 Euro</span>
-      <input id="eur" type="number" value="100">
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin-bottom:16px;">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">🇪🇺 EURO</div>
+        <input id="eur" type="number" value="100" style="width:100%;text-align:center;font-size:20px;font-weight:800;">
+      </div>
+      <div style="font-size:24px;color:var(--accent);cursor:pointer;" onclick="swapCurrency()">⇄</div>
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">🇹🇿 TZS</div>
+        <input id="tzs" type="number" style="width:100%;text-align:center;font-size:20px;font-weight:800;">
+      </div>
     </div>
+    <div style="text-align:center;font-size:12px;color:var(--muted);">Cambio: 1 € = 2.950 TZS</div>
+  </div>
 
-    <div class="row">
-      <span>🇹🇿 TZS</span>
-      <input id="tzs" type="number">
-    </div>
-
-    <hr style="margin:15px 0;border-color:#233">
-
+  <div class="card">
+    <div class="section-title">📊 Tabella Rapida</div>
+    <div class="row"><span>5 €</span><b>14.750 TZS</b></div>
     <div class="row"><span>10 €</span><b>29.500 TZS</b></div>
     <div class="row"><span>20 €</span><b>59.000 TZS</b></div>
     <div class="row"><span>50 €</span><b>147.500 TZS</b></div>
     <div class="row"><span>100 €</span><b>295.000 TZS</b></div>
     <div class="row"><span>200 €</span><b>590.000 TZS</b></div>
-
+    <div class="row"><span>500 €</span><b>1.475.000 TZS</b></div>
   </div>
 
-  <div class="card">
-    <h2>💳 Consigli Pagamenti</h2>
-
-    <div class="row"><span>Carte</span><b>Visa / Mastercard</b></div>
-    <div class="row"><span>Bancomat</span><b>Solo ATM principali</b></div>
-    <div class="row"><span>Mancia</span><b>5–10 €</b></div>
-    <div class="row"><span>Contanti consigliati</span><b>300 €</b></div>
+  <div class="card card-blue">
+    <div class="section-title">💳 Consigli Pagamenti</div>
+    <div class="row"><span>💳 Carte accettate</span><b>Visa / Mastercard</b></div>
+    <div class="row"><span>🏧 Bancomat</span><b>Solo ATM principali</b></div>
+    <div class="row"><span>💵 Contanti consigliati</span><b>300–400 €</b></div>
+    <div class="row"><span>🤝 Mancia</span><b>5–10 € per servizio</b></div>
+    <div class="row"><span>🛍️ Mercati</span><b>Solo contanti</b></div>
+    <div class="row"><span>🏨 Hotel</span><b>Carta OK</b></div>
+    <div class="row"><span>⚠️ Attenzione</span><b>Banconote nuove preferite</b></div>
   </div>
 
 </div>
 
-<!-- VALIGIA -->
-
+<!-- ==================== VALIGIA ==================== -->
 <div id="bag" class="page">
 
   <div class="card">
-    <h2>🧳 Checklist Valigia</h2>
-    <small>La lista viene salvata automaticamente.</small>
-
-    <div class="progress">
-      <div class="bar" id="bar"></div>
+    <div class="section-title">🧳 Checklist Valigia</div>
+    <div class="section-sub">Salvata automaticamente nel browser</div>
+    <div class="progress"><div class="bar" id="bagBar"></div></div>
+    <div style="display:flex;justify-content:space-between;margin-top:8px;">
+      <span id="bagPercent" style="font-size:13px;color:var(--muted);">0% completato</span>
+      <span id="bagCount" style="font-size:13px;color:var(--accent);">0/0 oggetti</span>
     </div>
-
-    <div id="percent" style="margin-top:8px">0% completato</div>
   </div>
 
   <div class="card">
+    <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">📋 Documenti</div>
+    <label class="check" id="lbl1"><input type="checkbox" data-id="1"><span>🛂 Passaporto (valido 6+ mesi)</span></label>
+    <label class="check" id="lbl2"><input type="checkbox" data-id="2"><span>🪪 Patente di guida</span></label>
+    <label class="check" id="lbl3"><input type="checkbox" data-id="3"><span>🏨 Voucher Hotel ZAN Orient</span></label>
+    <label class="check" id="lbl4"><input type="checkbox" data-id="4"><span>🛡️ Assicurazione viaggio</span></label>
+    <label class="check" id="lbl5"><input type="checkbox" data-id="5"><span>✈️ Biglietti aerei stampati</span></label>
+  </div>
 
-    <label class="check"><input type="checkbox" data-id="1"> Passaporto</label>
-    <label class="check"><input type="checkbox" data-id="2"> Patente</label>
-    <label class="check"><input type="checkbox" data-id="3"> Voucher Hotel</label>
-    <label class="check"><input type="checkbox" data-id="4"> Assicurazione</label>
-    <label class="check"><input type="checkbox" data-id="5"> Costume</label>
-    <label class="check"><input type="checkbox" data-id="6"> Maschera Snorkeling</label>
-    <label class="check"><input type="checkbox" data-id="7"> Scarpette Reef</label>
-    <label class="check"><input type="checkbox" data-id="8"> Crema SPF 50+</label>
-    <label class="check"><input type="checkbox" data-id="9"> Powerbank</label>
-    <label class="check"><input type="checkbox" data-id="10"> Adattatore UK</label>
-    <label class="check"><input type="checkbox" data-id="11"> Farmaci</label>
-    <label class="check"><input type="checkbox" data-id="12"> Contanti</label>
+  <div class="card">
+    <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">🏖️ Mare & Spiaggia</div>
+    <label class="check" id="lbl6"><input type="checkbox" data-id="6"><span>🩱 Costume da bagno (x2)</span></label>
+    <label class="check" id="lbl7"><input type="checkbox" data-id="7"><span>🤿 Maschera snorkeling</span></label>
+    <label class="check" id="lbl8"><input type="checkbox" data-id="8"><span>👟 Scarpette reef</span></label>
+    <label class="check" id="lbl9"><input type="checkbox" data-id="9"><span>🧴 Crema solare SPF 50+</span></label>
+    <label class="check" id="lbl10"><input type="checkbox" data-id="10"><span>🕶️ Occhiali da sole</span></label>
+    <label class="check" id="lbl11"><input type="checkbox" data-id="11"><span>👒 Cappello / Pareo</span></label>
+  </div>
 
+  <div class="card">
+    <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">⚡ Tecnologia</div>
+    <label class="check" id="lbl12"><input type="checkbox" data-id="12"><span>🔋 Powerbank</span></label>
+    <label class="check" id="lbl13"><input type="checkbox" data-id="13"><span>🔌 Adattatore UK (tipo G)</span></label>
+    <label class="check" id="lbl14"><input type="checkbox" data-id="14"><span>📷 Fotocamera / GoPro</span></label>
+    <label class="check" id="lbl15"><input type="checkbox" data-id="15"><span>💾 Schede memoria extra</span></label>
+    <label class="check" id="lbl16"><input type="checkbox" data-id="16"><span>🎧 Cuffie</span></label>
+  </div>
+
+  <div class="card">
+    <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">💊 Salute & Farmaci</div>
+    <label class="check" id="lbl17"><input type="checkbox" data-id="17"><span>💊 Antimalarici (profilassi)</span></label>
+    <label class="check" id="lbl18"><input type="checkbox" data-id="18"><span>🦟 Repellente zanzare DEET</span></label>
+    <label class="check" id="lbl19"><input type="checkbox" data-id="19"><span>🩹 Kit pronto soccorso</span></label>
+    <label class="check" id="lbl20"><input type="checkbox" data-id="20"><span>💊 Farmaci personali</span></label>
+    <label class="check" id="lbl21"><input type="checkbox" data-id="21"><span>🤢 Antidiarroici / Antinausea</span></label>
+  </div>
+
+  <div class="card">
+    <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">💰 Denaro & Altro</div>
+    <label class="check" id="lbl22"><input type="checkbox" data-id="22"><span>💵 Contanti in Euro (300–400 €)</span></label>
+    <label class="check" id="lbl23"><input type="checkbox" data-id="23"><span>💳 Carta di credito</span></label>
+    <label class="check" id="lbl24"><input type="checkbox" data-id="24"><span>🧴 Shampoo / Sapone</span></label>
+    <label class="check" id="lbl25"><input type="checkbox" data-id="25"><span>👕 Vestiti leggeri (cotone)</span></label>
+  </div>
+
+  <div class="card" style="text-align:center;">
+    <button class="save-btn" onclick="resetChecklist()">🔄 Reset Checklist</button>
   </div>
 
 </div>
 
+<!-- ==================== BUDGET ==================== -->
+<div id="budget" class="page">
+
+  <div class="card">
+    <div class="section-title">💰 Budget Intelligente</div>
+    <div class="section-sub">I valori vengono salvati automaticamente</div>
+  </div>
+
+  <div class="card">
+    <div class="row"><span>🚗 Noleggio Auto (7 gg)</span><input id="car" type="number" value="245"></div>
+    <div class="row"><span>⛽ Carburante</span><input id="fuel" type="number" value="55"></div>
+    <div class="row"><span>🍽️ The Rock Restaurant</span><input id="rock" type="number" value="110"></div>
+    <div class="row"><span>🤿 Escursioni (delfini, tartarughe)</span><input id="tour" type="number" value="320"></div>
+    <div class="row"><span>🦁 Cheetah's Rock</span><input id="cheetah" type="number" value="80"></div>
+    <div class="row"><span>🥥 Cibo & Ristoranti</span><input id="foodBudget" type="number" value="280"></div>
+    <div class="row"><span>🛍️ Shopping & Souvenir</span><input id="shop" type="number" value="120"></div>
+    <div class="row"><span>🌿 Spice Farm & Ingressi</span><input id="entries" type="number" value="60"></div>
+    <div class="row"><span>💊 Farmaci & Varie</span><input id="misc" type="number" value="50"></div>
+  </div>
+
+  <div class="card card-teal">
+    <div class="section-title">💰 Totale Vacanza</div>
+    <div style="font-size:48px;font-weight:900;margin:10px 0;" id="tot">€ 0</div>
+    <div class="progress"><div class="bar" id="budgetBar"></div></div>
+    <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:13px;">
+      <span id="budgetPct" style="color:rgba(255,255,255,.8);">0% del budget</span>
+      <span style="color:rgba(255,255,255,.7);">Budget: 1.800 €</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">📊 Ripartizione Spese</div>
+    <div id="budgetBreakdown"></div>
+  </div>
+
+</div>
+
+<!-- ==================== NOTE ==================== -->
+<div id="notes" class="page">
+
+  <div class="card">
+    <div class="section-title">📝 Le Mie Note</div>
+    <div class="section-sub">Salvate automaticamente nel browser</div>
+  </div>
+
+  <div class="card">
+    <div style="font-size:13px;color:var(--muted);margin-bottom:8px;">📌 Note generali</div>
+    <textarea id="note1" placeholder="Scrivi qui le tue note per il viaggio..."></textarea>
+    <button class="save-btn" onclick="saveNote('note1')">💾 Salva</button>
+  </div>
+
+  <div class="card">
+    <div style="font-size:13px;color:var(--muted);margin-bottom:8px;">🍽️ Ristoranti da provare</div>
+    <textarea id="note2" placeholder="Ristoranti, piatti da ordinare, consigli..."></textarea>
+    <button class="save-btn" onclick="saveNote('note2')">💾 Salva</button>
+  </div>
+
+  <div class="card">
+    <div style="font-size:13px;color:var(--muted);margin-bottom:8px;">📸 Foto da fare</div>
+    <textarea id="note3" placeholder="Luoghi, angolazioni, momenti da immortalare..."></textarea>
+    <button class="save-btn" onclick="saveNote('note3')">💾 Salva</button>
+  </div>
+
+  <div class="card">
+    <div style="font-size:13px;color:var(--muted);margin-bottom:8px;">🛍️ Shopping list</div>
+    <textarea id="note4" placeholder="Souvenir, spezie, tessuti da comprare..."></textarea>
+    <button class="save-btn" onclick="saveNote('note4')">💾 Salva</button>
+  </div>
+
+  <div class="card card-blue">
+    <div class="section-title">📞 Numeri Utili</div>
+    <div class="row"><span>🏨 Hotel ZAN Orient</span><b>+255 777 123 456</b></div>
+    <div class="row"><span>🚗 Noleggio auto</span><b>Salva il numero</b></div>
+    <div class="row"><span>🏥 Emergenza medica</span><b>+255 24 223 0114</b></div>
+    <div class="row"><span>🚔 Polizia</span><b>112</b></div>
+    <div class="row"><span>🇮🇹 Ambasciata italiana</span><b>+255 22 211 5935</b></div>
+    <div class="row"><span>✈️ Aeroporto Zanzibar</span><b>+255 24 223 0213</b></div>
+  </div>
+
+</div>
+
+</div><!-- /wrap -->
+
 <script>
+/* ============================================================
+   ZANZIBAR ULTRA PRO v4.0 – FIXED & ENHANCED
+   Bug fix principale: rimosso il doppio `const checks` e
+   `function updateChecks` che causava SyntaxError bloccando
+   tutto il JavaScript (tabs, countdown, ecc.)
+   ============================================================ */
 
-/* ===== CONVERTITORE ===== */
-
-const RATE = 2950;
-
-const eur = document.getElementById("eur");
-const tzs = document.getElementById("tzs");
-
-if(eur && tzs){
-
-  eur.oninput = ()=>{
-    tzs.value = Math.round(eur.value * RATE);
-  };
-
-  tzs.oninput = ()=>{
-    eur.value = (tzs.value / RATE).toFixed(2);
-  };
-
-  eur.oninput();
-
-}
-
-/* ===== CHECKLIST ===== */
-
-const checks = document.querySelectorAll("[data-id]");
-
-function updateChecks(){
-
-  let done = 0;
-
-  checks.forEach(c=>{
-
-    const saved = localStorage.getItem("bag_"+c.dataset.id)==="1";
-
-    c.checked = saved;
-
-    if(saved) done++;
-
-  });
-
-  const pct = Math.round(done / checks.length * 100);
-
-  document.getElementById("bar").style.width = pct + "%";
-  document.getElementById("percent").innerHTML = pct + "% completato";
-
-}
-
-checks.forEach(c=>{
-
-  c.onchange = ()=>{
-
-    localStorage.setItem(
-      "bag_"+c.dataset.id,
-      c.checked ? "1" : "0"
-    );
-
-    updateChecks();
-
-  };
-
-});
-
-updateChecks();
-/* =====================================================
-   ZANZIBAR ULTRA PRO v3.0
-===================================================== */
-
-/* ---------- CAMBIO PAGINE ---------- */
-
+/* ===== NAVIGAZIONE PAGINE ===== */
 let leafletMap = null;
 let mapReady = false;
 
-function show(id, btn){
-
-  document.querySelectorAll(".page").forEach(p=>{
-    p.classList.remove("active");
-  });
-
-  document.getElementById(id).classList.add("active");
-
-  document.querySelectorAll(".tabs button").forEach(b=>{
-    b.classList.remove("active");
-  });
-
-  btn.classList.add("active");
-
-  if(id==="maps"){
-    setTimeout(initMap,150);
-  }
-
+function show(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (id === 'maps') setTimeout(initMap, 200);
 }
 
-/* ---------- COUNTDOWN ---------- */
+/* ===== COUNTDOWN (aggiornato ogni secondo, con secondi) ===== */
+const departure = new Date('2026-08-31T08:00:00');
 
-const departure = new Date("2026-08-31T08:00:00");
+function pad(n) { return String(n).padStart(2, '0'); }
 
-function updateCountdown(){
-
+function updateCountdown() {
   const now = new Date();
-  const diff = departure-now;
+  const diff = departure - now;
 
-  if(diff<=0){
-    document.getElementById("countdown").innerHTML="✈️ SI PARTE!";
+  if (diff <= 0) {
+    const msg = '✈️ SI PARTE! Buon viaggio!';
+    document.getElementById('cdDays').textContent = '00';
+    document.getElementById('cdHours').textContent = '00';
+    document.getElementById('cdMins').textContent = '00';
+    document.getElementById('cdSecs').textContent = '00';
+    document.getElementById('cdMessage').textContent = '🌴 Sei a Zanzibar!';
+    document.getElementById('headerCountdown').textContent = '✈️ SI PARTE!';
     return;
   }
 
-  const days = Math.floor(diff/86400000);
-  const hours = Math.floor((diff%86400000)/3600000);
-  const mins = Math.floor((diff%3600000)/60000);
+  const days  = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins  = Math.floor((diff % 3600000) / 60000);
+  const secs  = Math.floor((diff % 60000) / 1000);
 
-  document.getElementById("countdown").innerHTML =
-    `${days} giorni ${hours}h ${mins}m`;
+  document.getElementById('cdDays').textContent  = pad(days);
+  document.getElementById('cdHours').textContent = pad(hours);
+  document.getElementById('cdMins').textContent  = pad(mins);
+  document.getElementById('cdSecs').textContent  = pad(secs);
 
+  // Header mini-countdown
+  document.getElementById('headerCountdown').textContent =
+    `${days}g ${pad(hours)}h ${pad(mins)}m ${pad(secs)}s`;
+
+  // Messaggio motivazionale
+  const msgs = [
+    '🌴 Mancano solo ' + days + ' giorni!',
+    '🤿 Presto snorkeling nel Pacifico!',
+    '☀️ Il sole di Zanzibar ti aspetta!',
+    '🐬 I delfini ti stanno aspettando!',
+  ];
+  document.getElementById('cdMessage').textContent = msgs[days % msgs.length];
 }
 
 updateCountdown();
-setInterval(updateCountdown,60000);
+setInterval(updateCountdown, 1000); // ogni secondo!
 
-/* ---------- METEO LIVE ---------- */
+/* ===== METEO LIVE (Open-Meteo API) ===== */
+const LAT = -6.24, LON = 39.53;
 
-async function updateWeather(){
+const weatherIcons = {
+  0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️',
+  45:'🌫️', 48:'🌫️',
+  51:'🌦️', 53:'🌦️', 55:'🌧️',
+  61:'🌧️', 63:'🌧️', 65:'🌧️',
+  80:'🌦️', 81:'🌧️', 82:'⛈️',
+  95:'⛈️', 96:'⛈️', 99:'⛈️'
+};
 
-  const lat=-6.24;
-  const lon=39.53;
+const windDirs = ['N','NE','E','SE','S','SO','O','NO'];
 
-  try{
+function degToDir(deg) {
+  return windDirs[Math.round(deg / 45) % 8];
+}
 
+async function updateWeather() {
+  try {
     const r = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,precipitation`
+      `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}` +
+      `&current=temperature_2m,wind_speed_10m,wind_direction_10m,precipitation,weather_code` +
+      `&timezone=Africa%2FDar_es_Salaam`
     );
-
     const j = await r.json();
+    const c = j.current;
 
-    document.getElementById("airTemp").innerHTML =
-      j.current.temperature_2m+"°C";
+    document.getElementById('airTemp').textContent = Math.round(c.temperature_2m) + '°C';
+    document.getElementById('windNow').textContent = Math.round(c.wind_speed_10m) + ' km/h';
+    document.getElementById('rainNow').textContent = (c.precipitation ?? 0) + ' mm';
+    document.getElementById('windDir').textContent = degToDir(c.wind_direction_10m || 0);
+    document.getElementById('weatherIcon').textContent = weatherIcons[c.weather_code] || '🌤️';
 
-    document.getElementById("windNow").innerHTML =
-      Math.round(j.current.wind_speed_10m)+" km/h";
-
-    document.getElementById("rainNow").innerHTML =
-      (j.current.precipitation ?? 0)+"%";
-
-  }catch(e){
-    console.log(e);
+    const now = new Date();
+    document.getElementById('weatherTime').textContent =
+      'Aggiornato: ' + now.toLocaleTimeString('it-IT', {hour:'2-digit', minute:'2-digit'});
+  } catch(e) {
+    document.getElementById('weatherTime').textContent = 'Meteo non disponibile';
   }
 
-  try{
-
+  try {
     const r = await fetch(
-      `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&current=sea_surface_temperature`
+      `https://marine-api.open-meteo.com/v1/marine?latitude=${LAT}&longitude=${LON}` +
+      `&current=sea_surface_temperature,wave_height`
     );
-
     const j = await r.json();
-
-    document.getElementById("seaTemp").innerHTML =
-      (j.current.sea_surface_temperature ?? 27)+"°C";
-
-  }catch(e){
-    console.log(e);
+    document.getElementById('seaTemp').textContent = Math.round(j.current.sea_surface_temperature ?? 27) + '°C';
+    document.getElementById('waveHeight').textContent = (j.current.wave_height ?? 0.3).toFixed(1) + ' m';
+  } catch(e) {
+    document.getElementById('seaTemp').textContent = '27°C';
+    document.getElementById('waveHeight').textContent = '0.3 m';
   }
-
 }
 
 updateWeather();
+setInterval(updateWeather, 600000); // ogni 10 minuti
 
-/* ---------- GALLERIA HD ---------- */
-
+/* ===== GALLERIA ===== */
 const gallery = [
-
-{
-title:"The Rock Restaurant",
-desc:"Il ristorante più famoso costruito direttamente sul mare.",
-img:"https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=80"
-},
-
-{
-title:"Blue Lagoon",
-desc:"Acqua cristallina e snorkeling eccezionale.",
-img:"https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80"
-},
-
-{
-title:"Bwejuu Beach",
-desc:"La spiaggia davanti al tuo hotel.",
-img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
-},
-
-{
-title:"Stone Town",
-desc:"Centro storico patrimonio UNESCO.",
-img:"https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80"
-}
-
+  {
+    title: 'The Rock Restaurant',
+    desc: 'Il ristorante più iconico di Zanzibar, costruito direttamente sullo scoglio nell\'oceano.',
+    img: 'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=80'
+  },
+  {
+    title: 'Blue Lagoon – Snorkeling',
+    desc: 'Acqua cristallina, pesci tropicali e coralli colorati. Snorkeling eccezionale.',
+    img: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80'
+  },
+  {
+    title: 'Bwejuu Beach',
+    desc: 'La spiaggia davanti al tuo hotel. Sabbia bianca e oceano turchese.',
+    img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80'
+  },
+  {
+    title: 'Stone Town – UNESCO',
+    desc: 'Centro storico patrimonio UNESCO. Architettura araba, swahili e coloniale.',
+    img: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80'
+  },
+  {
+    title: 'Tramonto sull\'Oceano Indiano',
+    desc: 'I tramonti di Zanzibar sono tra i più belli del mondo. Michamvi è il posto perfetto.',
+    img: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80'
+  },
+  {
+    title: 'Paje Beach – Kitesurf',
+    desc: 'Spiaggia bianchissima e vento costante. Paradiso del kitesurf.',
+    img: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80'
+  }
 ];
 
-let photoIndex=0;
+let photoIndex = 0;
 
-function renderGallery(){
-
-  document.getElementById("galleryImg").src =
-    gallery[photoIndex].img;
-
-  document.getElementById("galleryTitle").innerHTML =
-    gallery[photoIndex].title;
-
-  document.getElementById("galleryDesc").innerHTML =
-    gallery[photoIndex].desc;
-
+function buildDots() {
+  const dotsEl = document.getElementById('galleryDots');
+  dotsEl.innerHTML = '';
+  gallery.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => { photoIndex = i; renderGallery(); };
+    dotsEl.appendChild(d);
+  });
 }
 
-function changeHome(step){
+function renderGallery() {
+  document.getElementById('galleryImg').src = gallery[photoIndex].img;
+  document.getElementById('galleryTitle').textContent = gallery[photoIndex].title;
+  document.getElementById('galleryDesc').textContent = gallery[photoIndex].desc;
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('active', i === photoIndex);
+  });
+}
 
-  photoIndex =
-    (photoIndex + step + gallery.length) % gallery.length;
-
+function changeGallery(step) {
+  photoIndex = (photoIndex + step + gallery.length) % gallery.length;
   renderGallery();
-
 }
 
+buildDots();
 renderGallery();
 
-/* ---------- LEAFLET 15 MARKER ---------- */
+// Auto-avanzamento galleria ogni 5 secondi
+setInterval(() => changeGallery(1), 5000);
 
-const markers=[
-
-["🏨 ZAN Orient",-6.085,39.532],
-["🍽️ The Rock",-6.149,39.533],
-["🤿 Blue Lagoon",-6.134,39.557],
-["⭐ Starfish Beach",-6.140,39.560],
-["🐢 Salaam Cave",-6.450,39.460],
-["🐬 Kizimkazi",-6.451,39.455],
-["🦁 Cheetah's Rock",-6.080,39.210],
-["🌿 Spice Farm",-6.180,39.310],
-["🌳 Jozani Forest",-6.250,39.410],
-["🏛️ Stone Town",-6.165,39.202],
-["🕌 Old Fort",-6.162,39.188],
-["🌙 Forodhani Gardens",-6.161,39.188],
-["🛍️ Darajani Market",-6.162,39.196],
-["🏖️ Paje Beach",-6.266,39.534],
-["🌅 Michamvi Sunset",-6.120,39.490]
-
+/* ===== MAPPA LEAFLET ===== */
+const mapMarkers = [
+  { name: '🏨 ZAN Orient (Hotel)', lat: -6.085, lon: 39.532, color: '#22d3ee' },
+  { name: '🍽️ The Rock Restaurant', lat: -6.149, lon: 39.533, color: '#f59e0b' },
+  { name: '🤿 Blue Lagoon', lat: -6.134, lon: 39.557, color: '#0ea5e9' },
+  { name: '⭐ Starfish Beach', lat: -6.140, lon: 39.560, color: '#0ea5e9' },
+  { name: '🐢 Salaam Cave', lat: -6.450, lon: 39.460, color: '#10b981' },
+  { name: '🐬 Kizimkazi Dolphins', lat: -6.451, lon: 39.455, color: '#10b981' },
+  { name: '🦁 Cheetah\'s Rock', lat: -6.080, lon: 39.210, color: '#ef4444' },
+  { name: '🌿 Spice Farm', lat: -6.180, lon: 39.310, color: '#10b981' },
+  { name: '🌳 Jozani Forest', lat: -6.250, lon: 39.410, color: '#10b981' },
+  { name: '🏛️ Stone Town', lat: -6.165, lon: 39.202, color: '#f59e0b' },
+  { name: '🕌 Old Fort', lat: -6.162, lon: 39.188, color: '#f59e0b' },
+  { name: '🌙 Forodhani Gardens', lat: -6.161, lon: 39.188, color: '#f59e0b' },
+  { name: '🛍️ Darajani Market', lat: -6.162, lon: 39.196, color: '#f59e0b' },
+  { name: '🏖️ Paje Beach', lat: -6.266, lon: 39.534, color: '#0ea5e9' },
+  { name: '🌅 Michamvi Sunset', lat: -6.120, lon: 39.490, color: '#f59e0b' }
 ];
 
-function initMap(){
+function initMap() {
+  if (mapReady) return;
+  mapReady = true;
 
-  if(mapReady) return;
+  leafletMap = L.map('leafletMap').setView([-6.17, 39.35], 10);
 
-  mapReady=true;
+  L.tileLayer('https://upload.wikimedia.org/wikipedia/commons/0/03/Tiled_web_map_Stevage.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original', {
+    attribution: '© OpenStreetMap contributors',
+    maxZoom: 18
+  }).addTo(leafletMap);
 
-  leafletMap = L.map("leafletMap").setView(
-    [-6.17,39.35],
-    10
-  );
-
-  L.tileLayer(
-    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    {
-      attribution:"© OpenStreetMap"
-    }
-  ).addTo(leafletMap);
-
-  markers.forEach(m=>{
-
-    L.marker([m[1],m[2]])
+  mapMarkers.forEach(m => {
+    const icon = L.divIcon({
+      html: `<div style="background:${m.color};width:12px;height:12px;border-radius:50%;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,.4)"></div>`,
+      className: '',
+      iconSize: [12, 12],
+      iconAnchor: [6, 6]
+    });
+    L.marker([m.lat, m.lon], { icon })
       .addTo(leafletMap)
-      .bindPopup(`<b>${m[0]}</b>`);
-
+      .bindPopup(`<b style="font-size:14px">${m.name}</b>`);
   });
-
 }
 
-/* ---------- BUDGET AUTOMATICO ---------- */
-
-const budgetIds=[
-"car",
-"fuel",
-"rock",
-"tour",
-"foodBudget",
-"shop"
+/* ===== BUDGET ===== */
+const budgetItems = [
+  { id: 'car',       label: '🚗 Noleggio Auto' },
+  { id: 'fuel',      label: '⛽ Carburante' },
+  { id: 'rock',      label: '🍽️ The Rock' },
+  { id: 'tour',      label: '🤿 Escursioni' },
+  { id: 'cheetah',   label: '🦁 Cheetah\'s Rock' },
+  { id: 'foodBudget',label: '🥥 Cibo' },
+  { id: 'shop',      label: '🛍️ Shopping' },
+  { id: 'entries',   label: '🌿 Ingressi' },
+  { id: 'misc',      label: '💊 Varie' }
 ];
 
-function calcBudget(){
+const BUDGET_MAX = 1800;
 
-  let total=0;
+function calcBudget() {
+  let total = 0;
+  const breakdown = [];
 
-  budgetIds.forEach(id=>{
-
-    const el=document.getElementById(id);
-
-    if(!el) return;
-
-    total += Number(el.value||0);
-
-    localStorage.setItem("zb_"+id,el.value);
-
+  budgetItems.forEach(item => {
+    const el = document.getElementById(item.id);
+    if (!el) return;
+    const val = Number(el.value) || 0;
+    total += val;
+    localStorage.setItem('zb_' + item.id, el.value);
+    if (val > 0) breakdown.push({ label: item.label, val });
   });
 
-  if(document.getElementById("tot"))
-    document.getElementById("tot").innerHTML="€ "+total;
+  document.getElementById('tot').textContent = '€ ' + total.toLocaleString('it-IT');
 
-  if(document.getElementById("budgetBar")){
+  const pct = Math.min(100, (total / BUDGET_MAX) * 100);
+  document.getElementById('budgetBar').style.width = pct + '%';
+  document.getElementById('budgetBar').style.background =
+    pct > 90 ? 'linear-gradient(90deg,#ef4444,#f97316)' :
+    pct > 70 ? 'linear-gradient(90deg,#f59e0b,#fbbf24)' :
+    'linear-gradient(90deg,#22d3ee,#38bdf8)';
+  document.getElementById('budgetPct').textContent =
+    Math.round(pct) + '% del budget · Rimanente: € ' + Math.max(0, BUDGET_MAX - total).toLocaleString('it-IT');
 
-    const pct=Math.min(100,total/1500*100);
-
-    document.getElementById("budgetBar").style.width=pct+"%";
-
-  }
-
+  // Breakdown
+  const bd = document.getElementById('budgetBreakdown');
+  bd.innerHTML = breakdown.map(b => {
+    const p = Math.round((b.val / total) * 100) || 0;
+    return `<div class="row"><span>${b.label}</span><b>€ ${b.val} <small style="color:var(--muted)">(${p}%)</small></b></div>`;
+  }).join('');
 }
 
-budgetIds.forEach(id=>{
-
-  const el=document.getElementById(id);
-
-  if(!el) return;
-
-  const saved=localStorage.getItem("zb_"+id);
-
-  if(saved) el.value=saved;
-
-  el.addEventListener("input",calcBudget);
-
+budgetItems.forEach(item => {
+  const el = document.getElementById(item.id);
+  if (!el) return;
+  const saved = localStorage.getItem('zb_' + item.id);
+  if (saved !== null) el.value = saved;
+  el.addEventListener('input', calcBudget);
 });
 
 calcBudget();
 
-/* ---------- CHECKLIST ---------- */
+/* ===== CHECKLIST VALIGIA ===== */
+const bagChecks = document.querySelectorAll('[data-id]');
 
-const checks=document.querySelectorAll("[data-id]");
-
-function updateChecks(){
-
-  let done=0;
-
-  checks.forEach(c=>{
-
-    const state=
-      localStorage.getItem("bag_"+c.dataset.id)==="1";
-
-    c.checked=state;
-
-    if(state) done++;
-
+function updateBag() {
+  let done = 0;
+  bagChecks.forEach(c => {
+    const checked = localStorage.getItem('bag_' + c.dataset.id) === '1';
+    c.checked = checked;
+    const lbl = c.closest('label');
+    if (lbl) lbl.classList.toggle('done', checked);
+    if (checked) done++;
   });
-
-  const pct=Math.round(done/checks.length*100);
-
-  document.getElementById("bar").style.width=pct+"%";
-
-  document.getElementById("percent").innerHTML=
-    pct+"% completato";
-
+  const pct = bagChecks.length ? Math.round((done / bagChecks.length) * 100) : 0;
+  document.getElementById('bagBar').style.width = pct + '%';
+  document.getElementById('bagPercent').textContent = pct + '% completato';
+  document.getElementById('bagCount').textContent = done + '/' + bagChecks.length + ' oggetti';
 }
 
-checks.forEach(c=>{
-
-  c.addEventListener("change",()=>{
-
-    localStorage.setItem(
-      "bag_"+c.dataset.id,
-      c.checked ? "1" : "0"
-    );
-
-    updateChecks();
-
+bagChecks.forEach(c => {
+  c.addEventListener('change', () => {
+    localStorage.setItem('bag_' + c.dataset.id, c.checked ? '1' : '0');
+    updateBag();
   });
-
 });
 
-updateChecks();
+function resetChecklist() {
+  if (!confirm('Vuoi resettare tutta la checklist?')) return;
+  bagChecks.forEach(c => {
+    localStorage.removeItem('bag_' + c.dataset.id);
+    c.checked = false;
+  });
+  updateBag();
+}
 
+updateBag();
+
+/* ===== CONVERTITORE VALUTA ===== */
+const RATE = 2950;
+const eurEl = document.getElementById('eur');
+const tzsEl = document.getElementById('tzs');
+
+if (eurEl && tzsEl) {
+  eurEl.addEventListener('input', () => {
+    tzsEl.value = Math.round(eurEl.value * RATE).toLocaleString('it-IT');
+  });
+  tzsEl.addEventListener('input', () => {
+    eurEl.value = (parseFloat(tzsEl.value.replace(/\./g,'').replace(',','.')) / RATE).toFixed(2);
+  });
+  eurEl.dispatchEvent(new Event('input'));
+}
+
+function swapCurrency() {
+  const e = eurEl.value;
+  const t = tzsEl.value;
+  eurEl.value = (parseFloat(t.replace(/\./g,'').replace(',','.')) / RATE).toFixed(2);
+  tzsEl.value = Math.round(e * RATE).toLocaleString('it-IT');
+}
+
+/* ===== NOTE ===== */
+['note1','note2','note3','note4'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const saved = localStorage.getItem('zb_' + id);
+  if (saved) el.value = saved;
+});
+
+function saveNote(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  localStorage.setItem('zb_' + id, el.value);
+  const btn = el.nextElementSibling;
+  const orig = btn.textContent;
+  btn.textContent = '✅ Salvato!';
+  setTimeout(() => btn.textContent = orig, 1500);
+}
 </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"f0f03d0605bf45f1a3b17cf7d5e6861f"}' crossorigin="anonymous"></script>
 </body>
 </html>

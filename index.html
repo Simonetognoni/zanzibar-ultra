@@ -351,6 +351,31 @@ input[type=number]:focus{outline:none;border-color:var(--accent);}
   .header-left h1{font-size:18px;}
 }
 
+/* ==== CONFIRM TOGGLE ==== */
+.confirm-toggle-wrap{
+  display:flex;align-items:center;gap:6px;margin-top:10px;flex-wrap:wrap;
+}
+.confirm-label{
+  font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;
+  letter-spacing:.4px;margin-right:2px;
+}
+.cbtn{
+  padding:5px 14px;border-radius:20px;
+  border:1px solid rgba(255,255,255,.15);
+  font-size:12px;font-weight:700;cursor:pointer;
+  background:rgba(255,255,255,.06);color:var(--muted);
+  transition:.2s;white-space:nowrap;
+}
+.cbtn:hover{background:rgba(255,255,255,.14);}
+.cbtn-yes-active{
+  background:linear-gradient(135deg,#059669,#10b981)!important;
+  border-color:#10b981!important;color:white!important;
+}
+.cbtn-no-active{
+  background:rgba(239,68,68,.2)!important;
+  border-color:#ef4444!important;color:#fca5a5!important;
+}
+
 /* ==== SCROLLBAR ==== */
 ::-webkit-scrollbar{width:6px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
@@ -530,41 +555,16 @@ textarea:focus{outline:none;border-color:var(--accent);}
     <div id="smartConditions" style="margin-top:12px;padding:8px 10px;background:rgba(0,0,0,.2);border-radius:10px;font-size:12px;color:rgba(255,255,255,.65);display:flex;gap:12px;flex-wrap:wrap;"></div>
   </div>
 
-  <!-- PRENOTAZIONI -->
+  <!-- PRENOTAZIONI DINAMICHE -->
   <div class="card">
     <div class="section-title">🎯 Prenotazioni Confermate</div>
-    <div class="section-sub">4 attività prenotate</div>
-    <div class="booking">
-      <div class="booking-icon">🍽️</div>
-      <div class="booking-info">
-        <div class="booking-name">The Rock Restaurant</div>
-        <div class="booking-date">4 Settembre • 12:00</div>
-      </div>
-      <div class="booking-status">✓ Conf.</div>
-    </div>
-    <div class="booking">
-      <div class="booking-icon">🐬</div>
-      <div class="booking-info">
-        <div class="booking-name">Kizimkazi Dolphins</div>
-        <div class="booking-date">5 Settembre • 06:00</div>
-      </div>
-      <div class="booking-status">✓ Conf.</div>
-    </div>
-    <div class="booking">
-      <div class="booking-icon">🐢</div>
-      <div class="booking-info">
-        <div class="booking-name">Salaam Cave – Tartarughe</div>
-        <div class="booking-date">5 Settembre • 09:30</div>
-      </div>
-      <div class="booking-status">✓ Conf.</div>
-    </div>
-    <div class="booking">
-      <div class="booking-icon">🦁</div>
-      <div class="booking-info">
-        <div class="booking-name">Cheetah's Rock</div>
-        <div class="booking-date">6 Settembre • 09:00</div>
-      </div>
-      <div class="booking-status">✓ Conf.</div>
+    <div class="section-sub" id="bookingCount">Caricamento...</div>
+    <div id="homeBookings"></div>
+    <div id="homeBookingsEmpty" style="display:none;text-align:center;
+         color:var(--muted);padding:18px 0;font-size:14px;line-height:1.7;">
+      Nessuna attività confermata.<br>
+      <small>Vai in <b style="color:var(--accent)">📍 Luoghi</b> o <b style="color:var(--accent)">🍽️ Ristoranti</b><br>
+      e premi <b>✅ Sì</b> per aggiungere qui.</small>
     </div>
   </div>
 
@@ -1844,6 +1844,180 @@ function saveNote(id) {
 }
 
 /* ============================================================
+   🎯 SISTEMA CONFERME SÌ / NO
+   Funziona su Luoghi e Ristoranti → sincronizza Home
+   ============================================================ */
+
+// Nomi confermati di default alla prima visita
+const BOOKING_DEFAULTS = [
+  'The Rock Restaurant',
+  'Kizimkazi – Delfini',
+  'Salaam Cave – Tartarughe',
+  "Cheetah's Rock"
+];
+
+// Date etichette per i posti con prenotazione nota
+const BOOKING_DATES = {
+  'The Rock Restaurant':     '4 Set • 12:00',
+  'Kizimkazi – Delfini':     '5 Set • 06:00',
+  'Salaam Cave – Tartarughe':'5 Set • 09:30',
+  "Cheetah's Rock":           '6 Set • 09:00',
+};
+
+// Registro globale: cleanName → { icon, date }
+const CONFIRM_REGISTRY = {};
+
+// Genera chiave localStorage da nome pulito
+function cKey(name) {
+  return 'confirm_' + name.toLowerCase()
+    .replace(/[^a-z0-9]/g, '_').replace(/_+/g, '_').substring(0, 28);
+}
+
+// Ritorna true se l'item è confermato
+function cGet(name) {
+  const stored = localStorage.getItem(cKey(name));
+  if (stored !== null) return stored === '1';
+  // Prima visita: usa i default
+  return BOOKING_DEFAULTS.some(d =>
+    name === d || name.includes(d) || d.includes(name));
+}
+
+// Imposta la conferma e aggiorna UI + Home
+function cSet(name, val) {
+  localStorage.setItem(cKey(name), val ? '1' : '0');
+  // Aggiorna tutti i toggle con questo nome (potrebbe stare su Luoghi E Ristoranti)
+  document.querySelectorAll('.confirm-toggle-wrap').forEach(wrap => {
+    if (wrap.dataset.confirmName === name) {
+      refreshToggleUI(wrap, val);
+    }
+  });
+  renderHomeBookings();
+}
+
+// Aggiorna aspetto visivo dei due bottoni
+function refreshToggleUI(wrap, isYes) {
+  const yBtn = wrap.querySelector('.cbtn-yes');
+  const nBtn = wrap.querySelector('.cbtn-no');
+  if (yBtn) yBtn.classList.toggle('cbtn-yes-active', isYes === true);
+  if (nBtn) nBtn.classList.toggle('cbtn-no-active',  isYes === false);
+}
+
+// Rimuove emoji iniziali dal testo (usato per food-cards)
+function stripLeadingEmoji(s) {
+  return s.trim().replace(/^[^\p{L}\p{N}]+/u, '').trim() || s.trim();
+}
+
+// Inietta il toggle in un contenitore
+function injectConfirmToggle(container, name, icon) {
+  // Registra nel dizionario globale (primo arrivo vince)
+  if (!CONFIRM_REGISTRY[name]) {
+    CONFIRM_REGISTRY[name] = {
+      icon: icon,
+      date: BOOKING_DATES[name] || ''
+    };
+  }
+
+  const isYes = cGet(name);
+  const wrap = document.createElement('div');
+  wrap.className = 'confirm-toggle-wrap';
+  wrap.dataset.confirmName = name;
+
+  const label = document.createElement('span');
+  label.className = 'confirm-label';
+  label.textContent = 'Confermato?';
+
+  const yBtn = document.createElement('button');
+  yBtn.className = 'cbtn cbtn-yes' + (isYes ? ' cbtn-yes-active' : '');
+  yBtn.textContent = '✅ Sì';
+  yBtn.addEventListener('click', () => cSet(name, true));
+
+  // "No" attivo solo se esplicitamente salvato come No
+  const storedVal = localStorage.getItem(cKey(name));
+  const nBtn = document.createElement('button');
+  nBtn.className = 'cbtn cbtn-no' + (storedVal === '0' ? ' cbtn-no-active' : '');
+  nBtn.textContent = '❌ No';
+  nBtn.addEventListener('click', () => cSet(name, false));
+
+  wrap.appendChild(label);
+  wrap.appendChild(yBtn);
+  wrap.appendChild(nBtn);
+  container.appendChild(wrap);
+}
+
+// Renderizza la sezione prenotazioni in Home
+function renderHomeBookings() {
+  const listEl   = document.getElementById('homeBookings');
+  const countEl  = document.getElementById('bookingCount');
+  const emptyEl  = document.getElementById('homeBookingsEmpty');
+  if (!listEl) return;
+
+  // Raccogli confermati (deduplicati per nome)
+  const confirmed = Object.keys(CONFIRM_REGISTRY)
+    .filter(name => cGet(name))
+    .map(name => ({ name, ...CONFIRM_REGISTRY[name] }));
+
+  if (countEl) {
+    countEl.textContent = confirmed.length > 0
+      ? confirmed.length + ' attività confermate'
+      : 'Nessuna attività confermata';
+  }
+
+  if (confirmed.length === 0) {
+    listEl.innerHTML = '';
+    if (emptyEl) emptyEl.style.display = 'block';
+    return;
+  }
+  if (emptyEl) emptyEl.style.display = 'none';
+
+  listEl.innerHTML = confirmed.map(item => `
+    <div class="booking">
+      <div class="booking-icon">${item.icon}</div>
+      <div class="booking-info">
+        <div class="booking-name">${item.name}</div>
+        <div class="booking-date">${item.date || 'Data da definire'}</div>
+      </div>
+      <div class="booking-status">✓ Conf.</div>
+    </div>
+  `).join('');
+}
+
+// Avvia il sistema: inietta toggle in Luoghi e Ristoranti
+function initConfirmSystem() {
+
+  // ── LUOGHI ──
+  const placeCards = document.querySelectorAll('#places .place-card');
+  placeCards.forEach((card, idx) => {
+    if (idx === 0) return; // salta ZAN Orient (il tuo hotel)
+    const nameEl = card.querySelector('.place-name');
+    const iconEl = card.querySelector('.place-icon');
+    if (!nameEl) return;
+    const name = nameEl.textContent.trim();
+    const icon = iconEl ? iconEl.textContent.trim() : '📍';
+    injectConfirmToggle(card.querySelector('.place-info'), name, icon);
+  });
+
+  // ── RISTORANTI ──
+  const foodCards = document.querySelectorAll('#food .food-card');
+  foodCards.forEach(card => {
+    const nameEl = card.querySelector('.food-name');
+    if (!nameEl) return;
+    // Rimuove emoji iniziale: "🍽️ The Rock Restaurant" → "The Rock Restaurant"
+    const name = stripLeadingEmoji(nameEl.textContent);
+    const foodInfo = card.querySelector('.food-info');
+    // Trova icona dal testo del food-name
+    const emojiMatch = nameEl.textContent.trim().match(/^([\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}]+)/u);
+    const icon = emojiMatch ? emojiMatch[1] : '🍽️';
+    injectConfirmToggle(foodInfo, name, icon);
+  });
+
+  // Renderizza Home con i default
+  renderHomeBookings();
+}
+
+// Avvia dopo che il DOM è pronto
+initConfirmSystem();
+
+/* ============================================================
    ✨ CONSIGLIO SMART DINAMICO
    Logiche: maree/onde → bagno | meteo brutto → cultura |
             imperdibili → must-see | ora giornata → escursioni
@@ -2281,5 +2455,6 @@ async function updateWeather() {
 // Ricalcola ogni 10 minuti (quando il meteo si aggiorna)
 setInterval(updateSmartAdvice, 600000);
 </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"f0f03d0605bf45f1a3b17cf7d5e6861f"}' crossorigin="anonymous"></script>
 </body>
 </html>

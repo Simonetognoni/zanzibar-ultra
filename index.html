@@ -454,6 +454,7 @@ textarea:focus{outline:none;border-color:var(--accent);}
     <button onclick="show('maps',this)">🗺️ Mappa</button>
     <button onclick="show('places',this)">📍 Luoghi</button>
     <button onclick="show('food',this)">🍽️ Ristoranti</button>
+    <button onclick="show('phrase',this)">🗣️ Frasario</button>
     <button onclick="show('currency',this)">💵 Valuta</button>
     <button onclick="show('bag',this)">🧳 Valigia</button>
     <button onclick="show('budget',this)">💰 Budget</button>
@@ -723,152 +724,12 @@ textarea:focus{outline:none;border-color:var(--accent);}
 
 <!-- ==== MAREA ==== -->
 <div id="tide" class="page">
-
   <div class="card">
-    <div class="section-title">🌊 Marea PRO</div>
-    <div class="section-sub">Bwejuu · Pingwe · Michamvi · 1–7 Settembre 2026</div>
+    <div class="section-title">🌊 Marea Live · Dati Reali</div>
+    <div class="section-sub">Costa Est di Zanzibar · 1–7 Settembre 2026 · Bwejuu · Pingwe · Michamvi</div>
+    <div id="tideStatus">⏳ Caricamento dati di marea...</div>
   </div>
-
-  <!-- 1 SET -->
-  <div class="card">
-    <div class="badge badge-green">1 SETTEMBRE · MARTEDÌ</div>
-    <div class="section-title">Arrivo – Prima giornata</div>
-    <div class="row"><span>⬆️ Alta marea</span><b>09:10 · 3.8 m</b></div>
-    <div class="row"><span>⬇️ Bassa marea</span><b>15:35 · 0.3 m</b></div>
-    <div class="tide-bar-wrap">
-      <div class="tide-label"><span>Bassa</span><span>Alta</span></div>
-      <div class="tide-bar"><div class="tide-fill" style="width:80%"></div></div>
-    </div>
-    <div class="row"><span>🌤️ Aria</span><b>28°C</b></div>
-    <div class="row"><span>🌊 Mare</span><b>27°C</b></div>
-    <div class="row"><span>💨 Vento</span><b>12 km/h</b></div>
-    <div class="row"><span>🌊 Onde</span><b>0.4 m</b></div>
-    <div class="row"><span>🏖️ Bagno ideale</span><b>10:00–13:00</b></div>
-    <div class="row"><span>🤿 Snorkeling</span><b class="stars">★★★★</b></div>
-    <div class="row"><span>📸 Foto golden hour</span><b>17:40</b></div>
-    <div class="row"><span>⭐ Spiaggia consigliata</span><b>Blue Lagoon</b></div>
-  </div>
-
-  <!-- 2 SET -->
-  <div class="card">
-    <div class="badge">2 SETTEMBRE · MERCOLEDÌ</div>
-    <div class="section-title">🌿 Spice Farm Day</div>
-    <div class="row"><span>⬆️ Alta marea</span><b>09:55 · 3.6 m</b></div>
-    <div class="row"><span>⬇️ Bassa marea</span><b>16:20 · 0.4 m</b></div>
-    <div class="tide-bar-wrap">
-      <div class="tide-label"><span>Bassa</span><span>Alta</span></div>
-      <div class="tide-bar"><div class="tide-fill" style="width:75%"></div></div>
-    </div>
-    <div class="row"><span>🌤️ Aria</span><b>29°C</b></div>
-    <div class="row"><span>🌊 Mare</span><b>27°C</b></div>
-    <div class="row"><span>💨 Vento</span><b>10 km/h</b></div>
-    <div class="row"><span>🌊 Onde</span><b>0.3 m</b></div>
-    <div class="row"><span>🏖️ Bagno ideale</span><b>10:30–13:30</b></div>
-    <div class="row"><span>🤿 Snorkeling</span><b class="stars">★★★</b></div>
-    <div class="row"><span>📸 Foto golden hour</span><b>17:41</b></div>
-    <div class="row"><span>⭐ Spiaggia consigliata</span><b>Bwejuu</b></div>
-  </div>
-
-  <!-- 3 SET -->
-  <div class="card">
-    <div class="badge badge-gold">3 SETTEMBRE · GIOVEDÌ</div>
-    <div class="section-title">🤿 Blue Lagoon – Snorkeling Day</div>
-    <div class="row"><span>⬆️ Alta marea</span><b>10:40 · 3.5 m</b></div>
-    <div class="row"><span>⬇️ Bassa marea</span><b>17:05 · 0.5 m</b></div>
-    <div class="tide-bar-wrap">
-      <div class="tide-label"><span>Bassa</span><span>Alta</span></div>
-      <div class="tide-bar"><div class="tide-fill" style="width:70%"></div></div>
-    </div>
-    <div class="row"><span>🌤️ Aria</span><b>28°C</b></div>
-    <div class="row"><span>🌊 Mare</span><b>27°C</b></div>
-    <div class="row"><span>💨 Vento</span><b>8 km/h</b></div>
-    <div class="row"><span>🌊 Onde</span><b>0.2 m</b></div>
-    <div class="row"><span>🏖️ Bagno ideale</span><b>11:00–14:00</b></div>
-    <div class="row"><span>🤿 Snorkeling</span><b class="stars">★★★★</b></div>
-    <div class="row"><span>📸 Foto golden hour</span><b>17:42</b></div>
-    <div class="row"><span>⭐ Spiaggia consigliata</span><b>Blue Lagoon</b></div>
-  </div>
-
-  <!-- 4 SET -->
-  <div class="card">
-    <div class="badge badge-gold">4 SETTEMBRE · VENERDÌ</div>
-    <div class="section-title">🍽️ The Rock Day</div>
-    <div class="row"><span>⬆️ Alta marea</span><b>11:25 · 3.3 m</b></div>
-    <div class="row"><span>⬇️ Bassa marea</span><b>17:50 · 0.6 m</b></div>
-    <div class="tide-bar-wrap">
-      <div class="tide-label"><span>Bassa</span><span>Alta</span></div>
-      <div class="tide-bar"><div class="tide-fill" style="width:65%"></div></div>
-    </div>
-    <div class="row"><span>🌤️ Aria</span><b>29°C</b></div>
-    <div class="row"><span>🌊 Mare</span><b>28°C</b></div>
-    <div class="row"><span>💨 Vento</span><b>9 km/h</b></div>
-    <div class="row"><span>🌊 Onde</span><b>0.3 m</b></div>
-    <div class="row"><span>🏖️ Bagno ideale</span><b>11:30–14:30</b></div>
-    <div class="row"><span>🍽️ The Rock</span><b class="stars">★★★★</b></div>
-    <div class="row"><span>📸 Foto golden hour</span><b>18:18</b></div>
-    <div class="row"><span>⭐ Spiaggia consigliata</span><b>Michamvi</b></div>
-  </div>
-
-  <!-- 5 SET -->
-  <div class="card">
-    <div class="badge badge-green">5 SETTEMBRE · SABATO</div>
-    <div class="section-title">🐬 Delfini & 🐢 Tartarughe</div>
-    <div class="row"><span>⬆️ Alta marea</span><b>12:10 · 3.1 m</b></div>
-    <div class="row"><span>⬇️ Bassa marea</span><b>18:35 · 0.7 m</b></div>
-    <div class="tide-bar-wrap">
-      <div class="tide-label"><span>Bassa</span><span>Alta</span></div>
-      <div class="tide-bar"><div class="tide-fill" style="width:60%"></div></div>
-    </div>
-    <div class="row"><span>🌤️ Aria</span><b>28°C</b></div>
-    <div class="row"><span>🌊 Mare</span><b>27°C</b></div>
-    <div class="row"><span>💨 Vento</span><b>9 km/h</b></div>
-    <div class="row"><span>🌊 Onde</span><b>0.3 m</b></div>
-    <div class="row"><span>🏖️ Bagno ideale</span><b>06:00–09:00</b></div>
-    <div class="row"><span>🐬 Snorkeling</span><b class="stars">★★★★</b></div>
-    <div class="row"><span>📸 Foto golden hour</span><b>17:38</b></div>
-    <div class="row"><span>⭐ Spiaggia consigliata</span><b>Kizimkazi</b></div>
-  </div>
-
-  <!-- 6 SET -->
-  <div class="card">
-    <div class="badge">6 SETTEMBRE · DOMENICA</div>
-    <div class="section-title">🦁 Cheetah's Rock & Paje</div>
-    <div class="row"><span>⬆️ Alta marea</span><b>12:55 · 2.9 m</b></div>
-    <div class="row"><span>⬇️ Bassa marea</span><b>19:20 · 0.8 m</b></div>
-    <div class="tide-bar-wrap">
-      <div class="tide-label"><span>Bassa</span><span>Alta</span></div>
-      <div class="tide-bar"><div class="tide-fill" style="width:55%"></div></div>
-    </div>
-    <div class="row"><span>🌤️ Aria</span><b>28°C</b></div>
-    <div class="row"><span>🌊 Mare</span><b>27°C</b></div>
-    <div class="row"><span>💨 Vento</span><b>14 km/h</b></div>
-    <div class="row"><span>🌊 Onde</span><b>0.5 m</b></div>
-    <div class="row"><span>🏖️ Bagno ideale</span><b>13:00–16:00</b></div>
-    <div class="row"><span>🪁 Kitesurf</span><b class="stars">★★★★</b></div>
-    <div class="row"><span>📸 Foto golden hour</span><b>17:36</b></div>
-    <div class="row"><span>⭐ Spiaggia consigliata</span><b>Paje Beach</b></div>
-  </div>
-
-  <!-- 7 SET -->
-  <div class="card">
-    <div class="badge badge-gold">7 SETTEMBRE · LUNEDÌ</div>
-    <div class="section-title">🏛️ Stone Town & Partenza</div>
-    <div class="row"><span>⬆️ Alta marea</span><b>07:48 · 3.9 m</b></div>
-    <div class="row"><span>⬇️ Bassa marea</span><b>14:10 · 0.3 m</b></div>
-    <div class="tide-bar-wrap">
-      <div class="tide-label"><span>Bassa</span><span>Alta</span></div>
-      <div class="tide-bar"><div class="tide-fill" style="width:80%"></div></div>
-    </div>
-    <div class="row"><span>🌤️ Aria</span><b>29°C</b></div>
-    <div class="row"><span>🌊 Mare</span><b>27°C</b></div>
-    <div class="row"><span>💨 Vento</span><b>10 km/h</b></div>
-    <div class="row"><span>🌊 Onde</span><b>0.4 m</b></div>
-    <div class="row"><span>🏖️ Bagno ideale</span><b>Non previsto – Rientro</b></div>
-    <div class="row"><span>🏛️ Stone Town</span><b>08:30</b></div>
-    <div class="row"><span>✈️ Volo di rientro</span><b>17:50</b></div>
-    <div class="row"><span>⭐ Spiaggia consigliata</span><b>Forodhani Gardens</b></div>
-  </div>
-
+  <div id="tideCards"></div>
 </div>
 
 <!-- ==== MAPPA ==== -->
@@ -1493,6 +1354,138 @@ textarea:focus{outline:none;border-color:var(--accent);}
     <div class="row"><span>🚔 Polizia</span><b>112</b></div>
     <div class="row"><span>🇮🇹 Ambasciata italiana</span><b>+255 22 211 5935</b></div>
     <div class="row"><span>✈️ Aeroporto Zanzibar</span><b>+255 24 223 0213</b></div>
+  </div>
+
+</div>
+
+<!-- ==== FRASARIO ==== -->
+<div id="phrase" class="page">
+  <div class="card">
+    <div class="section-title">🗣️ Frasario Italiano ↔ Swahili</div>
+    <div class="section-sub">Frasi più utili per Zanzibar · testo semplice · si pronuncia come si scrive</div>
+    <div class="alert">💡 Nelle zone turistiche l'inglese va, ma con qualche parola di <b>Kiswahili</b> ti fai apprezzare subito. Vocali: a → "ah", e → "eh", i → "ee", o → "oh", u → "oo". Accento di solito sulla penultima sillaba (a-SAN-te).</div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">👋 Saluti & Cortesia</div>
+    <div class="row"><span>Ciao! (ai turisti)</span><b>Jambo!</b></div>
+    <div class="row"><span>Ciao (formale)</span><b>Hujambo? / Hamjambo?</b></div>
+    <div class="row"><span>Come stai? / Novità?</span><b>Habari? / Habari gani?</b></div>
+    <div class="row"><span>Sto bene / Bene</span><b>Sijambo / Nzuri</b></div>
+    <div class="row"><span>Buongiorno</span><b>Habari za asubuhi</b></div>
+    <div class="row"><span>Buon pomeriggio</span><b>Habari za mchana</b></div>
+    <div class="row"><span>Buonasera</span><b>Habari za jioni</b></div>
+    <div class="row"><span>Buonanotte</span><b>Lala salama / Usiku mwema</b></div>
+    <div class="row"><span>Saluto a un anziano (rispettoso)</span><b>Shikamoo → (risposta: Marahaba)</b></div>
+    <div class="row"><span>Come ti chiami?</span><b>Jina lako nani? / Unaitwa nani?</b></div>
+    <div class="row"><span>Mi chiamo ...</span><b>Jina langu ni ... / Ninaitwa ...</b></div>
+    <div class="row"><span>Piacere di conoscerti</span><b>Ninafuraha kukutana nawe</b></div>
+    <div class="row"><span>Di dove sei?</span><b>Unatokea wapi?</b></div>
+    <div class="row"><span>Sono italiano</span><b>Ninatokea Italia</b></div>
+    <div class="row"><span>Sì / No / OK</span><b>Ndiyo / Hapana / Sawa</b></div>
+    <div class="row"><span>Grazie / Grazie mille</span><b>Asante / Asante sana</b></div>
+    <div class="row"><span>Prego / Benvenuto</span><b>Karibu (Karibuni = plurale)</b></div>
+    <div class="row"><span>Per favore</span><b>Tafadhali / Naomba...</b></div>
+    <div class="row"><span>Scusa / Mi dispiace</span><b>Samahani / Pole</b></div>
+    <div class="row"><span>Non capisco</span><b>Sielewi</b></div>
+    <div class="row"><span>Parli inglese?</span><b>Unaongea Kiingereza?</b></div>
+    <div class="row"><span>Parlo un po' di swahili</span><b>Ninasema Kiswahili kidogo</b></div>
+    <div class="row"><span>Puoi ripetere? / Piano piano</span><b>Sema tena? / Pole pole</b></div>
+    <div class="row"><span>Amico</span><b>Rafiki</b></div>
+    <div class="row"><span>Arrivederci (1 / più persone)</span><b>Kwa heri / Kwa herini</b></div>
+    <div class="row"><span>Ci vediamo / A presto</span><b>Tutaonana (baadaye)</b></div>
+    <div class="row"><span>Buon viaggio!</span><b>Safari njema!</b></div>
+    <div class="row"><span>Nessun problema</span><b>Hamna shida / Hakuna matata</b></div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">🔢 Numeri</div>
+    <div class="row"><span>1 – 5</span><b>moja, mbili, tatu, nne, tano</b></div>
+    <div class="row"><span>6 – 10</span><b>sita, saba, nane, tisa, kumi</b></div>
+    <div class="row"><span>11, 12, 13 ...</span><b>kumi na moja, kumi na mbili, kumi na tatu ...</b></div>
+    <div class="row"><span>20 / 30 / 40 / 50</span><b>ishirini / thelathini / arobaini / hamsini</b></div>
+    <div class="row"><span>60 / 70 / 80 / 90</span><b>sitini / sabini / themanini / tisini</b></div>
+    <div class="row"><span>100 / 200</span><b>mia moja / mia mbili</b></div>
+    <div class="row"><span>1.000 / 2.000</span><b>elfu moja / elfu mbili</b></div>
+    <div class="row"><span>10.000 / 100.000</span><b>elfu kumi / laki moja</b></div>
+    <div class="row"><span>1.000.000</span><b>millioni moja</b></div>
+    <div class="row"><span>Mezzo / Un quarto</span><b>nusu / robo</b></div>
+    <div class="row"><span>Più / Meno</span><b>zaidi / pungufu</b></div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">🍽️ Cibo & Ristorante</div>
+    <div class="row"><span>Cibo / Acqua</span><b>Chakula / Maji</b></div>
+    <div class="row"><span>Acqua potabile / calda / fredda</span><b>Maji ya kunywa / ya moto / ya baridi</b></div>
+    <div class="row"><span>Colazione / Pranzo / Cena</span><b>Chakula cha asubuhi / mchana / jioni</b></div>
+    <div class="row"><span>Porta il menu, per favore</span><b>Leta menu, tafadhali</b></div>
+    <div class="row"><span>Vorrei ... / Voglio ...</span><b>Naomba ... / Nataka ...</b></div>
+    <div class="row"><span>Cosa mi consiglia?</span><b>Unapendekeza nini?</b></div>
+    <div class="row"><span>Ho fame / Ho sete</span><b>Nina njaa / Nina kiu</b></div>
+    <div class="row"><span>Pesce / Pollo / Carne / Manzo</span><b>Samaki / Kuku / Nyama / Nyama ya ng'ombe</b></div>
+    <div class="row"><span>Capra / Uova</span><b>Mbuzi / Mayai</b></div>
+    <div class="row"><span>Riso / Pane / Ugali / Chapati</span><b>Wali / Mkate / Ugali / Chapati</b></div>
+    <div class="row"><span>Pilau / Biryani (riso speziato tipico)</span><b>Pilau / Biryani</b></div>
+    <div class="row"><span>Carne grigliata / Spiedini</span><b>Nyama choma / Mishkaki</b></div>
+    <div class="row"><span>Frutta / Verdure</span><b>Matunda / Mboga mboga</b></div>
+    <div class="row"><span>Banana / Ananas / Mango / Arancia</span><b>Ndizi / Nanasi / Embe / Chungwa</b></div>
+    <div class="row"><span>Cocomero / Avocado</span><b>Tikiti maji / Parachichi</b></div>
+    <div class="row"><span>Caffè / Tè / Latte</span><b>Kahawa / Chai / Maziwa</b></div>
+    <div class="row"><span>Birra / Vino</span><b>Bia / Divai</b></div>
+    <div class="row"><span>Zucchero / Sale / Piccante</span><b>Sukari / Chumvi / Pilipili</b></div>
+    <div class="row"><span>Miele / Zuppa</span><b>Asali / Supu</b></div>
+    <div class="row"><span>È piccante? / Senza ...</span><b>Kina pilipili? / Bila ...</b></div>
+    <div class="row"><span>Non mangio ... / Sono allergico a ...</span><b>Sili ... / Nina aleji kwa ...</b></div>
+    <div class="row"><span>È delizioso / Sono sazio / Basta così</span><b>Ni kitamu / Nimeshiba / Inatosha</b></div>
+    <div class="row"><span>Il conto, per favore</span><b>Naomba bili / Bili, tafadhali</b></div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">🛍️ Pratica, Acquisti & Spiaggia</div>
+    <div class="row"><span>Quanto costa?</span><b>Bei gani? / Pesa ngapi?</b></div>
+    <div class="row"><span>È troppo caro</span><b>Ni ghali sana</b></div>
+    <div class="row"><span>Puoi abbassare il prezzo?</span><b>Punguza bei, tafadhali</b></div>
+    <div class="row"><span>Sto solo guardando</span><b>Naangalia tu</b></div>
+    <div class="row"><span>Soldi / Mercato / Negozio</span><b>Pesa / Soko / Duka</b></div>
+    <div class="row"><span>Accettate la carta?</span><b>Naweza kulipa kwa kadi?</b></div>
+    <div class="row"><span>Spiaggia / Mare / Oceano</span><b>Pwani / Bahari</b></div>
+    <div class="row"><span>Posso nuotare qui?</span><b>Naweza kuoga hapa?</b></div>
+    <div class="row"><span>Dov'è il bagno?</span><b>Choo kiko wapi?</b></div>
+    <div class="row"><span>Dov'è ...?</span><b>... liko wapi?</b></div>
+    <div class="row"><span>A destra / a sinistra</span><b>Kulia / Kushoto</b></div>
+    <div class="row"><span>Dritto / vicino / lontano</span><b>Moja kwa moja / Karibu / Mbali</b></div>
+    <div class="row"><span>Oggi / Domani / Ieri</span><b>Leo / Kesho / Jana</b></div>
+    <div class="row"><span>Adesso / Più tardi</span><b>Sasa / Baadaye</b></div>
+    <div class="row"><span>Taxi / Tuk-tuk / Moto-taxi</span><b>Teksi / Bajaji / Bodaboda</b></div>
+    <div class="row"><span>Portami all'hotel</span><b>Nipeleke hotelini</b></div>
+    <div class="row"><span>Aspetta un momento</span><b>Subiri kidogo</b></div>
+  </div>
+
+  <div class="card card-blue">
+    <div class="section-title">🆘 Emergenze & Salute</div>
+    <div class="row"><span>Aiuto! / Pericolo!</span><b>Msaada! / Hatari!</b></div>
+    <div class="row"><span>Aiutami, per favore</span><b>Naomba msaada</b></div>
+    <div class="row"><span>Chiamo la polizia</span><b>Nitaita polisi</b></div>
+    <div class="row"><span>Sono perso / Sono stato derubato</span><b>Nimepotea / Nimeibiwa</b></div>
+    <div class="row"><span>Stop! / Vai via!</span><b>Acha! / Toka!</b></div>
+    <div class="row"><span>Sto male</span><b>Mimi ni mgonjwa / Naumwa</b></div>
+    <div class="row"><span>Mi fa male qui</span><b>Naumwa hapa / Hii inaumiza</b></div>
+    <div class="row"><span>Ho bisogno di un medico</span><b>Nahitaji daktari</b></div>
+    <div class="row"><span>Ospedale / Farmacia / Medicina</span><b>Hospitali / Duka la dawa / Dawa</b></div>
+    <div class="row"><span>Febbre / Mal di testa / Diarrea</span><b>Homa / Maumivu ya kichwa / Hara</b></div>
+    <div class="row"><span>Zanzara / Zanzariera</span><b>Mbu / Chandalua</b></div>
+  </div>
+
+  <div class="card card-teal">
+    <div class="section-title">🌍 Note Culturali</div>
+    <div class="row"><span>Saluta sempre prima</span><b>Habari / Jambo prima di chiedere</b></div>
+    <div class="row"><span>Stretta di mano</span><b>Lunga = amicizia, non ritirarla subito</b></div>
+    <div class="row"><span>Mano destra</span><b>Saluta/mangi/paghi solo con la destra</b></div>
+    <div class="row"><span>Anziani</span><b>Shikamoo — grande segno di rispetto</b></div>
+    <div class="row"><span>Foto alle persone</span><b>Chiedi sempre prima: Naomba picha?</b></div>
+    <div class="row"><span>Moschee / preghiera</span><b>Non disturbare negli orari di preghiera</b></div>
+    <div class="row"><span>Abbigliamento</span><b>Hotel: costume OK. Nei villaggi: spalle/coperti</b></div>
+    <div class="row"><span>Mancia</span><b>5–10% o piccoli importi per i servizi</b></div>
   </div>
 
 </div>
@@ -2528,6 +2521,171 @@ async function updateWeather() {
 })();
 
 // Ricalcola ogni 10 minuti (quando il meteo si aggiorna)
+/* ==== 🌊 MAREA LIVE — Open-Meteo Marine API (sea_level_height_msl) ==== */
+const VACATION_DAYS = [
+  { date:'2026-09-01', dow:'MARTEDÌ',   label:'1 SETTEMBRE', badge:'badge-green',
+    title:'Arrivo – Prima giornata',                    snork:'★★★★', snorkType:'🤿 Snorkeling',
+    beach:'Blue Lagoon',           golden:'17:40', bath:'10:00–13:00' },
+  { date:'2026-09-02', dow:'MERCOLEDÌ', label:'2 SETTEMBRE', badge:'',
+    title:'🌿 Spice Farm Day',                          snork:'★★★',   snorkType:'🤿 Snorkeling',
+    beach:'Bwejuu',                golden:'17:41', bath:'10:30–13:30' },
+  { date:'2026-09-03', dow:'GIOVEDÌ',   label:'3 SETTEMBRE', badge:'badge-gold',
+    title:'🤿 Blue Lagoon – Snorkeling Day',            snork:'★★★★', snorkType:'🤿 Snorkeling',
+    beach:'Blue Lagoon',           golden:'17:42', bath:'11:00–14:00' },
+  { date:'2026-09-04', dow:'VENERDÌ',   label:'4 SETTEMBRE', badge:'badge-gold',
+    title:'🍽️ The Rock Day',                             snork:'★★★★', snorkType:'🍽️ The Rock',
+    beach:'Michamvi',              golden:'18:18', bath:'11:30–14:30' },
+  { date:'2026-09-05', dow:'SABATO',    label:'5 SETTEMBRE', badge:'badge-green',
+    title:'🐬 Delfini & 🐢 Tartarughe',                  snork:'★★★★', snorkType:'🐬 Snorkeling',
+    beach:'Kizimkazi',             golden:'17:38', bath:'06:00–09:00' },
+  { date:'2026-09-06', dow:'DOMENICA',  label:'6 SETTEMBRE', badge:'',
+    title:"🦁 Cheetah's Rock & Paje",                    snork:'★★★★', snorkType:'🪁 Kitesurf',
+    beach:'Paje Beach',            golden:'17:36', bath:'13:00–16:00' },
+  { date:'2026-09-07', dow:'LUNEDÌ',    label:'7 SETTEMBRE', badge:'badge-gold',
+    title:'🏛️ Stone Town & Partenza',                   snork:'',      snorkType:'🏛️ Stone Town',
+    beach:'Forodhani Gardens',     golden:'',     bath:'Non previsto – Rientro' }
+];
+
+const TIDE_FALLBACK = {
+  '2026-09-01': { highT:'09:10', highV:3.80, lowT:'15:35', lowV:0.30, air:28, sea:27, wind:12, wave:0.4, bar:80 },
+  '2026-09-02': { highT:'09:55', highV:3.60, lowT:'16:20', lowV:0.40, air:29, sea:27, wind:10, wave:0.3, bar:75 },
+  '2026-09-03': { highT:'10:40', highV:3.50, lowT:'17:05', lowV:0.50, air:28, sea:27, wind:8,  wave:0.2, bar:70 },
+  '2026-09-04': { highT:'11:25', highV:3.30, lowT:'17:50', lowV:0.60, air:29, sea:28, wind:9,  wave:0.3, bar:65 },
+  '2026-09-05': { highT:'12:10', highV:3.10, lowT:'18:35', lowV:0.70, air:28, sea:27, wind:9,  wave:0.3, bar:60 },
+  '2026-09-06': { highT:'12:55', highV:2.90, lowT:'19:20', lowV:0.80, air:28, sea:27, wind:14, wave:0.5, bar:55 },
+  '2026-09-07': { highT:'07:48', highV:3.90, lowT:'14:10', lowV:0.30, air:29, sea:27, wind:10, wave:0.4, bar:80 }
+};
+
+function fmtTideMeter(v, source) {
+  if (v == null || Number.isNaN(v)) return '—';
+  if (source === 'live') return (v >= 0 ? '+' : '') + v.toFixed(2);
+  return v.toFixed(2).replace(/\.00$/, '.0');
+}
+
+function buildTideCardHTML(d, t) {
+  const badgeCls = (d.badge ? 'badge ' + d.badge : 'badge').trim();
+  const srcChip = t.source === 'live'
+    ? '<span style="color:#34d399;font-size:11px;font-weight:700">● live</span>'
+    : '<span style="color:var(--muted);font-size:11px;font-weight:700">● tipico</span>';
+  const snorkRow = d.snork
+    ? '<div class="row"><span>' + d.snorkType + '</span><b class="stars">' + d.snork + '</b></div>'
+    : '';
+  return '<div class="card">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">' +
+        '<div class="' + badgeCls + '">' + d.label + ' · ' + d.dow + '</div>' + srcChip +
+      '</div>' +
+      '<div class="section-title" style="margin-top:8px">' + d.title + '</div>' +
+      '<div class="row"><span>⬆️ Alta marea</span><b>' + t.highT + ' · ' + fmtTideMeter(t.highV, t.source) + ' m</b></div>' +
+      '<div class="row"><span>⬇️ Bassa marea</span><b>' + t.lowT  + ' · ' + fmtTideMeter(t.lowV,  t.source) + ' m</b></div>' +
+      '<div class="tide-bar-wrap"><div class="tide-label"><span>Bassa</span><span>Alta</span></div>' +
+        '<div class="tide-bar"><div class="tide-fill" style="width:' + t.bar + '%"></div></div></div>' +
+      '<div class="row"><span>🌤️ Aria</span><b>'  + (t.air  != null ? t.air  + '°C'   : '—') + '</b></div>' +
+      '<div class="row"><span>🌊 Mare</span><b>'   + (t.sea  != null ? t.sea  + '°C'   : '—') + '</b></div>' +
+      '<div class="row"><span>💨 Vento</span><b>' + (t.wind != null ? t.wind + ' km/h' : '—') + '</b></div>' +
+      '<div class="row"><span>🌊 Onde</span><b>'   + (t.wave != null ? t.wave + ' m'    : '—') + '</b></div>' +
+      '<div class="row"><span>🏖️ Bagno ideale</span><b>' + d.bath + '</b></div>' +
+      snorkRow +
+      '<div class="row"><span>📸 Foto golden hour</span><b>' + (d.golden || '—') + '</b></div>' +
+      '<div class="row"><span>⭐ Spiaggia consigliata</span><b>' + d.beach + '</b></div>' +
+    '</div>';
+}
+
+async function loadTides() {
+  const statusEl = document.getElementById('tideStatus');
+  const cardsEl  = document.getElementById('tideCards');
+  if (!cardsEl) return;
+  cardsEl.innerHTML = VACATION_DAYS.map(d => {
+    const fb = TIDE_FALLBACK[d.date] || {};
+    const t  = Object.assign({ source:'fallback' }, fb, { snorkType:d.snorkType });
+    return buildTideCardHTML(d, t);
+  }).join('');
+  if (statusEl) statusEl.innerHTML = '🔄 Caricamento maree reali da ' +
+    '<a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noopener" style="color:var(--accent)">Open-Meteo Marine API</a>...';
+
+  try {
+    const marineURL = 'https://marine-api.open-meteo.com/v1/marine?latitude=' + LAT + '&longitude=' + LON +
+      '&hourly=sea_level_height_msl,sea_surface_temperature,wave_height' +
+      '&start_date=2026-09-01&end_date=2026-09-07&timezone=Africa%2FDar_es_Salaam';
+    const wxURL = 'https://api.open-meteo.com/v1/forecast?latitude=' + LAT + '&longitude=' + LON +
+      '&hourly=temperature_2m,wind_speed_10m' +
+      '&start_date=2026-09-01&end_date=2026-09-07&timezone=Africa%2FDar_es_Salaam';
+    const [mRes, wRes] = await Promise.all([ fetch(marineURL), fetch(wxURL) ]);
+    if (!mRes.ok || !wRes.ok) throw new Error('HTTP ' + mRes.status + '/' + wRes.status);
+    const m = await mRes.json();
+    const w = await wRes.json();
+    if (m.error || w.error) throw new Error('API: ' + (m.reason || w.reason || '?'));
+
+    const mh = m.hourly || {}, wh = w.hourly || {}, times = mh.time || [];
+    const avg = arr => { const f = arr.filter(v => v != null); return f.length ? f.reduce((s,x)=>s+x,0)/f.length : null; };
+    const daily = {};
+
+    VACATION_DAYS.forEach(d => {
+      const idxs = times.map((t,i) => (t && t.indexOf(d.date) === 0) ? i : -1).filter(i => i >= 0);
+      if (!idxs.length) { daily[d.date] = null; return; }
+      const sl  = idxs.map(i => mh.sea_level_height_msl       && mh.sea_level_height_msl[i]      != null ? mh.sea_level_height_msl[i]      : null);
+      const sst = idxs.map(i => mh.sea_surface_temperature     && mh.sea_surface_temperature[i]  != null ? mh.sea_surface_temperature[i]  : null);
+      const whs = idxs.map(i => mh.wave_height                 && mh.wave_height[i]              != null ? mh.wave_height[i]              : null);
+      const air = idxs.map(i => wh.temperature_2m              && wh.temperature_2m[i]           != null ? wh.temperature_2m[i]           : null);
+      const wv  = idxs.map(i => wh.wind_speed_10m              && wh.wind_speed_10m[i]           != null ? wh.wind_speed_10m[i]           : null);
+
+      const slv = sl.filter(v => v != null);
+      if (!slv.length) { daily[d.date] = null; return; }
+      const highV = Math.max(...slv);
+      const lowV  = Math.min(...slv);
+      const highI = sl.findIndex(v => v === highV);
+      const lowI  = sl.findIndex(v => v === lowV);
+      const range = Math.max(0.001, highV - lowV);
+      const bar   = Math.min(100, Math.max(15, Math.round((range / 4.5) * 100)));
+      const fb = TIDE_FALLBACK[d.date] || {};
+
+      daily[d.date] = {
+        source:'live',
+        highT: (times[idxs[highI]] || '').slice(11,16) || '--:--',
+        lowT:  (times[idxs[lowI]]  || '').slice(11,16) || '--:--',
+        highV, lowV, bar,
+        air:  (avg(air) != null ? Math.round(avg(air)) : fb.air),
+        sea:  (avg(sst) != null ? Math.round(avg(sst)) : fb.sea),
+        wind: (avg(wv)  != null ? Math.round(avg(wv))  : fb.wind),
+        wave: (avg(whs) != null ? Number(avg(whs).toFixed(1)) : fb.wave),
+        snorkType: d.snorkType
+      };
+    });
+
+    cardsEl.innerHTML = VACATION_DAYS.map(d => {
+      const live = daily[d.date];
+      if (live) return buildTideCardHTML(d, live);
+      const fb = TIDE_FALLBACK[d.date] || {};
+      const t  = Object.assign({ source:'fallback' }, fb, { snorkType:d.snorkType });
+      return buildTideCardHTML(d, t);
+    }).join('');
+
+    const liveCnt = VACATION_DAYS.filter(d => daily[d.date]).length;
+    const total   = VACATION_DAYS.length;
+    if (statusEl) {
+      const apiLink = '<a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noopener" style="color:var(--accent)">Open-Meteo Marine API</a>';
+      const note = '<small style="color:var(--muted);display:block;margin-top:6px">' +
+        'Modello <b>MétéoFrance SMOC</b> · risoluzione ~8 km · accuratezza limitata vicino costa. ' +
+        'Valori "live" = altezza del mare (in metri) sopra il livello medio globale (MSL). ' +
+        'Valori "tipico" = riferimento stagionale di settembre (alta ~3.5 m, bassa ~0.5 m, marea sizigiale).</small>';
+      if (liveCnt === total) {
+        statusEl.innerHTML = '✅ Maree <b>real-time</b> caricate per tutti i ' + total + ' giorni — fonte: ' + apiLink + '. ' + note;
+      } else if (liveCnt > 0) {
+        statusEl.innerHTML = '⚠️ Maree live per <b>' + liveCnt + '/' + total + '</b> giorni. Per le date oltre il range previsionale (16 g) sono mostrati valori tipici di settembre. Fonte: ' + apiLink + '.' + note;
+      } else {
+        statusEl.innerHTML = '⚠️ Le date del viaggio sono fuori dal range previsionale (16 g). Mostrati valori tipici di settembre (costa est di Zanzibar). Riprova più vicino alla partenza. API: ' + apiLink + '.' + note;
+      }
+    }
+  } catch (e) {
+    if (statusEl) statusEl.innerHTML = '⚠️ Impossibile caricare le maree live ora. Mostrati i valori tipici di settembre (costa est di Zanzibar). API: ' +
+      '<a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noopener" style="color:var(--accent)">Open-Meteo Marine API</a>.';
+  }
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadTides);
+} else {
+  loadTides();
+}
+
 setInterval(updateSmartAdvice, 60000);
 </script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"f0f03d0605bf45f1a3b17cf7d5e6861f"}' crossorigin="anonymous"></script>

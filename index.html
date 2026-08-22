@@ -2014,11 +2014,11 @@ const FOOD_SPECIALTIES = {
   'Blue Reef':                  ['seafood','pesce','octopus','polpo'],
   'Bahari Pizza':                ['pizza'],
   'Jambo Restaurant':           ['cucina locale','local food','pilau'],
-  'Tatu':                    ['insalate','salad','vegetariano','vegetarian'],
+  'Tatu':                        ['insalate','salad','vegetariano','vegetarian'],
   'Palm Beach Restaurant':      ['seafood','pesce'],
   'Coral Reef':                  ['seafood','lobster','aragosta'],
   'Fisherman Grill':            ['pesce','fish','grigliate','bbq'],
-  'Breeze':                    ['cocktail','seafood'],
+  'Breeze':                      ['cocktail','seafood'],
   'Sails Restaurant':           ['seafood','lobster','aragosta','pesce'],
   'Zanzi Food':                  ['cucina locale','street food','local food']
 };
@@ -2520,23 +2520,20 @@ async function updateWeather() {
   renderSmartAdvice(_smartRanked[0].advice, _smartWeather);
 })();
 
-// Avvio meteo live + refresh ogni 10 minuti (Open-Meteo, no key, no CORS issues)
-updateWeather();
-setInterval(updateWeather, 10 * 60 * 1000);
-
+// Ricalcola ogni 10 minuti (quando il meteo si aggiorna)
 /* ==== 🌊 MAREA LIVE — Open-Meteo Marine API (sea_level_height_msl) ==== */
 const VACATION_DAYS = [
   { date:'2026-09-01', dow:'MARTEDÌ',   label:'1 SETTEMBRE', badge:'badge-green',
     title:'Arrivo – Prima giornata',                    snork:'★★★★', snorkType:'🤿 Snorkeling',
     beach:'Blue Lagoon',           golden:'17:40', bath:'10:00–13:00' },
   { date:'2026-09-02', dow:'MERCOLEDÌ', label:'2 SETTEMBRE', badge:'',
-    title:'🌿 Spice Farm Day',                    snork:'★★★',   snorkType:'🤿 Snorkeling',
+    title:'🌿 Spice Farm Day',                          snork:'★★★',   snorkType:'🤿 Snorkeling',
     beach:'Bwejuu',                golden:'17:41', bath:'10:30–13:30' },
   { date:'2026-09-03', dow:'GIOVEDÌ',   label:'3 SETTEMBRE', badge:'badge-gold',
     title:'🤿 Blue Lagoon – Snorkeling Day',            snork:'★★★★', snorkType:'🤿 Snorkeling',
     beach:'Blue Lagoon',           golden:'17:42', bath:'11:00–14:00' },
   { date:'2026-09-04', dow:'VENERDÌ',   label:'4 SETTEMBRE', badge:'badge-gold',
-    title:'🍽️ The Rock Day',                    snork:'★★★★', snorkType:'🍽️ The Rock',
+    title:'🍽️ The Rock Day',                             snork:'★★★★', snorkType:'🍽️ The Rock',
     beach:'Michamvi',              golden:'18:18', bath:'11:30–14:30' },
   { date:'2026-09-05', dow:'SABATO',    label:'5 SETTEMBRE', badge:'badge-green',
     title:'🐬 Delfini & 🐢 Tartarughe',                  snork:'★★★★', snorkType:'🐬 Snorkeling',
@@ -2559,78 +2556,30 @@ const TIDE_FALLBACK = {
   '2026-09-07': { highT:'07:48', highV:3.90, lowT:'14:10', lowV:0.30, air:29, sea:27, wind:10, wave:0.4, bar:80 }
 };
 
-/* ════════════════════════════════════════════════════════════════
-   🌊 MULTI-LOCALITÀ — 6 punti costa a confronto
-   Aggiunge: Paje · Jambiani · Kiwengwa a Bwejuu/Pingwe/Michamvi
-   ════════════════════════════════════════════════════════════════ */
-const TIDE_LOCATIONS = [
-  { id:'bwejuu',   name:'Bwejuu (Hotel)',    lat:-6.2376, lon:39.5304, emoji:'🏨',
-    desc:'Hotel ZAN Orient · costa est riparata dal reef · marèe lange',
-    tideOffsetMin: 0,
-    heightMul: 1.00,
-    waveScale: 1.0 },
-  { id:'pingwe',   name:'Pingwe (The Rock)', lat:-6.1975, lon:39.5484, emoji:'🍽️',
-    desc:'Vicino al The Rock Restaurant · scogliera + laguna protetta',
-    tideOffsetMin: -8,
-    heightMul: 0.97,
-    waveScale: 0.85 },
-  { id:'michamvi', name:'Michamvi',          lat:-6.2050, lon:39.5150, emoji:'🌅',
-    desc:'Promontorio · costa esposta all\'oceano aperto (tramonto)',
-    tideOffsetMin: -5,
-    heightMul: 1.05,
-    waveScale: 1.4 },
-  { id:'paje',     name:'Paje Beach',        lat:-6.2659, lon:39.5366, emoji:'🪁',
-    desc:'Kitesurf · ampia spiaggia aperta al reef esterno',
-    tideOffsetMin: 5,
-    heightMul: 0.98,
-    waveScale: 1.35 },
-  { id:'jambiani', name:'Jambiani',          lat:-6.3167, lon:39.5333, emoji:'🥥',
-    desc:'Villaggio di pescatori · costa sud-est riparata',
-    tideOffsetMin: 8,
-    heightMul: 0.96,
-    waveScale: 1.1 },
-  { id:'kiwengwa', name:'Kiwengwa',          lat:-5.9833, lon:39.3500, emoji:'🌴',
-    desc:'Costa nord-est · spiaggia turistica lunga ed esposta',
-    tideOffsetMin: 18,
-    heightMul: 1.10,
-    waveScale: 1.9 }
+/* ==== RANGE FORECAST DINAMICO (Open-Meteo max ~16 giorni) ==== */
+const MAX_FC_DAYS = 16;                                  // limite API forecast/marine
+const FORCE_LIVE_DATES = [                                // date SEMPRE richieste in live
+  '2026-09-01','2026-09-02','2026-09-03',
+  '2026-09-04','2026-09-05','2026-09-06'
 ];
 
-// Stato UI maree multi-località
-let _tideActiveLoc = 'bwejuu';
-let _tideMode = 'single';        // 'single' | 'compare'
-let _tideDataByLoc = {};          // { locId: { 'YYYY-MM-DD': tideData | null } }
+function withinRange(dateStr) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const tgt   = new Date(dateStr + 'T00:00:00');
+  const diff  = Math.round((tgt - today) / 86400000);
+  return diff >= -2 && diff <= MAX_FC_DAYS;              // piccolo margine sui negativi
+}
 
-function pad2(n) { return String(n).padStart(2, '0'); }
+function inRangeDays() {
+  return VACATION_DAYS.filter(d =>
+    FORCE_LIVE_DATES.includes(d.date) || withinRange(d.date));
+}
 
-// Genera fallback stagionale per una località, derivandolo da TIDE_FALLBACK
-function locFallback(loc, dateKey) {
-  const base = TIDE_FALLBACK[dateKey];
-  if (!base) return {};
-  const offMin = loc.tideOffsetMin || 0;
-  function shiftTime(t) {
-    if (!t) return t;
-    const [h, m] = t.split(':').map(Number);
-    let total = h * 60 + m + offMin;
-    if (total < 0) total += 24 * 60;
-    if (total >= 24 * 60) total -= 24 * 60;
-    return pad2(Math.floor(total / 60)) + ':' + pad2(total % 60);
-  }
-  const mul  = loc.heightMul || 1;
-  const wmul = loc.waveScale  || 1;
-  const highV = Number((base.highV * mul).toFixed(2));
-  const lowV  = Number((base.lowV  * mul).toFixed(2));
-  return {
-    highT: shiftTime(base.highT),
-    lowT:  shiftTime(base.lowT),
-    highV,
-    lowV,
-    air:   base.air,
-    sea:   base.sea,
-    wind:  base.wind,
-    wave:  Number((base.wave * wmul).toFixed(1)),
-    bar:   Math.min(100, Math.max(15, Math.round(((highV - lowV) / 4.5) * 100)))
-  };
+function maxRequestDate() {
+  // ultima data che possiamo richiedere = oggi + MAX_FC_DAYS
+  const t = new Date(); t.setHours(0,0,0,0);
+  t.setDate(t.getDate() + MAX_FC_DAYS);
+  return t.toISOString().slice(0,10);
 }
 
 function fmtTideMeter(v, source) {
@@ -2671,304 +2620,114 @@ async function loadTides() {
   const statusEl = document.getElementById('tideStatus');
   const cardsEl  = document.getElementById('tideCards');
   if (!cardsEl) return;
-
-  // 1) Inietta la UI multi-località (tabs + compare container) una sola volta
-  ensureTideUI();
-
-  // 2) Aggiorna sottotitolo pagina con tutte le località
-  const subEl = document.querySelector('#tide .section-sub');
-  if (subEl) subEl.textContent = TIDE_LOCATIONS.length + ' località · ' +
-    TIDE_LOCATIONS.map(l => l.name.replace(/\s*\(.*\)$/, '')).join(' · ') +
-    ' · 1–7 Settembre 2026';
-
-  // 3) Avviso di caricamento
-  if (statusEl) statusEl.innerHTML = '🔄 Caricamento maree per ' +
-    TIDE_LOCATIONS.length + ' località da ' +
-    '<a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noopener" style="color:var(--accent)">Open-Meteo Marine API</a>...';
-
-  // 4) Render iniziale con valori tipici (instant feedback)
-  renderTides();
-
-  // 5) Fetch parallela di tutte le località
-  const results = await Promise.all(
-    TIDE_LOCATIONS.map(loc => fetchTidesForLocation(loc).catch(e => ({ loc, error: e })))
-  );
-
-  let successCount = 0;
-  results.forEach(res => {
-    if (res && res.daily && !res.error) {
-      _tideDataByLoc[res.loc.id] = res.daily;
-      successCount++;
-    }
-  });
-
-  // 6) Re-render con i dati live
-  renderTides();
-
-  // 7) Stato finale
-  if (statusEl) {
-    const apiLink = '<a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noopener" style="color:var(--accent)">Open-Meteo Marine API</a>';
-    const note = '<small style="color:var(--muted);display:block;margin-top:6px">' +
-      'Confronto tra <b>' + TIDE_LOCATIONS.length + ' località</b> della costa EST/SUD-EST/NORD-EST di Zanzibar. ' +
-      'Modello <b>MétéoFrance SMOC</b> · risoluzione ~8 km · accuratezza limitata vicino costa. ' +
-      'I valori sono altezze del mare (in metri) sopra il livello medio globale (MSL).<br>' +
-      '• <b style="color:#34d399">● live</b>: dati API reali &nbsp; • <b style="color:var(--muted)">● tipico</b>: riferimento stagionale di settembre.</small>';
-    if (successCount === TIDE_LOCATIONS.length) {
-      statusEl.innerHTML = '✅ Maree <b>live</b> caricate per tutte le ' + TIDE_LOCATIONS.length +
-        ' località (' + VACATION_DAYS.length + ' giorni ciascuna). Fonte: ' + apiLink + '.' + note;
-    } else if (successCount > 0) {
-      statusEl.innerHTML = '⚠️ Maree live per <b>' + successCount + '/' + TIDE_LOCATIONS.length +
-        '</b> località. Le altre usano valori tipici di settembre. Fonte: ' + apiLink + '.' + note;
-    } else {
-      statusEl.innerHTML = '⚠️ Le date del viaggio sono fuori dal range previsionale (16 g). ' +
-        'Mostrati valori tipici di settembre per tutte le località. Riprova più vicino alla partenza. ' +
-        'API: ' + apiLink + '.' + note;
-    }
-  }
-}
-
-/* ═══ Costruisce dinamicamente i tab delle località + compare container ═══ */
-function ensureTideUI() {
-  if (document.getElementById('tideLocTabs')) return;
-
-  const cardsEl = document.getElementById('tideCards');
-  if (!cardsEl) return;
-
-  // Card con mode toggle + location tabs (inserita PRIMA di #tideCards)
-  const tabsWrap = document.createElement('div');
-  tabsWrap.className = 'card';
-  tabsWrap.style.padding = '14px';
-  tabsWrap.style.marginBottom = '16px';
-  tabsWrap.innerHTML =
-    '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center;">' +
-      '<span style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-right:6px;">Modalità:</span>' +
-      '<button id="tideModeSingle" class="cbtn cbtn-yes-active" onclick="setTideMode(\'single\')">📍 Singola località</button>' +
-      '<button id="tideModeCompare" class="cbtn" onclick="setTideMode(\'compare\')">📊 Confronta tutte</button>' +
-    '</div>' +
-    '<div id="tideLocLabel" style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;">Località:</div>' +
-    '<div id="tideLocTabs" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;"></div>';
-  cardsEl.parentNode.insertBefore(tabsWrap, cardsEl);
-
-  // Container per vista comparativa (dopo #tideCards)
-  const compareWrap = document.createElement('div');
-  compareWrap.id = 'tideCardsCompare';
-  compareWrap.style.display = 'none';
-  cardsEl.parentNode.insertBefore(compareWrap, cardsEl.nextSibling);
-
-  // Popola i tab
-  const tabsEl = document.getElementById('tideLocTabs');
-  tabsEl.innerHTML = TIDE_LOCATIONS.map(loc =>
-    '<button id="tideTab_' + loc.id + '" class="cbtn' + (loc.id === _tideActiveLoc ? ' cbtn-yes-active' : '') + '" ' +
-    'onclick="setActiveLoc(\'' + loc.id + '\')" title="' + (loc.desc || '').replace(/"/g, '&quot;') + '">' +
-    loc.emoji + ' ' + loc.name.replace(/\s*\(.*\)$/, '') + '</button>'
-  ).join('');
-}
-
-/* ═══ Switch modalità ═══ */
-function setTideMode(mode) {
-  _tideMode = mode;
-  const singleBtn = document.getElementById('tideModeSingle');
-  const compareBtn = document.getElementById('tideModeCompare');
-  if (singleBtn) singleBtn.classList.toggle('cbtn-yes-active', mode === 'single');
-  if (compareBtn) compareBtn.classList.toggle('cbtn-yes-active', mode === 'compare');
-
-  const cardsEl   = document.getElementById('tideCards');
-  const compareEl = document.getElementById('tideCardsCompare');
-  const tabsRow   = document.getElementById('tideLocTabs');
-  const tabsLabel = document.getElementById('tideLocLabel');
-
-  if (cardsEl)   cardsEl.style.display   = (mode === 'single') ? '' : 'none';
-  if (compareEl) compareEl.style.display = (mode === 'compare') ? '' : 'none';
-  if (tabsRow)   tabsRow.style.display   = (mode === 'single') ? '' : 'none';
-  if (tabsLabel) tabsLabel.style.display = (mode === 'single') ? '' : 'none';
-
-  renderTides();
-}
-
-/* ═══ Switch località attiva (solo modalità "single") ═══ */
-function setActiveLoc(locId) {
-  _tideActiveLoc = locId;
-  TIDE_LOCATIONS.forEach(loc => {
-    const btn = document.getElementById('tideTab_' + loc.id);
-    if (btn) btn.classList.toggle('cbtn-yes-active', loc.id === locId);
-  });
-  renderTides();
-}
-
-/* ═══ Routing render → vista attiva ═══ */
-function renderTides() {
-  if (_tideMode === 'compare') {
-    renderCompareView();
-  } else {
-    renderSingleLocView(_tideActiveLoc);
-  }
-}
-
-/* ═══ Vista singola: 7 card (una per giorno) per una località ═══ */
-function renderSingleLocView(locId) {
-  const loc = TIDE_LOCATIONS.find(l => l.id === locId) || TIDE_LOCATIONS[0];
-  const cardsEl = document.getElementById('tideCards');
-  if (!cardsEl) return;
-  const store = _tideDataByLoc[locId] || {};
-
-  // Header con descrizione località
-  const introHTML =
-    '<div class="card" style="background:linear-gradient(135deg,#0f1e35,#0a1628);border:1px solid rgba(34,211,238,.2);">' +
-      '<div style="display:flex;align-items:center;gap:10px;">' +
-        '<span style="font-size:26px;">' + loc.emoji + '</span>' +
-        '<div>' +
-          '<div style="font-size:16px;font-weight:800;color:var(--accent);">' + loc.name + '</div>' +
-          '<div style="font-size:12px;color:var(--muted);margin-top:2px;">' + loc.desc + '</div>' +
-        '</div>' +
-      '</div>' +
-    '</div>';
-
-  cardsEl.innerHTML = introHTML + VACATION_DAYS.map(d => {
-    const live = store[d.date];
-    const fb = locFallback(loc, d.date);
-    if (live) {
-      // merge: precedono i dati live, fallback per campi mancanti
-      const t = Object.assign({ source: 'fallback' }, fb, live, { snorkType: d.snorkType });
-      return buildTideCardHTML(d, t);
-    }
-    const t = Object.assign({ source: 'fallback' }, fb, { snorkType: d.snorkType });
+  cardsEl.innerHTML = VACATION_DAYS.map(d => {
+    const fb = TIDE_FALLBACK[d.date] || {};
+    const t  = Object.assign({ source:'fallback' }, fb, { snorkType:d.snorkType });
     return buildTideCardHTML(d, t);
   }).join('');
-}
+  if (statusEl) statusEl.innerHTML = '🔄 Caricamento maree reali da ' +
+    '<a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noopener" style="color:var(--accent)">Open-Meteo Marine API</a>...';
 
-/* ═══ Vista comparativa: 7 card (una per giorno) con tabella di tutte le località ═══ */
-function renderCompareView() {
-  const compareEl = document.getElementById('tideCardsCompare');
-  if (!compareEl) return;
+  try {
+    // Calcola dinamicamente le date in-range (forzando 1–6 Set in live)
+    const rng = inRangeDays();
+    if (rng.length === 0) {
+      if (statusEl) statusEl.innerHTML = '⏳ Le date del viaggio sono oltre il limite di ' + MAX_FC_DAYS +
+        ' giorni previsto dall' + "'" + 'API. Mostrati i valori tipici di settembre (costa est di Zanzibar). ' +
+        'Riprova più vicino alla partenza. API: ' +
+        '<a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noopener" style="color:var(--accent)">Open-Meteo Marine API</a>.';
+      return;
+    }
+    const rngDates = rng.map(d => d.date).sort();
+    const startDate = rngDates[0];
+    let   endDate   = rngDates[rngDates.length - 1];
+    // Sicurezza: mai oltre la data massima ammessa dall'API
+    if (endDate > maxRequestDate()) endDate = maxRequestDate();
 
-  const headerHTML =
-    '<div class="card card-blue">' +
-      '<div class="section-title">📊 Confronto Maree — 6 Località</div>' +
-      '<div class="section-sub">Confronta gli orari di alta/bassa marea tra le località della costa di Zanzibar · 7 giorni di vacanza</div>' +
-      '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;">' +
-        TIDE_LOCATIONS.map(loc =>
-          '<span style="font-size:11px;font-weight:700;background:rgba(255,255,255,.06);padding:4px 10px;border-radius:20px;">' +
-          loc.emoji + ' ' + loc.name.replace(/\s*\(.*\)$/, '') + '</span>'
-        ).join('') +
-      '</div>' +
-    '</div>';
+    if (statusEl) statusEl.innerHTML = '🔄 Caricamento maree live (' + startDate + ' → ' + endDate + ') da ' +
+      '<a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noopener" style="color:var(--accent)">Open-Meteo Marine API</a>...';
 
-  const cardsHTML = VACATION_DAYS.map(d => {
-    const badgeCls = (d.badge ? 'badge ' + d.badge : 'badge').trim();
-    let rowsHTML = '';
-    let bestHighV = -Infinity, bestHighLoc = '';
-    const dayLocData = [];
+    const marineURL = 'https://marine-api.open-meteo.com/v1/marine?latitude=' + LAT + '&longitude=' + LON +
+      '&hourly=sea_level_height_msl,sea_surface_temperature,wave_height' +
+      '&start_date=' + startDate + '&end_date=' + endDate + '&timezone=Africa%2FDar_es_Salaam';
+    const wxURL = 'https://api.open-meteo.com/v1/forecast?latitude=' + LAT + '&longitude=' + LON +
+      '&hourly=temperature_2m,wind_speed_10m' +
+      '&start_date=' + startDate + '&end_date=' + endDate + '&timezone=Africa%2FDar_es_Salaam';
+    const [mRes, wRes] = await Promise.all([ fetch(marineURL), fetch(wxURL) ]);
+    if (!mRes.ok || !wRes.ok) throw new Error('HTTP ' + mRes.status + '/' + wRes.status);
+    const m = await mRes.json();
+    const w = await wRes.json();
+    if (m.error || w.error) throw new Error('API: ' + (m.reason || w.reason || '?'));
 
-    // Pre-raccogli e trova la località con la più alta marea (per evidenziarla)
-    TIDE_LOCATIONS.forEach(loc => {
-      const store = _tideDataByLoc[loc.id] || {};
-      const live  = store[d.date];
-      const fb    = locFallback(loc, d.date);
-      const t     = live || Object.assign({ source: 'fallback' }, fb);
-      dayLocData.push({ loc, t });
-      if (t.highV != null && t.highV > bestHighV) {
-        bestHighV = t.highV; bestHighLoc = loc.id;
+    const mh = m.hourly || {}, wh = w.hourly || {}, times = mh.time || [];
+    const avg = arr => { const f = arr.filter(v => v != null); return f.length ? f.reduce((s,x)=>s+x,0)/f.length : null; };
+    const daily = {};
+
+    VACATION_DAYS.forEach(d => {
+      const idxs = times.map((t,i) => (t && t.indexOf(d.date) === 0) ? i : -1).filter(i => i >= 0);
+      if (!idxs.length) { daily[d.date] = null; return; }
+      const sl  = idxs.map(i => mh.sea_level_height_msl       && mh.sea_level_height_msl[i]      != null ? mh.sea_level_height_msl[i]      : null);
+      const sst = idxs.map(i => mh.sea_surface_temperature     && mh.sea_surface_temperature[i]  != null ? mh.sea_surface_temperature[i]  : null);
+      const whs = idxs.map(i => mh.wave_height                 && mh.wave_height[i]              != null ? mh.wave_height[i]              : null);
+      const air = idxs.map(i => wh.temperature_2m              && wh.temperature_2m[i]           != null ? wh.temperature_2m[i]           : null);
+      const wv  = idxs.map(i => wh.wind_speed_10m              && wh.wind_speed_10m[i]           != null ? wh.wind_speed_10m[i]           : null);
+
+      const slv = sl.filter(v => v != null);
+      if (!slv.length) { daily[d.date] = null; return; }
+      const highV = Math.max(...slv);
+      const lowV  = Math.min(...slv);
+      const highI = sl.findIndex(v => v === highV);
+      const lowI  = sl.findIndex(v => v === lowV);
+      const range = Math.max(0.001, highV - lowV);
+      const bar   = Math.min(100, Math.max(15, Math.round((range / 4.5) * 100)));
+      const fb = TIDE_FALLBACK[d.date] || {};
+
+      daily[d.date] = {
+        source:'live',
+        highT: (times[idxs[highI]] || '').slice(11,16) || '--:--',
+        lowT:  (times[idxs[lowI]]  || '').slice(11,16) || '--:--',
+        highV, lowV, bar,
+        air:  (avg(air) != null ? Math.round(avg(air)) : fb.air),
+        sea:  (avg(sst) != null ? Math.round(avg(sst)) : fb.sea),
+        wind: (avg(wv)  != null ? Math.round(avg(wv))  : fb.wind),
+        wave: (avg(whs) != null ? Number(avg(whs).toFixed(1)) : fb.wave),
+        snorkType: d.snorkType
+      };
+    });
+
+    cardsEl.innerHTML = VACATION_DAYS.map(d => {
+      const live = daily[d.date];
+      if (live) return buildTideCardHTML(d, live);
+      const fb = TIDE_FALLBACK[d.date] || {};
+      const t  = Object.assign({ source:'fallback' }, fb, { snorkType:d.snorkType });
+      return buildTideCardHTML(d, t);
+    }).join('');
+
+    const liveCnt = VACATION_DAYS.filter(d => daily[d.date]).length;
+    const total   = VACATION_DAYS.length;
+    if (statusEl) {
+      const apiLink = '<a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noopener" style="color:var(--accent)">Open-Meteo Marine API</a>';
+      const note = '<small style="color:var(--muted);display:block;margin-top:6px">' +
+        'Modello <b>MétéoFrance SMOC</b> · risoluzione ~8 km · accuratezza limitata vicino costa. ' +
+        'Valori "live" = altezza del mare (in metri) sopra il livello medio globale (MSL). ' +
+        'Valori "tipico" = riferimento stagionale di settembre (alta ~3.5 m, bassa ~0.5 m, marea sizigiale).</small>';
+      const outDays = VACATION_DAYS.filter(d => !daily[d.date]).map(d => d.label).join(', ');
+      if (liveCnt === total) {
+        statusEl.innerHTML = '✅ Maree <b>real-time</b> caricate per tutti i ' + total + ' giorni (' +
+          startDate + ' → ' + endDate + ') — fonte: ' + apiLink + '. ' + note;
+      } else if (liveCnt > 0) {
+        statusEl.innerHTML = '⚠️ Maree live per <b>' + liveCnt + '/' + total + '</b> giorni (' +
+          startDate + ' → ' + endDate + '). Valori tipici di settembre per: ' + outDays +
+          '. Più ti avvicini alla partenza, più date entrano in live. Fonte: ' + apiLink + '.' + note;
+      } else {
+        statusEl.innerHTML = '⏳ Le previsioni live non sono ancora disponibili per questa finestra di date. ' +
+          'Mostrati i valori tipici di settembre (costa est di Zanzibar). API: ' + apiLink + '.' + note;
       }
-    });
-
-    dayLocData.forEach(({ loc, t }) => {
-      const isBest = loc.id === bestHighLoc;
-      const srcChip = t.source === 'live'
-        ? '<span style="color:#34d399;font-size:10px" title="live">●</span>'
-        : '<span style="color:var(--muted);font-size:10px" title="tipico">●</span>';
-      const boldBg = isBest ? 'background:rgba(34,211,238,.08);' : '';
-      const boldTxt = isBest ? 'color:#22d3ee;' : 'color:var(--text);';
-      rowsHTML +=
-        '<tr style="' + boldBg + '">' +
-          '<td style="padding:8px 6px;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px;font-weight:700;' + boldTxt + '">' +
-            loc.emoji + ' ' + loc.name.replace(/\s*\(.*\)$/, '') + ' ' + srcChip +
-          '</td>' +
-          '<td style="padding:8px 4px;text-align:center;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px;">' + (t.highT || '—') + '</td>' +
-          '<td style="padding:8px 4px;text-align:right;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px;color:#22d3ee;font-weight:700;">' + fmtTideMeter(t.highV, t.source) + 'm</td>' +
-          '<td style="padding:8px 4px;text-align:center;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px;">' + (t.lowT || '—') + '</td>' +
-          '<td style="padding:8px 4px;text-align:right;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px;color:var(--muted);">' + fmtTideMeter(t.lowV, t.source) + 'm</td>' +
-          '<td style="padding:8px 4px;text-align:right;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px;">' + (t.wave != null ? Number(t.wave).toFixed(1) + 'm' : '—') + '</td>' +
-        '</tr>';
-    });
-
-    return '<div class="card">' +
-        '<div class="' + badgeCls + '">' + d.label + ' · ' + d.dow + '</div>' +
-        '<div class="section-title" style="margin-top:8px;font-size:17px">' + d.title + '</div>' +
-        '<div style="overflow-x:auto;margin-top:8px;">' +
-          '<table style="width:100%;border-collapse:collapse;">' +
-            '<thead><tr style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;">' +
-              '<th style="text-align:left;padding-bottom:8px;">Località</th>' +
-              '<th style="text-align:center;padding-bottom:8px;">Alta ⬆️</th>' +
-              '<th style="text-align:right;padding-bottom:8px;">Val</th>' +
-              '<th style="text-align:center;padding-bottom:8px;">Bassa ⬇️</th>' +
-              '<th style="text-align:right;padding-bottom:8px;">Val</th>' +
-              '<th style="text-align:right;padding-bottom:8px;">Onde 🌊</th>' +
-            '</tr></thead>' +
-            '<tbody>' + rowsHTML + '</tbody>' +
-          '</table>' +
-        '</div>' +
-        '<div style="font-size:11px;color:var(--muted);margin-top:8px;">' +
-          '💡 Evidenziata la località con la più alta marea del giorno. ' +
-          (d.bath !== 'Non previsto – Rientro' ? 'Bagno ideale: <b style="color:var(--accent)">' + d.bath + '</b> · ' : '') +
-          'Spiaggia: <b>' + d.beach + '</b>' +
-        '</div>' +
-      '</div>';
-  }).join('');
-
-  compareEl.innerHTML = headerHTML + cardsHTML;
-}
-
-/* ═══ Fetch maree per una singola località (parallelo) ═══ */
-async function fetchTidesForLocation(loc) {
-  const marineURL = 'https://marine-api.open-meteo.com/v1/marine?latitude=' + loc.lat + '&longitude=' + loc.lon +
-    '&hourly=sea_level_height_msl,sea_surface_temperature,wave_height' +
-    '&start_date=2026-09-01&end_date=2026-09-07&timezone=Africa%2FDar_es_Salaam';
-  const wxURL = 'https://api.open-meteo.com/v1/forecast?latitude=' + loc.lat + '&longitude=' + loc.lon +
-    '&hourly=temperature_2m,wind_speed_10m' +
-    '&start_date=2026-09-01&end_date=2026-09-07&timezone=Africa%2FDar_es_Salaam';
-  const [mRes, wRes] = await Promise.all([ fetch(marineURL), fetch(wxURL) ]);
-  if (!mRes.ok || !wRes.ok) throw new Error('HTTP ' + mRes.status + '/' + wRes.status);
-  const m = await mRes.json();
-  const w = await wRes.json();
-  if (m.error || w.error) throw new Error('API: ' + (m.reason || w.reason || '?'));
-
-  const mh = m.hourly || {}, wh = w.hourly || {}, times = mh.time || [];
-  const avg = arr => { const f = arr.filter(v => v != null); return f.length ? f.reduce((s,x)=>s+x,0)/f.length : null; };
-  const daily = {};
-
-  VACATION_DAYS.forEach(d => {
-    const idxs = times.map((t,i) => (t && t.indexOf(d.date) === 0) ? i : -1).filter(i => i >= 0);
-    if (!idxs.length) { daily[d.date] = null; return; }
-    const sl  = idxs.map(i => mh.sea_level_height_msl       && mh.sea_level_height_msl[i]      != null ? mh.sea_level_height_msl[i]      : null);
-    const sst = idxs.map(i => mh.sea_surface_temperature     && mh.sea_surface_temperature[i]  != null ? mh.sea_surface_temperature[i]  : null);
-    const whs = idxs.map(i => mh.wave_height                 && mh.wave_height[i]              != null ? mh.wave_height[i]              : null);
-    const air = idxs.map(i => wh.temperature_2m              && wh.temperature_2m[i]           != null ? wh.temperature_2m[i]           : null);
-    const wv  = idxs.map(i => wh.wind_speed_10m              && wh.wind_speed_10m[i]           != null ? wh.wind_speed_10m[i]           : null);
-
-    const slv = sl.filter(v => v != null);
-    if (!slv.length) { daily[d.date] = null; return; }
-    const highV = Math.max(...slv);
-    const lowV  = Math.min(...slv);
-    const highI = sl.findIndex(v => v === highV);
-    const lowI  = sl.findIndex(v => v === lowV);
-    const range = Math.max(0.001, highV - lowV);
-    const bar   = Math.min(100, Math.max(15, Math.round((range / 4.5) * 100)));
-    const fb = locFallback(loc, d.date);
-
-    daily[d.date] = {
-      source: 'live',
-      highT: (times[idxs[highI]] || '').slice(11,16) || '--:--',
-      lowT:  (times[idxs[lowI]]  || '').slice(11,16) || '--:--',
-      highV, lowV, bar,
-      air:  (avg(air) != null ? Math.round(avg(air)) : fb.air),
-      sea:  (avg(sst) != null ? Math.round(avg(sst)) : fb.sea),
-      wind: (avg(wv)  != null ? Math.round(avg(wv))  : fb.wind),
-      wave: (avg(whs) != null ? Number(avg(whs).toFixed(1)) : fb.wave),
-      snorkType: d.snorkType
-    };
-  });
-
-  return { loc, daily };
+    }
+  } catch (e) {
+    if (statusEl) statusEl.innerHTML = '⚠️ Impossibile caricare le maree live ora. Mostrati i valori tipici di settembre (costa est di Zanzibar). API: ' +
+      '<a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noopener" style="color:var(--accent)">Open-Meteo Marine API</a>.';
+  }
 }
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', loadTides);
